@@ -3,6 +3,8 @@
 #include <chrono>
 #include <ratio>
 
+#include <SFML/Graphics.hpp>
+
 typedef std::chrono::duration<double, std::ratio<1, 1000>> milliseconds;
 const milliseconds MS_PER_UPDATE(5); // Time between updates
 
