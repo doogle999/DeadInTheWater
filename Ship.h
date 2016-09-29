@@ -1,17 +1,19 @@
 #pragma once
 
+#include "Updateable.h"
 #include "PVector.h"
 
-class Ship
+class Ship : public Updateable
 {
 	public:
 		Ship();
 
-		Ship(PVector position, PVector velocity, PVector acceleration, double mass);
+		Ship(PVector position, PVector velocity, PVector acceleration, double mass, double dragCoefficient);
+		Ship(double positionX, double positionY, double velocityX, double velocityY, double accelerationX, double accelerationY, double mass, double dragCoefficient);
 
 		~Ship();
 
-		void update(double deltaTime);
+		virtual void update(double deltaTime);
 
 		void setPose(PVector position, PVector velocity, PVector acceleration);
 		void setPose(double positionX, double positionY, double velocityX, double velocityY, double accelerationX, double accelerationY);
@@ -33,8 +35,6 @@ class Ship
 
 		void Ship::setDragCoefficient(double dragCoefficient);
 		double Ship::getDragCoefficient() const;
-		void Ship::setCrossSectionalArea(double crossSectionalArea);
-		double Ship::setCrossSectionalArea() const;
 
 	private:
 		PVector position;
@@ -44,6 +44,5 @@ class Ship
 		double mass;
 
 		double dragCoefficient;
-		double crossSectionalArea;
 };
 

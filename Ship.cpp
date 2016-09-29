@@ -2,12 +2,21 @@
 
 Ship::Ship() {}
 
-Ship::Ship(PVector position, PVector velocity, PVector acceleration, double mass)
+Ship::Ship(PVector position, PVector velocity, PVector acceleration, double mass, double dragCoeffeccient)
 {
 	this->position = position;
 	this->velocity = velocity;
 	this->acceleration = acceleration;
 	this->mass = mass;
+	this->dragCoefficient = dragCoefficient;
+}
+Ship::Ship(double positionX, double positionY, double velocityX, double velocityY, double accelerationX, double accelerationY, double mass, double dragCoeffeccient)
+{
+	position.setXY(positionX, positionY);
+	velocity.setXY(velocityX, velocityY);
+	acceleration.setXY(accelerationX, accelerationY);
+	this->mass = mass;
+	this->dragCoefficient = dragCoefficient;
 }
 
 Ship::~Ship() {}
@@ -18,7 +27,7 @@ void Ship::update(double deltaTime)
 
 	velocity = velocity + (acceleration * (deltaTime / 1000));
 
-	acceleration = velocity * (velocity.magnitude() * dragCoefficient * crossSectionalArea * (-1 / mass));
+	acceleration = velocity * (velocity.magnitude() * dragCoefficient * (-1 / mass));
 }
 
 void Ship::setPose(PVector position, PVector velocity, PVector acceleration)
@@ -51,5 +60,3 @@ double Ship::getMass() const { return this->mass; }
 
 void Ship::setDragCoefficient(double dragCoefficient) { this->dragCoefficient = dragCoefficient; }
 double Ship::getDragCoefficient() const { return this->dragCoefficient; }
-void Ship::setCrossSectionalArea(double crossSectionalArea) { this->crossSectionalArea = crossSectionalArea; }
-double Ship::setCrossSectionalArea() const { return this->crossSectionalArea; }

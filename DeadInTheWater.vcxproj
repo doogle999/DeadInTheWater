@@ -120,13 +120,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PVector.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Updateable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="PVector.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Updateable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
