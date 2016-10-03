@@ -1,4 +1,3 @@
-﻿  Main.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(54): warning C4102: 'deafult': unreferenced label
+﻿  Game.cpp
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

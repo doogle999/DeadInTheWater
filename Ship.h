@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Updateable.h"
 #include "PVector.h"
 
-class Ship : public Updateable
+class Ship 
 {
 	public:
 		Ship();
@@ -13,7 +12,7 @@ class Ship : public Updateable
 
 		~Ship();
 
-		virtual void update(double deltaTime);
+		void update(double deltaTime);
 
 		void setPose(PVector position, PVector velocity, PVector acceleration);
 		void setPose(double positionX, double positionY, double velocityX, double velocityY, double accelerationX, double accelerationY);
