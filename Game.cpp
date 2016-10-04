@@ -17,6 +17,15 @@ void Game::init(int wW, int wH, ms tR)
 
 void Game::loop()
 {
+	std::vector<UpdateComponent*> uc;
+
+	ConstantVelocityUC cvuc;
+	uc.push_back(&cvuc);
+
+	Entity boat(uc);
+
+	entities.push_back(boat);
+
 	std::chrono::steady_clock::time_point previous = std::chrono::steady_clock::now();
 	ms lag(0);
 
@@ -41,6 +50,10 @@ void Game::loop()
 
 		while(lag >= tickRate)
 		{
+			for(unsigned int i = 0; i < entities.size(); i++)
+			{
+				entities[i].updateAll(tickRate.count());
+			}
 			lag -= tickRate;
 		}
 

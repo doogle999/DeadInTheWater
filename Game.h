@@ -2,10 +2,15 @@
 
 #include <chrono>
 #include <ratio>
+#include <vector>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+
+#include "Entity.h"
+#include "UpdateComponent.h"
+#include "ConstantVelocityUC.h"
 
 class Game
 {
@@ -29,5 +34,7 @@ class Game
 		ms tickRate;
 
 		sf::RenderWindow window;
+
+		std::vector<Entity> entities;
 };
 

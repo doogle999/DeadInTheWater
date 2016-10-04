@@ -10,7 +10,7 @@ class UpdateComponent;
 class Entity
 {
 	public:
-		Entity(UpdateComponent* u);
+		Entity(std::vector<UpdateComponent*> u);
 
 		~Entity();
 

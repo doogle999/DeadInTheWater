@@ -1,8 +1,8 @@
 #include "Entity.h"
 
-Entity::Entity(UpdateComponent* u)
+Entity::Entity(std::vector<UpdateComponent*> u)
 {
-
+	updaters = u;
 }
 
 Entity::~Entity()
@@ -12,7 +12,10 @@ Entity::~Entity()
 
 void Entity::updateAll(double t)
 {
-
+	for(int i = 0; i < updaters.size(); i++)
+	{
+		updaters[i]->update((*this), t);
+	}
 }
 
 void Entity::setPosition(PVector position) { this->position = position; }

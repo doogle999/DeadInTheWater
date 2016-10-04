@@ -2,7 +2,7 @@
 
 #include "UpdateComponent.h"
 
-class ConstantVelocityUC : UpdateComponent
+class ConstantVelocityUC : public UpdateComponent
 {
 	public:
 		ConstantVelocityUC();
