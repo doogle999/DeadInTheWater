@@ -125,16 +125,18 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PrintPositionRC.cpp" />
     <ClCompile Include="PVector.cpp" />
     <ClCompile Include="Ship.cpp" />
-    <ClCompile Include="UpdateComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConstantVelocityUC.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="PrintPositionRC.h" />
     <ClInclude Include="PVector.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="UpdateComponent.h" />
   </ItemGroup>

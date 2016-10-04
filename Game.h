@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fstream>
+#include <iostream>
 #include <chrono>
 #include <ratio>
 #include <vector>
@@ -11,6 +13,8 @@
 #include "Entity.h"
 #include "UpdateComponent.h"
 #include "ConstantVelocityUC.h"
+#include "RenderComponent.h"
+#include "PrintPositionRC.h"
 
 class Game
 {
@@ -28,6 +32,8 @@ class Game
 		~Game();
 	
 	private:
+		Entity attachEntityComponents(std::vector<int> u, std::vector<int> r);
+
 		int windowWidth;
 		int windowHeight;
 
@@ -35,6 +41,9 @@ class Game
 
 		sf::RenderWindow window;
 
+		std::vector<UpdateComponent*> updateComponents;
+
+		std::vector<RenderComponent*> renderComponents;
+
 		std::vector<Entity> entities;
 };
-
