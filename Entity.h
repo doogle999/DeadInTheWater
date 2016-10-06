@@ -16,7 +16,7 @@ class Entity
 
 		void updateAll(double t);
 
-		void renderAll();
+		void renderAll(sf::RenderWindow* w);
 
 		void setPosition(PVector position);
 		void setPosition(double positionX, double positionY);

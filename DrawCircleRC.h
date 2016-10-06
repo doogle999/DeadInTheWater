@@ -1,16 +1,14 @@
 #pragma once
 
-#include <iostream>
-
 #include "RenderComponent.h"
 
-class PrintPositionRC : public RenderComponent
+class DrawCircleRC : public RenderComponent
 {
 	public:
-		PrintPositionRC();
+		DrawCircleRC();
 
 		virtual void render(Entity& e, sf::RenderWindow* w);
 
-		~PrintPositionRC();
+		~DrawCircleRC();
 };
 

@@ -10,5 +10,7 @@ int main()
 
 	g.loop();
 
+	g.exit();
+
 	return 0;
 }

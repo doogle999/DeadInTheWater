@@ -14,11 +14,11 @@ void Entity::updateAll(double t)
 	}
 }
 
-void Entity::renderAll()
+void Entity::renderAll(sf::RenderWindow* w)
 {
 	for(unsigned int i = 0; i < renderers.size(); i++)
 	{
-		renderers[i]->render((*this));
+		renderers[i]->render((*this), w);
 	}
 }
 

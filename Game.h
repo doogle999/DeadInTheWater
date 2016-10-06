@@ -2,9 +2,11 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <chrono>
 #include <ratio>
 #include <vector>
+#include <string>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -15,6 +17,7 @@
 #include "ConstantVelocityUC.h"
 #include "RenderComponent.h"
 #include "PrintPositionRC.h"
+#include "DrawCircleRC.h"
 
 class Game
 {
@@ -32,6 +35,8 @@ class Game
 		~Game();
 	
 	private:
+		void load(std::string path);
+
 		Entity attachEntityComponents(std::vector<int> u, std::vector<int> r);
 
 		int windowWidth;
