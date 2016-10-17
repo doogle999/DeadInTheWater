@@ -15,8 +15,8 @@ void Game::init(int wW, int wH, ms tR)
 	window.create(sf::VideoMode(windowWidth, windowHeight), "Game");
 	
 	// Push pointers for all update components into the vector
-	ConstantVelocityUC* uvuc = new ConstantVelocityUC();
-	updateComponents.push_back(uvuc);
+	ConstantVelocityUC<Entity>* cvuc = new ConstantVelocityUC<Entity>();
+	updateComponents.push_back(cvuc);
 
 	// Push pointers for all render components into the vector
 	PrintPositionRC* pprc = new PrintPositionRC();
@@ -136,7 +136,7 @@ void Game::load(std::string path)
 // Create entities using the indexes in game's vectors for its components
 Entity Game::attachEntityComponents(std::vector<int> u, std::vector<int> r)
 {
-	std::vector<UpdateComponent*> updaters;
+	std::vector<UpdateComponent<Entity>*> updaters;
 	for(unsigned int i = 0; i < u.size(); i++)
 	{
 		updaters.push_back(updateComponents[u[i]]);

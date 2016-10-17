@@ -46,7 +46,7 @@ class Game
 
 		sf::RenderWindow window;
 
-		std::vector<UpdateComponent*> updateComponents;
+		std::vector<UpdateComponent<Entity>*> updateComponents;
 
 		std::vector<RenderComponent*> renderComponents;
 

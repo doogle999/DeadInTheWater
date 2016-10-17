@@ -6,13 +6,14 @@
 #include "UpdateComponent.h"
 #include "RenderComponent.h"
 
-class UpdateComponent;
+template <typename T> class UpdateComponent;
 class RenderComponent;
 
 class Entity
 {
 	public:
-		Entity(std::vector<UpdateComponent*> u, std::vector<RenderComponent*> r);
+		Entity();
+		Entity(std::vector<UpdateComponent<Entity>*> u, std::vector<RenderComponent*> r);
 
 		void updateAll(double t);
 
@@ -29,7 +30,7 @@ class Entity
 		~Entity();
 
 	protected:
-		std::vector<UpdateComponent*> updaters;
+		std::vector<UpdateComponent<Entity>*> updaters;
 
 		std::vector<RenderComponent*> renderers;
 

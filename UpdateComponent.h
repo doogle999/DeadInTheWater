@@ -2,11 +2,9 @@
 
 #include "Entity.h"
 
-class Entity;
-
-class UpdateComponent
+template <typename T> class UpdateComponent
 {
 	public:
-		virtual void update(Entity& e, double t) = 0;
+		virtual void update(T& e, double t) = 0;
 };
 

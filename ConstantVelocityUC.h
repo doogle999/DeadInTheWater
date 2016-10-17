@@ -2,13 +2,16 @@
 
 #include "UpdateComponent.h"
 
-class ConstantVelocityUC : public UpdateComponent
+template <typename T> class ConstantVelocityUC : public UpdateComponent<T>
 {
 	public:
-		ConstantVelocityUC();
+		ConstantVelocityUC() {};
 
-		virtual void update(Entity& e, double t);
+		virtual void update(T& e, double t)
+		{
+			e.setPosition(e.getPosition() + e.getVelocity());
+		}
 
-		~ConstantVelocityUC();
+		~ConstantVelocityUC() {};
 };
 

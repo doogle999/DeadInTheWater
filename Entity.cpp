@@ -1,6 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity(std::vector<UpdateComponent*> u, std::vector<RenderComponent*> r)
+Entity::Entity() {}
+Entity::Entity(std::vector<UpdateComponent<Entity>*> u, std::vector<RenderComponent*> r)
 {
 	updaters = u;
 	renderers = r;
