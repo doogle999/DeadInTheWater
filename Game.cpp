@@ -13,18 +13,25 @@ void Game::init(int wW, int wH, ms tR)
 	tickRate = tR;
 
 	window.create(sf::VideoMode(windowWidth, windowHeight), "Game");
-	
-	// Push pointers for all update components into the vector
-	ConstantVelocityUC<Entity>* cvuc = new ConstantVelocityUC<Entity>();
-	updateComponents.push_back(cvuc);
 
-	// Push pointers for all render components into the vector
+	ArrowVelocityIC* avic = new ArrowVelocityIC();
+	inputComponents.push_back(avic);
+	TowardsMouseIC* tmic = new TowardsMouseIC();
+	inputComponents.push_back(tmic);
+
+	BasicVelocityUC* bvuc = new BasicVelocityUC();
+	updateComponents.push_back(bvuc);
+	
 	PrintPositionRC* pprc = new PrintPositionRC();
 	renderComponents.push_back(pprc);
 	DrawCircleRC* dcrc = new DrawCircleRC();
 	renderComponents.push_back(dcrc);
 
-	this->load("EntitiesData.txt");
+	Entity e(avic, bvuc, dcrc);
+	entities.push_back(e);
+
+	Entity e2(tmic, bvuc, dcrc );
+	entities.push_back(e2);
 }
 
 void Game::loop()
@@ -40,6 +47,11 @@ void Game::loop()
 		lag += elapsed;
 
 		// Inputing
+		for(unsigned int i = 0; i < entities.size(); i++)
+		{
+			entities[i].getInputComponent()->input(entities[i], &window);
+		}
+
 		sf::Event event;
 		while(window.pollEvent(event))
 		{
@@ -54,27 +66,37 @@ void Game::loop()
 		// Updating
 		while(lag >= tickRate)
 		{
+			// Components to get updated in the order of the entities
 			for(unsigned int i = 0; i < entities.size(); i++)
 			{
-				entities[i].updateAll(tickRate.count());
+				entities[i].getUpdateComponent()->update(entities[i], tickRate.count());
 			}
+
+			// Components to get updated after all entities have been updated
+
 			lag -= tickRate;
 		}
 
 		// Rendering
 		window.clear();
-
 		for(unsigned int i = 0; i < entities.size(); i++)
 		{
-			entities[i].renderAll(&window);
+			entities[i].getRenderComponent()->render(entities[i], &window);
 		}
-
 		window.display();
 	}
 }
 
 void Game::exit()
 {
+	// Delete all the input components still on the heap
+	for (unsigned int i = 0; i < inputComponents.size(); i++)
+	{
+		delete inputComponents[i];
+		inputComponents[i] = NULL;
+	}
+	inputComponents.clear();
+
 	// Delete all the update components still on the heap
 	for(unsigned int i = 0; i < updateComponents.size(); i++)
 	{
@@ -102,6 +124,7 @@ Game::~Game()
 }
 
 // Load entity data
+/*
 void Game::load(std::string path)
 {
 	std::ifstream loader;
@@ -152,3 +175,4 @@ Entity Game::attachEntityComponents(std::vector<int> u, std::vector<int> r)
 
 	return e;
 }
+*/

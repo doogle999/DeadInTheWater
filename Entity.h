@@ -2,38 +2,43 @@
 
 #include <vector>
 
-#include "PVector.h"
+#include "InputComponent.h"
 #include "UpdateComponent.h"
 #include "RenderComponent.h"
 
-template <typename T> class UpdateComponent;
+class InputComponent;
+class UpdateComponent;
 class RenderComponent;
 
 class Entity
 {
 	public:
-		Entity();
-		Entity(std::vector<UpdateComponent<Entity>*> u, std::vector<RenderComponent*> r);
+		Entity(InputComponent* i, UpdateComponent* u, RenderComponent* r);
 
-		void updateAll(double t);
+		InputComponent* getInputComponent();
+		UpdateComponent* getUpdateComponent();
+		RenderComponent* getRenderComponent();
 
-		void renderAll(sf::RenderWindow* w);
+		double getPositionX();
+		void setPositionX(double px);
+		double getPositionY();
+		void setPositionY(double py);
 
-		void setPosition(PVector position);
-		void setPosition(double positionX, double positionY);
-		PVector getPosition() const;
-
-		void setVelocity(PVector velocity);
-		void setVelocity(double velocityX, double velocityY);
-		PVector getVelocity() const;
+		double getVelocityX();
+		void setVelocityX(double vx);
+		double getVelocityY();
+		void setVelocityY(double vy);
 
 		~Entity();
 
-	protected:
-		std::vector<UpdateComponent<Entity>*> updaters;
+	private:
+		InputComponent* inputer;
+		UpdateComponent* updater;
+		RenderComponent* renderer;
 
-		std::vector<RenderComponent*> renderers;
+		double positionX;
+		double positionY;
 
-		PVector position;
-		PVector velocity;
+		double velocityX;
+		double velocityY;
 };

@@ -1,34 +1,24 @@
 #include "Entity.h"
 
-Entity::Entity() {}
-Entity::Entity(std::vector<UpdateComponent<Entity>*> u, std::vector<RenderComponent*> r)
+Entity::Entity(InputComponent* i, UpdateComponent* u, RenderComponent* r)
 {
-	updaters = u;
-	renderers = r;
+	inputer = i;
+	updater = u;
+	renderer = r;
 }
 
-void Entity::updateAll(double t)
-{
-	for(unsigned int i = 0; i < updaters.size(); i++)
-	{
-		updaters[i]->update((*this), t);
-	}
-}
+InputComponent* Entity::getInputComponent() { return inputer; }
+UpdateComponent* Entity::getUpdateComponent() { return updater;  }
+RenderComponent* Entity::getRenderComponent() { return renderer; }
 
-void Entity::renderAll(sf::RenderWindow* w)
-{
-	for(unsigned int i = 0; i < renderers.size(); i++)
-	{
-		renderers[i]->render((*this), w);
-	}
-}
+double Entity::getPositionX() { return positionX; }
+void Entity::setPositionX(double px) { positionX = px; }
+double Entity::getPositionY() { return positionY; }
+void Entity::setPositionY(double py) { positionY = py; }
 
-void Entity::setPosition(PVector position) { this->position = position; }
-void Entity::setPosition(double positionX, double positionY) { this->position.setXY(positionX, positionY); }
-PVector Entity::getPosition() const { return this->position; }
-
-void Entity::setVelocity(PVector velocity) { this->velocity = velocity; }
-void Entity::setVelocity(double velocityX, double velocityY) { this->velocity.setXY(velocityX, velocityY); }
-PVector Entity::getVelocity() const { return this->velocity; }
+double Entity::getVelocityX() { return velocityX; }
+void Entity::setVelocityX(double vx) { velocityX = vx; }
+double Entity::getVelocityY() { return velocityY; }
+void Entity::setVelocityY(double vy) { velocityY = vy; }
 
 Entity::~Entity() {}

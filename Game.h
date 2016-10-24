@@ -13,8 +13,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "Entity.h"
+
+#include "InputComponent.h"
+#include "ArrowVelocityIC.h"
+#include "TowardsMouseIC.h"
+
 #include "UpdateComponent.h"
-#include "ConstantVelocityUC.h"
+#include "BasicVelocityUC.h"
+
 #include "RenderComponent.h"
 #include "PrintPositionRC.h"
 #include "DrawCircleRC.h"
@@ -35,9 +41,7 @@ class Game
 		~Game();
 	
 	private:
-		void load(std::string path);
-
-		Entity attachEntityComponents(std::vector<int> u, std::vector<int> r);
+		//void load(std::string path);
 
 		int windowWidth;
 		int windowHeight;
@@ -46,8 +50,8 @@ class Game
 
 		sf::RenderWindow window;
 
-		std::vector<UpdateComponent<Entity>*> updateComponents;
-
+		std::vector<InputComponent*> inputComponents;
+		std::vector<UpdateComponent*> updateComponents;
 		std::vector<RenderComponent*> renderComponents;
 
 		std::vector<Entity> entities;
