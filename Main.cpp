@@ -1,10 +1,11 @@
 #include "Game.h"
+#include <iostream>
 
 int main()
 {	
 	Game g;
 
-	Game::ms tR(20);
+	Game::ms tR(40);
 
 	g.init(1600, 900, tR);
 

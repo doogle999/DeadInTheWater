@@ -1,9 +1,6 @@
 #include "Game.h"
 
-Game::Game()
-{
-
-}
+Game::Game() {}
 
 void Game::init(int wW, int wH, ms tR)
 {
@@ -13,25 +10,6 @@ void Game::init(int wW, int wH, ms tR)
 	tickRate = tR;
 
 	window.create(sf::VideoMode(windowWidth, windowHeight), "Game");
-
-	ArrowVelocityIC* avic = new ArrowVelocityIC();
-	inputComponents.push_back(avic);
-	TowardsMouseIC* tmic = new TowardsMouseIC();
-	inputComponents.push_back(tmic);
-
-	BasicVelocityUC* bvuc = new BasicVelocityUC();
-	updateComponents.push_back(bvuc);
-	
-	PrintPositionRC* pprc = new PrintPositionRC();
-	renderComponents.push_back(pprc);
-	DrawCircleRC* dcrc = new DrawCircleRC();
-	renderComponents.push_back(dcrc);
-
-	Entity e(avic, bvuc, dcrc);
-	entities.push_back(e);
-
-	Entity e2(tmic, bvuc, dcrc );
-	entities.push_back(e2);
 }
 
 void Game::loop()
@@ -49,7 +27,7 @@ void Game::loop()
 		// Inputing
 		for(unsigned int i = 0; i < entities.size(); i++)
 		{
-			entities[i].getInputComponent()->input(entities[i], &window);
+			entities[i].input();
 		}
 
 		sf::Event event;
@@ -66,13 +44,10 @@ void Game::loop()
 		// Updating
 		while(lag >= tickRate)
 		{
-			// Components to get updated in the order of the entities
 			for(unsigned int i = 0; i < entities.size(); i++)
 			{
-				entities[i].getUpdateComponent()->update(entities[i], tickRate.count());
+				entities[i].update();
 			}
-
-			// Components to get updated after all entities have been updated
 
 			lag -= tickRate;
 		}
@@ -81,7 +56,7 @@ void Game::loop()
 		window.clear();
 		for(unsigned int i = 0; i < entities.size(); i++)
 		{
-			entities[i].getRenderComponent()->render(entities[i], &window);
+			entities[i].render();
 		}
 		window.display();
 	}
@@ -89,39 +64,36 @@ void Game::loop()
 
 void Game::exit()
 {
+	/*
 	// Delete all the input components still on the heap
-	for (unsigned int i = 0; i < inputComponents.size(); i++)
+	for(unsigned int i = 0; i < inputBehaviors.size(); i++)
 	{
-		delete inputComponents[i];
-		inputComponents[i] = NULL;
+		delete inputBehaviors[i];
+		inputBehaviors[i] = NULL;
 	}
-	inputComponents.clear();
+	inputBehaviors.clear();
 
 	// Delete all the update components still on the heap
-	for(unsigned int i = 0; i < updateComponents.size(); i++)
+	for(unsigned int i = 0; i < updateBehaviors.size(); i++)
 	{
-		delete updateComponents[i];
-		updateComponents[i] = NULL;
+		delete updateBehaviors[i];
+		updateBehaviors[i] = NULL;
 	}
-	updateComponents.clear();
+	updateBehaviors.clear();
 
 	// Delete all the render components still on the heap
-	for(unsigned int i = 0; i < renderComponents.size(); i++)
+	for(unsigned int i = 0; i < renderBehaviors.size(); i++)
 	{
-		delete renderComponents[i];
-		renderComponents[i] = NULL;
+		delete renderBehaviors[i];
+		renderBehaviors[i] = NULL;
 	}
-	renderComponents.clear();
-
-	entities.clear();
+	renderBehaviors.clear();
+	*/
 
 	window.close();
 }
 
-Game::~Game()
-{
-
-}
+Game::~Game() {}
 
 // Load entity data
 /*
