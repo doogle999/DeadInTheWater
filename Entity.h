@@ -1,44 +1,44 @@
 #pragma once
 
 #include <vector>
-#include <unordered_map>
-#include <algorithm>
 
-#include "Properties.h"
-#include "Behavior.h"
+#include "InputComponent.h"
+#include "UpdateComponent.h"
+#include "RenderComponent.h"
 
-class Behavior;
+class InputComponent;
+class UpdateComponent;
+class RenderComponent;
 
 class Entity
 {
 	public:
-		Entity(std::vector<P> p);
+		Entity(InputComponent* i, UpdateComponent* u, RenderComponent* r);
 
-		bool compatible(Behavior* b);				// Checks if this object has all the properties necessary for a behavior
+		InputComponent* getInputComponent();
+		UpdateComponent* getUpdateComponent();
+		RenderComponent* getRenderComponent();
 
-		bool addInputer(Behavior* b);				// Adds an inputer if compatible and returns true, otherwise returns false
-		bool addUpdater(Behavior* b);				// Adds an updater if compatible and returns true, otherwise returns false
-		bool addRenderer(Behavior* b);				// Adds a renderer if compatible and returns true, otherwise returns false
+		double getPositionX();
+		void setPositionX(double px);
+		double getPositionY();
+		void setPositionY(double py);
 
-		void input();								// Runs all the inputers
-		void update();								// Runs all the updaters
-		void render();								// Runs all the renderers
-
-		double getPDouble(int i);
-		void setPDouble(int i, double v);
-
-		int getPInt(int i);
-		void setPInt(int i, int v);
+		double getVelocityX();
+		void setVelocityX(double vx);
+		double getVelocityY();
+		void setVelocityY(double vy);
 
 		~Entity();
 
 	private:
-		std::vector<P> ps;							// A list of all the properties that this object has
+		InputComponent* inputer;
+		UpdateComponent* updater;
+		RenderComponent* renderer;
 
-		std::unordered_map<int, double> pDouble;	// The double properties of this object
-		std::unordered_map<int, int> pInt;			// The int properties of this object
+		double positionX;
+		double positionY;
 
-		std::vector<Behavior*> inputers;			// Pointers to the input behaviors this object employs
-		std::vector<Behavior*> updaters;			// Pointers to the update behaviors this object employs 
-		std::vector<Behavior*> renderers;			// Pointers to the render behaviors this object employs
+		double velocityX;
+		double velocityY;
 };

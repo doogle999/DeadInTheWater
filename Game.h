@@ -1,20 +1,29 @@
 #pragma once
 
-//#include <fstream>
-//#include <string>
-//#include <sstream>
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <chrono>
 #include <ratio>
 #include <vector>
-
+#include <string>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Entity.h"
-#include "Behavior.h"
+
+#include "InputComponent.h"
+#include "ArrowVelocityIC.h"
+#include "TowardsMouseIC.h"
+
+#include "UpdateComponent.h"
+#include "BasicVelocityUC.h"
+
+#include "RenderComponent.h"
+#include "PrintPositionRC.h"
+#include "DrawCircleRC.h"
 
 class Game
 {
@@ -41,9 +50,9 @@ class Game
 
 		sf::RenderWindow window;
 
-		std::vector<Behavior> inputBehaviors;
-		std::vector<Behavior> updateBehaviors;
-		std::vector<Behavior> renderBehaviors;
+		std::vector<InputComponent*> inputComponents;
+		std::vector<UpdateComponent*> updateComponents;
+		std::vector<RenderComponent*> renderComponents;
 
 		std::vector<Entity> entities;
 };
