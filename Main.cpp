@@ -1,16 +1,24 @@
+#include <iostream>
+#include <chrono>
+
+#include "World.h"
+#include "EntityFactory.h"
 #include "Game.h"
 
 int main()
-{	
-	Game g;
+{
+	World::registerFields();
+	World::registerBehaviors();
 
-	Game::ms tR(20);
+	EntityFactory ef;
 
-	g.init(1600, 900, tR);
+	World world = ef.createWorld("EntitiesData.xml");
 
-	g.loop();
+	Game::init(500, 500, (Game::ms)33, world);
 
-	g.exit();
+	Game::loop();
+
+	Game::exit();
 
 	return 0;
 }

@@ -1,3 +1,4 @@
-﻿  Game.cpp
+﻿  Collisions.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(76): warning C4715: 'Entity::access<double>': not all control paths return a value
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

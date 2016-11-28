@@ -1,58 +1,33 @@
 #pragma once
 
-#include <fstream>
-#include <iostream>
-#include <sstream>
+#include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/System.hpp"
+
 #include <chrono>
-#include <ratio>
-#include <vector>
-#include <string>
 
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
+#include "World.h"
 
-#include "Entity.h"
-
-#include "InputComponent.h"
-#include "ArrowVelocityIC.h"
-#include "TowardsMouseIC.h"
-
-#include "UpdateComponent.h"
-#include "BasicVelocityUC.h"
-
-#include "RenderComponent.h"
-#include "PrintPositionRC.h"
-#include "DrawCircleRC.h"
+class World;
 
 class Game
 {
 	public:
 		typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
 
-		Game();
+		static void init(int windowHeight, int windowWidth, ms msPerUpdate, World w);
 
-		void init(int windowHeight, int windowWidth, ms msPerUpdate);
+		static void loop();
 
-		void loop();
+		static void exit();
 
-		void exit();
+		static sf::RenderWindow* window;
 
-		~Game();
-	
 	private:
-		//void load(std::string path);
+		static World world;
 
-		int windowWidth;
-		int windowHeight;
+		static int windowWidth;
+		static int windowHeight;
 
-		ms tickRate;
-
-		sf::RenderWindow window;
-
-		std::vector<InputComponent*> inputComponents;
-		std::vector<UpdateComponent*> updateComponents;
-		std::vector<RenderComponent*> renderComponents;
-
-		std::vector<Entity> entities;
+		static ms tickRate;
 };
