@@ -42,10 +42,17 @@ World EntityFactory::createWorld(std::string path)
 
 	World world;
 
-	unsigned int entityCounter = 0;
+	std::vector<size_t> temporaryEntitiesVector;
+
+	for(unsigned int i = 0; i < World::fields.size(); i++)
+	{
+		world.fieldEntities[World::fields[i]] = temporaryEntitiesVector;
+	}	
+
+	size_t entityCounter = 0;
 	for(tinyxml2::XMLElement* entityXMLElement = document.FirstChildElement("ENTITY"); entityXMLElement != NULL; entityXMLElement = entityXMLElement->NextSiblingElement("ENTITY"))
 	{
-		world.entities[entityCounter] = createEntity(entityXMLElement, &(world.entities[entityCounter]));
+		world.entities[entityCounter] = createEntity(entityXMLElement, &world, entityCounter);
 
 		entityCounter += 1;
 		if(entityCounter == World::MAX_ENTITIES)
@@ -57,7 +64,7 @@ World EntityFactory::createWorld(std::string path)
 	return world;
 }
 
-Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, Entity* location)
+Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, World* parentWorld, size_t location)
 {
 	// Dealing with properties
 	std::vector<P::Ids> propertyIds;
@@ -93,7 +100,7 @@ Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, Entit
 		Field* fieldPointer = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), fieldXMLElement->FirstChildElement("NAME")->GetText()) - World::fieldNames.begin());
 		if(entity.compatible(fieldPointer))
 		{
-			fieldPointer->entities.push_back(location);
+			parentWorld->fieldEntities.at(fieldPointer).push_back(location);
 		}
 		else
 		{
@@ -110,11 +117,11 @@ Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, Entit
 		if(pos != std::string::npos) // Checks if the behavior is part of a field
 		{
 			Field* behaviorParentField = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), behaviorName.substr(0, pos)) - World::fieldNames.begin());
-			if(behaviorParentField->entities.empty())		
+			if(parentWorld->fieldEntities.at(behaviorParentField).empty())
 			{
 				assert(0 && "Attempted to create an entity with a behavior whose parent field it is not in");
 			}
-			if((behaviorParentField->entities.back() != location))
+			if(parentWorld->fieldEntities.at(behaviorParentField).back() != location)
 			{
 				assert(0 && "Attempted to create an entity with a behavior whose parent field it is not in");
 			}

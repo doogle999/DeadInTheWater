@@ -24,7 +24,7 @@ class EntityFactory
 
 		World createWorld(std::string path); // Creates a world, terminates if it can't parse the XML
 
-		Entity createEntity(tinyxml2::XMLElement* entityXMLElement, Entity* location); // Creates and returns an Entity based on an XMLElement, terminates the program if it can't parse the XML
+		Entity createEntity(tinyxml2::XMLElement* entityXMLElement, World* parentWorld, size_t location); // Creates and returns an Entity based on an XMLElement, terminates the program if it can't parse the XML
 
 		template<typename T>
 		T interpretPropertyValue(tinyxml2::XMLElement* value); // Interprets an XML element that holds the value of a property and converts it into the specified type 

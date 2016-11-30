@@ -11,11 +11,11 @@
 		</PROPERTY>
 		<PROPERTY>
 			<NAME>xVelocity</NAME>
-			<VALUE>5.0</VALUE>
+			<VALUE>1.0</VALUE>
 		</PROPERTY>
 		<PROPERTY>
 			<NAME>yVelocity</NAME>
-			<VALUE>5.0</VALUE>
+			<VALUE>1.0</VALUE>
 		</PROPERTY>
 		<PROPERTY>
 			<NAME>radius</NAME>
@@ -23,9 +23,15 @@
 		</PROPERTY>
 	</PROPERTIES>
 	<FIELDS>
-		
+		<FIELD>
+			<NAME>Collisions</NAME>
+		</FIELD>
 	</FIELDS>
 	<BEHAVIORS>
+		<BEHAVIOR>
+			<NAME>Collisions::StopOnCollision</NAME>
+			<GROUP>UPDATERS</GROUP>
+		</BEHAVIOR>
 		<BEHAVIOR>
 			<NAME>IncrementPosition</NAME>
 			<GROUP>UPDATERS</GROUP>
@@ -36,6 +42,7 @@
 		</BEHAVIOR>
 	</BEHAVIORS>
 </ENTITY>
+
 <ENTITY>
 	<PROPERTIES>
 		<PROPERTY>
@@ -48,11 +55,11 @@
 		</PROPERTY>
 		<PROPERTY>
 			<NAME>xVelocity</NAME>
-			<VALUE>-5.0</VALUE>
+			<VALUE>-1.0</VALUE>
 		</PROPERTY>
 		<PROPERTY>
 			<NAME>yVelocity</NAME>
-			<VALUE>-5.0</VALUE>
+			<VALUE>-1.0</VALUE>
 		</PROPERTY>
 		<PROPERTY>
 			<NAME>radius</NAME>
@@ -60,9 +67,57 @@
 		</PROPERTY>
 	</PROPERTIES>
 	<FIELDS>
-		
+		<FIELD>
+			<NAME>Collisions</NAME>
+		</FIELD>
 	</FIELDS>
 	<BEHAVIORS>
+		<BEHAVIOR>
+			<NAME>IncrementPosition</NAME>
+			<GROUP>UPDATERS</GROUP>
+		</BEHAVIOR>
+		<BEHAVIOR>
+			<NAME>Collisions::StopOnCollision</NAME>
+			<GROUP>UPDATERS</GROUP>
+		</BEHAVIOR>
+		<BEHAVIOR>
+			<NAME>RenderCircle</NAME>
+			<GROUP>RENDERERS</GROUP>
+		</BEHAVIOR>
+	</BEHAVIORS>
+</ENTITY>
+
+<ENTITY>
+	<PROPERTIES>
+		<PROPERTY>
+			<NAME>xPosition</NAME>
+			<VALUE>500.0</VALUE>
+		</PROPERTY>
+		<PROPERTY>
+			<NAME>yPosition</NAME>
+			<VALUE>0.0</VALUE>
+		</PROPERTY>
+		<PROPERTY>
+			<NAME>xVelocity</NAME>
+			<VALUE>0.0</VALUE>
+		</PROPERTY>
+		<PROPERTY>
+			<NAME>yVelocity</NAME>
+			<VALUE>0.0</VALUE>
+		</PROPERTY>
+		<PROPERTY>
+			<NAME>radius</NAME>
+			<VALUE>50</VALUE>
+		</PROPERTY>
+	</PROPERTIES>
+	<FIELDS>
+
+	</FIELDS>
+	<BEHAVIORS>
+		<BEHAVIOR>
+			<NAME>KeyboardVelocity</NAME>
+			<GROUP>INPUTERS</GROUP>
+		</BEHAVIOR>
 		<BEHAVIOR>
 			<NAME>IncrementPosition</NAME>
 			<GROUP>UPDATERS</GROUP>
@@ -74,10 +129,5 @@
 	</BEHAVIORS>
 </ENTITY>
 
-<FIELD>
-	<NAME>Collisions</NAME>
-</FIELD>
-<BEHAVIOR>
-	<NAME>Collisions::StopOnCollision</NAME>
-	<GROUP>UPDATERS</GROUP>
-</BEHAVIOR>
+
+

@@ -14,7 +14,7 @@ int main()
 
 	World world = ef.createWorld("EntitiesData.xml");
 
-	Game::init(500, 500, (Game::ms)33, world);
+	Game::init(500, 500, (Game::ms)10, world);
 
 	Game::loop();
 

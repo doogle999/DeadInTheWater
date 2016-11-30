@@ -30,6 +30,7 @@ class World
 			using std::swap;
 
 			swap(first.entities, second.entities);
+			swap(first.fieldEntities, second.fieldEntities);
 		}
 
 		static void registerFields();
@@ -42,6 +43,8 @@ class World
 	private:
 		static const size_t MAX_ENTITIES = 100;
 		Entity* entities;
+
+		std::map<Field*, std::vector<size_t>> fieldEntities;
 
 		static std::vector<Field*> fields;
 		static std::vector<std::string> fieldNames;

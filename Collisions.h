@@ -16,8 +16,6 @@ class Collisions : public Field
 			
 		~Collisions();
 
-		virtual void initialize();
-
 		class StopOnCollision : public Behavior
 		{
 			public:

@@ -4,8 +4,6 @@ Collisions::Collisions() {}
 
 Collisions::~Collisions() {}
 
-void Collisions::initialize() {}
-
 	Collisions::StopOnCollision::StopOnCollision(Collisions& o) : owner(o) {}
 
 	Collisions::StopOnCollision::~StopOnCollision() {}
