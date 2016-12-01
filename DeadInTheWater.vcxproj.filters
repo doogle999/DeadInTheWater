@@ -61,7 +61,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardVelocity.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +99,7 @@
       <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardVelocity.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

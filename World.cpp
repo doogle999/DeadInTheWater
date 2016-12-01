@@ -80,6 +80,17 @@ void World::render()
 	}
 }
 
+void World::addEntity(Entity e)
+{
+	entities[currentEntities] = e;
+	currentEntities += 1;
+}
+void World::removeEntity(size_t i)
+{
+	currentEntities -= 1;
+	swap(entities[i], entities[currentEntities]);
+}
+
 std::vector<Field*> World::fields;
 std::vector<std::string> World::fieldNames;
 std::vector<Behavior*> World::behaviors;

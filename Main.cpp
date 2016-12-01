@@ -10,9 +10,7 @@ int main()
 	World::registerFields();
 	World::registerBehaviors();
 
-	EntityFactory ef;
-
-	World world = ef.createWorld("EntitiesData.xml");
+	World world = EntityFactory::createWorld("EntitiesData.xml");
 
 	Game::init(500, 500, (Game::ms)10, world);
 

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 #include "Entity.h"
 #include "EntityFactory.h"
@@ -41,7 +42,11 @@ class World
 		void render();
 
 	private:
+		void addEntity(Entity e);
+		void removeEntity(size_t i);
+
 		static const size_t MAX_ENTITIES = 100;
+		size_t currentEntities;
 		Entity* entities;
 
 		std::map<Field*, std::vector<size_t>> fieldEntities;

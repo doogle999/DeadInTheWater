@@ -2,9 +2,6 @@
 
 #define ADD_PROPERTY_CASE(NAME) case P::Ids:: ## NAME: entity.AXS(NAME) = interpretPropertyValue<P::TYPE_ ## NAME>(propertyValues[i]); break;
 
-EntityFactory::EntityFactory() {}
-
-EntityFactory::~EntityFactory() {}
 
 World EntityFactory::createWorld(std::string path)
 {
