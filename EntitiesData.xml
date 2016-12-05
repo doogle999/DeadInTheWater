@@ -33,6 +33,10 @@
 			<GROUP>UPDATERS</GROUP>
 		</BEHAVIOR>
 		<BEHAVIOR>
+			<NAME>KillIfNotMoving</NAME>
+			<GROUP>INPUTERS</GROUP>
+		</BEHAVIOR>
+		<BEHAVIOR>
 			<NAME>IncrementPosition</NAME>
 			<GROUP>UPDATERS</GROUP>
 		</BEHAVIOR>
@@ -129,5 +133,5 @@
 	</BEHAVIORS>
 </ENTITY>
 
-
+sreeram.nagappa@gmail.com
 

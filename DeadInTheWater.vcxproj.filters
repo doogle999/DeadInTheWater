@@ -63,6 +63,9 @@
     <ClCompile Include="KeyboardVelocity.cpp">
       <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="KillIfNotMoving.cpp">
+      <Filter>Source Files\Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardVelocity.h">
+      <Filter>Header Files\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="KillIfNotMoving.h">
       <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
   </ItemGroup>

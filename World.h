@@ -32,6 +32,7 @@ class World
 
 			swap(first.entities, second.entities);
 			swap(first.fieldEntities, second.fieldEntities);
+			swap(first.currentEntities, second.currentEntities);
 		}
 
 		static void registerFields();

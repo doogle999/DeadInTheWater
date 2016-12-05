@@ -127,6 +127,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IncrementPosition.cpp" />
     <ClCompile Include="KeyboardVelocity.cpp" />
+    <ClCompile Include="KillIfNotMoving.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RenderCircle.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="IncrementPosition.h" />
     <ClInclude Include="KeyboardVelocity.h" />
+    <ClInclude Include="KillIfNotMoving.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="RenderCircle.h" />
     <ClInclude Include="tinyxml2.h" />

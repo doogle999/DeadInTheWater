@@ -5,6 +5,8 @@ Entity::Entity()
 	properties = nullptr; 
 	propertiesMapLength = nullptr;
 	propertiesMap = nullptr; 
+
+	scheduledForDeletion = false;
 };
 Entity::Entity(const Entity& e) // Copy constructor
 {
@@ -20,6 +22,8 @@ Entity::Entity(const Entity& e) // Copy constructor
 	inputers = e.inputers;
 	updaters = e.updaters;
 	renderers = e.renderers;
+
+	scheduledForDeletion = e.scheduledForDeletion;
 }
 Entity::Entity(std::vector<P::Ids> p)
 {
@@ -43,6 +47,8 @@ Entity::Entity(std::vector<P::Ids> p)
 	{
 		*(propertiesMap + i) = propertiesMapTemporary[i];
 	}
+	
+	scheduledForDeletion = false;
 }
 
 Entity::~Entity()

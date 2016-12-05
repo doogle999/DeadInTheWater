@@ -58,6 +58,8 @@ World EntityFactory::createWorld(std::string path)
 		}
 	}
 
+	world.currentEntities = entityCounter;
+
 	return world;
 }
 

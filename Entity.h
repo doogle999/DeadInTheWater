@@ -38,6 +38,7 @@ class Entity
 			swap(first.inputers, second.inputers);
 			swap(first.updaters, second.updaters);
 			swap(first.renderers, second.renderers);
+			swap(first.scheduledForDeletion, second.scheduledForDeletion);
 		}
 
 		template <typename T>
@@ -49,6 +50,9 @@ class Entity
 		void input();
 		void update();
 		void render();
+
+		bool scheduledForDeletion;
+		std::vector<Entity> scheduledToSpawn;
 
 	private:
 		void* properties;
