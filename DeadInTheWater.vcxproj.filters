@@ -66,6 +66,9 @@
     <ClCompile Include="KillIfNotMoving.cpp">
       <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Selectables.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -107,5 +110,11 @@
     <ClInclude Include="KillIfNotMoving.h">
       <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="Selectables.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="EntitiesData.xml" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,6 @@
 
 #define ADD_PROPERTY_CASE(NAME) case P::Ids:: ## NAME: entity.AXS(NAME) = interpretPropertyValue<P::TYPE_ ## NAME>(propertyValues[i]); break;
 
-
 World EntityFactory::createWorld(std::string path)
 {
 	/* 
@@ -47,7 +46,7 @@ World EntityFactory::createWorld(std::string path)
 	}	
 
 	size_t entityCounter = 0;
-	for(tinyxml2::XMLElement* entityXMLElement = document.FirstChildElement("ENTITY"); entityXMLElement != NULL; entityXMLElement = entityXMLElement->NextSiblingElement("ENTITY"))
+	for(tinyxml2::XMLElement* entityXMLElement = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityXMLElement != NULL; entityXMLElement = entityXMLElement->NextSiblingElement("ENTITY"))
 	{
 		world.entities[entityCounter] = createEntity(entityXMLElement, &world, entityCounter);
 
@@ -86,6 +85,7 @@ Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, World
 			ADD_PROPERTY_CASE(yPosition)
 			ADD_PROPERTY_CASE(xVelocity)
 			ADD_PROPERTY_CASE(yVelocity)
+			ADD_PROPERTY_CASE(selected)
 			ADD_PROPERTY_CASE(radius)
 
 			default: assert(0 && "Attempted to create an entity with a property that does not exist");
@@ -163,6 +163,10 @@ template<> int EntityFactory::interpretPropertyValue<int>(tinyxml2::XMLElement* 
 template<> double EntityFactory::interpretPropertyValue<double>(tinyxml2::XMLElement* value)
 {
 	return std::stod(value->GetText());
+}
+template<> bool EntityFactory::interpretPropertyValue<bool>(tinyxml2::XMLElement* value)
+{
+	return (strcmp(value->GetText(), "0") != 0);
 }
 
 #undef ADD_PROPERTY_CASE

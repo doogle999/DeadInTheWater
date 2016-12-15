@@ -1,6 +1,7 @@
 #include "World.h"
 
 #include "Collisions.h"
+#include "Selectables.h"
 
 #include "IncrementPosition.h"
 #include "RenderCircle.h"
@@ -41,6 +42,9 @@ void World::registerFields()
 {
 	REGISTER_FIELD(Collisions)
 	REGISTER_FIELD_BEHAVIOR(Collisions::StopOnCollision, Collisions)
+
+	REGISTER_FIELD(Selectables)
+	REGISTER_FIELD_BEHAVIOR(Selectables::SelectOnClick, Selectables)
 }
 void World::registerBehaviors()
 {
@@ -118,38 +122,41 @@ void World::removeEntity(size_t i)
 	{
 		std::vector<size_t>* fieldEntitiesPointer = &fieldEntities[fields[j]];
 
-		size_t hasI = -1;
-		size_t nextGreaterThanI = fieldEntitiesPointer->back();
-		bool hasCurrentEntities = false;
+		if(fieldEntitiesPointer->size() > 0)
+		{
+			size_t hasI = -1;
+			size_t nextGreaterThanI = fieldEntitiesPointer->back();
+			bool hasCurrentEntities = false;
 
-		for(unsigned int k = 0; k < fieldEntitiesPointer->size(); k++)
-		{
-			if(fieldEntitiesPointer->at(k) == i)
+			for(unsigned int k = 0; k < fieldEntitiesPointer->size(); k++)
 			{
-				hasI = k;
+				if(fieldEntitiesPointer->at(k) == i)
+				{
+					hasI = k;
+				}
+				else if(fieldEntitiesPointer->at(k) > i)
+				{
+					nextGreaterThanI = k;
+				}
+				else if(fieldEntitiesPointer->at(k) == currentEntities)
+				{
+					hasCurrentEntities = true;
+				}
 			}
-			else if(fieldEntitiesPointer->at(k) > i)
-			{
-				nextGreaterThanI = k;
-			}
-			else if(fieldEntitiesPointer->at(k) == currentEntities)
-			{
-				hasCurrentEntities = true;
-			}
-		}
 
-		if(hasI != -1 && hasCurrentEntities)
-		{
-			fieldEntitiesPointer->pop_back();
-		}
-		else if(hasI != -1 && !hasCurrentEntities)
-		{
-			fieldEntitiesPointer->erase(fieldEntitiesPointer->begin() + nextGreaterThanI);
-		}
-		else if(hasI == -1 && hasCurrentEntities)
-		{
-			fieldEntitiesPointer->pop_back();
-			fieldEntitiesPointer->insert(fieldEntitiesPointer->begin() + nextGreaterThanI, i);
+			if(hasI != -1 && hasCurrentEntities)
+			{
+				fieldEntitiesPointer->pop_back();
+			}
+			else if(hasI != -1 && !hasCurrentEntities)
+			{
+				fieldEntitiesPointer->erase(fieldEntitiesPointer->begin() + nextGreaterThanI);
+			}
+			else if(hasI == -1 && hasCurrentEntities)
+			{
+				fieldEntitiesPointer->insert(fieldEntitiesPointer->begin() + nextGreaterThanI, i);
+				fieldEntitiesPointer->pop_back();
+			}
 		}
 	}
 }

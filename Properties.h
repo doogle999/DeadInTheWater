@@ -13,6 +13,7 @@ struct P
 		yPosition,
 		xVelocity,
 		yVelocity,
+		selected,
 		radius
 	};
 
@@ -20,6 +21,7 @@ struct P
 	ADD_TYPE(yPosition, double)
 	ADD_TYPE(xVelocity, double)
 	ADD_TYPE(yVelocity, double)
+	ADD_TYPE(selected, bool)
 	ADD_TYPE(radius, double)
 
 	static const std::map<P::Ids, size_t> Sizes; // Used in Entity memory allocation

@@ -14,11 +14,11 @@
 #include "tinyxml2.h"
 
 class World;
+class Entity;
 
 class EntityFactory
 {
 	public:
-
 		static World createWorld(std::string path); // Creates a world, terminates if it can't parse the XML
 
 		static Entity createEntity(tinyxml2::XMLElement* entityXMLElement, World* parentWorld, size_t location); // Creates and returns an Entity based on an XMLElement, terminates the program if it can't parse the XML
@@ -28,4 +28,5 @@ class EntityFactory
 
 		template<> static int interpretPropertyValue<int>(tinyxml2::XMLElement* value);
 		template<> static double interpretPropertyValue<double>(tinyxml2::XMLElement* value);
+		template<> static bool interpretPropertyValue<bool>(tinyxml2::XMLElement* value);
 };

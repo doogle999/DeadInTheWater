@@ -6,29 +6,37 @@ KeyboardVelocity::~KeyboardVelocity() {}
 
 void KeyboardVelocity::run(Entity& e)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if(e.AXS(selected))
 	{
-		e.AXS(xVelocity) = -1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		e.AXS(xVelocity) = 1;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			e.AXS(xVelocity) = -1;
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			e.AXS(xVelocity) = 1;
+		}
+		else
+		{
+			e.AXS(xVelocity) = 0;
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			e.AXS(yVelocity) = -1;
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			e.AXS(yVelocity) = 1;
+		}
+		else
+		{
+			e.AXS(yVelocity) = 0;
+		}
 	}
 	else
 	{
 		e.AXS(xVelocity) = 0;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		e.AXS(yVelocity) = -1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		e.AXS(yVelocity) = 1;
-	}
-	else
-	{
 		e.AXS(yVelocity) = 0;
 	}
 };
@@ -38,4 +46,4 @@ std::vector<P::Ids> KeyboardVelocity::getNecessaryProperties()
 	return necessaryProperties;
 };
 
-const std::vector<P::Ids> KeyboardVelocity::necessaryProperties = { P::Ids::xVelocity, P::Ids::yVelocity };
+const std::vector<P::Ids> KeyboardVelocity::necessaryProperties = { P::Ids::xVelocity, P::Ids::yVelocity, P::Ids::selected };

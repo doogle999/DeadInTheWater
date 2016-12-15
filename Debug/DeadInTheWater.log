@@ -1,27 +1,3 @@
-﻿  World.cpp
-  Generating Code...
-  Compiling...
-  RenderCircle.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendercircle.cpp(9): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendercircle.cpp(11): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendercircle.cpp(13): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
-  Main.cpp
-  KillIfNotMoving.cpp
-  KeyboardVelocity.cpp
-  IncrementPosition.cpp
-  Game.cpp
-  Field.cpp
-  EntityFactory.cpp
-  Entity.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.cpp(74): warning C4018: '<': signed/unsigned mismatch
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.cpp(98): warning C4018: '<': signed/unsigned mismatch
-  Collisions.cpp
-  Generating Code...
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+﻿  Game.cpp
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

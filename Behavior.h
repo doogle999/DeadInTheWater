@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Properties.h"
+#include "Game.h"
 
 class Entity;
 

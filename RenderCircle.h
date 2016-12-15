@@ -4,7 +4,6 @@
 
 #include "Behavior.h"
 #include "Entity.h"
-#include "Game.h"
 
 class RenderCircle : public Behavior
 {

@@ -114,6 +114,8 @@ bool Entity::compatible(Field* f) // Checks to see if this object has all the re
 
 void Entity::input()
 {
+	scheduledToSpawn.clear();
+
 	for(unsigned int i = 0; i < inputers.size(); i++)
 	{
 		inputers[i]->run(*this);
