@@ -120,13 +120,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collisions.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="IncrementPosition.cpp" />
+    <ClCompile Include="KeyboardVelocity.cpp" />
+    <ClCompile Include="KillIfNotMoving.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="PVector.cpp" />
-    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Properties.cpp" />
+    <ClCompile Include="RenderCircle.cpp" />
+    <ClCompile Include="Selectables.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PVector.h" />
-    <ClInclude Include="Ship.h" />
+    <ClInclude Include="Behavior.h" />
+    <ClInclude Include="Collisions.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="IncrementPosition.h" />
+    <ClInclude Include="KeyboardVelocity.h" />
+    <ClInclude Include="KillIfNotMoving.h" />
+    <ClInclude Include="Properties.h" />
+    <ClInclude Include="RenderCircle.h" />
+    <ClInclude Include="Selectables.h" />
+    <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="EntitiesData.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
