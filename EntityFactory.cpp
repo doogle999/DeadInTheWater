@@ -45,61 +45,33 @@ World EntityFactory::createWorld(std::string path)
 		world.fieldEntities[World::fields[i]] = temporaryEntitiesVector;
 	}	
 
-	size_t entityCounter = 0;
+	world.currentEntities = 0;
 	for(tinyxml2::XMLElement* entityXMLElement = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityXMLElement != NULL; entityXMLElement = entityXMLElement->NextSiblingElement("ENTITY"))
 	{
-		world.entities[entityCounter] = createEntity(entityXMLElement, &world, entityCounter);
+		world.entities[world.currentEntities] = createEntity(entityXMLElement, &world);
 
-		entityCounter += 1;
-		if(entityCounter == World::MAX_ENTITIES)
+		world.currentEntities += 1;
+		if(world.currentEntities == World::MAX_ENTITIES)
 		{
 			break;
 		}
 	}
 
-	world.currentEntities = entityCounter;
-
 	return world;
 }
 
-Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, World* parentWorld, size_t location)
-{
-	// Dealing with properties
-	std::vector<P::Ids> propertyIds;
-	std::vector<tinyxml2::XMLElement*> propertyValues; // The reason we use an element is that, if we were to store more complex types than primitives, we might need a sub strcture
-
-	tinyxml2::XMLElement* propertiesXMLElement = entityXMLElement->FirstChildElement("PROPERTIES");
-	for(tinyxml2::XMLElement* propertyXMLElement = propertiesXMLElement->FirstChildElement("PROPERTY"); propertyXMLElement; propertyXMLElement = propertyXMLElement->NextSiblingElement("PROPERTY"))
-	{
-		propertyIds.push_back(P::Names.at(propertyXMLElement->FirstChildElement("NAME")->GetText()));
-		propertyValues.push_back(propertyXMLElement->FirstChildElement("VALUE"));
-	}
-
-	Entity entity(propertyIds);
-
-	for(unsigned int i = 0; i < propertyIds.size(); i++) // Iterate through the properties list
-	{
-		switch(propertyIds[i]) // Check which property it is and then set that property, fails if the property was not recognized
-		{
-			ADD_PROPERTY_CASE(xPosition)
-			ADD_PROPERTY_CASE(yPosition)
-			ADD_PROPERTY_CASE(xVelocity)
-			ADD_PROPERTY_CASE(yVelocity)
-			ADD_PROPERTY_CASE(selected)
-			ADD_PROPERTY_CASE(radius)
-
-			default: assert(0 && "Attempted to create an entity with a property that does not exist");
-		}
-	}
+Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityElem, World* parentWorld)
+{	
+	Entity entity = createEntityFromProperties(entityElem->FirstChildElement("PROPERTIES"));
 
 	// Dealing with fields
-	tinyxml2::XMLElement* fieldsXMLElement = entityXMLElement->FirstChildElement("FIELDS");
+	tinyxml2::XMLElement* fieldsXMLElement = entityElem->FirstChildElement("FIELDS");
 	for(tinyxml2::XMLElement* fieldXMLElement = fieldsXMLElement->FirstChildElement("FIELD"); fieldXMLElement; fieldXMLElement = fieldXMLElement->NextSiblingElement("FIELD"))
 	{
 		Field* fieldPointer = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), fieldXMLElement->FirstChildElement("NAME")->GetText()) - World::fieldNames.begin());
 		if(entity.compatible(fieldPointer))
 		{
-			parentWorld->fieldEntities.at(fieldPointer).push_back(location);
+			parentWorld->fieldEntities.at(fieldPointer).push_back(parentWorld->currentEntities);
 		}
 		else
 		{
@@ -120,7 +92,7 @@ Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, World
 			{
 				assert(0 && "Attempted to create an entity with a behavior whose parent field it is not in");
 			}
-			if(parentWorld->fieldEntities.at(behaviorParentField).back() != location)
+			if(parentWorld->fieldEntities.at(behaviorParentField).back() != parentWorld->currentEntities)
 			{
 				assert(0 && "Attempted to create an entity with a behavior whose parent field it is not in");
 			}
@@ -154,6 +126,63 @@ Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityXMLElement, World
 	}
 
 	return entity;
+}
+
+Entity EntityFactory::createEntityFromProperties(tinyxml2::XMLElement* propertiesElem)
+{
+	std::vector<P::Ids> propertyIds;
+	std::vector<tinyxml2::XMLElement*> propertyValues;
+
+	for(tinyxml2::XMLElement* propertyElem = propertiesElem ->FirstChildElement("PROPERTY"); propertyElem; propertyElem = propertyElem->NextSiblingElement("PROPERTY"))
+	{
+		try
+		{
+			propertyIds.push_back(P::Names.at(propertyElem->FirstChildElement("NAME")->GetText()));
+			propertyValues.push_back(propertyElem->FirstChildElement("VALUE"));
+		}
+		catch(std::out_of_range e) // The property was not recognized or its name is not in the P::Names map
+		{
+			printf(e.what());
+		}
+	}
+
+	return createEntityFromProperties(propertyIds, propertyValues);
+}
+Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds, std::vector<tinyxml2::XMLElement*> propertyValues)
+{
+	Entity entity(propertyIds);
+
+	for(unsigned int i = 0; i < propertyIds.size(); i++)
+	{
+		switch(propertyIds[i]) // All properties need to have a case here if they are to be used
+		{
+			ADD_PROPERTY_CASE(xPosition)
+			ADD_PROPERTY_CASE(yPosition)
+			ADD_PROPERTY_CASE(xVelocity)
+			ADD_PROPERTY_CASE(yVelocity)
+			ADD_PROPERTY_CASE(selected)
+			ADD_PROPERTY_CASE(radius)
+
+			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
+		}
+	}
+
+	return entity;
+}
+void EntityFactory::addEntityToFields(Entity entity, tinyxml2::XMLElement* fieldsElem)
+{
+	for(tinyxml2::XMLElement* fieldElem = fieldsElem->FirstChildElement("FIELD"); fieldElem; fieldElem = fieldElem->NextSiblingElement("FIELD"))
+	{
+		Field* fieldPointer = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), fieldElem->FirstChildElement("NAME")->GetText()) - World::fieldNames.begin());
+		if(entity.compatible(fieldPointer))
+		{
+			parentWorld->fieldEntities.at(fieldPointer).push_back(parentWorld->currentEntities);
+		}
+		else
+		{
+			assert(0 && "Attempted to create an entity with a behavior that it doesn't have the necessary properties for");
+		}
+	}
 }
 
 template<> int EntityFactory::interpretPropertyValue<int>(tinyxml2::XMLElement* value)
