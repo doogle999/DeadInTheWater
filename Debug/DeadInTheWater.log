@@ -1,4 +1,5 @@
-﻿  Main.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+﻿  EntityFactory.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<bool>': not all control paths return a value
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)
