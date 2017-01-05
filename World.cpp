@@ -2,8 +2,11 @@
 
 #include "Collisions.h"
 #include "Selectables.h"
+#include "Gravity.h"
+#include "Camera2D.h"
 
 #include "IncrementPosition.h"
+#include "IncrementVelocity.h"
 #include "RenderCircle.h"
 #include "KeyboardVelocity.h"
 #include "KillIfNotMoving.h"
@@ -23,7 +26,7 @@ World::World(World& w)
 
 	fieldEntities = w.fieldEntities;
 
-	currentEntities = w.currentEntities;
+	currentEntityCount = w.currentEntityCount;
 }
 
 World::~World()
@@ -44,11 +47,16 @@ void World::registerFields()
 	REGISTER_FIELD_BEHAVIOR(Collisions::StopOnCollision, Collisions)
 
 	REGISTER_FIELD(Selectables)
-	REGISTER_FIELD_BEHAVIOR(Selectables::SelectOnClick, Selectables)
+
+	REGISTER_FIELD(Gravity)
+
+	REGISTER_FIELD(Camera2D)
+	REGISTER_FIELD_BEHAVIOR(Camera2D::RenderCircle, Camera2D)
 }
 void World::registerBehaviors()
 {
 	REGISTER_BEHAVIOR(IncrementPosition);
+	REGISTER_BEHAVIOR(IncrementVelocity);
 	REGISTER_BEHAVIOR(RenderCircle);
 	REGISTER_BEHAVIOR(KeyboardVelocity);
 	REGISTER_BEHAVIOR(KillIfNotMoving);
@@ -56,13 +64,15 @@ void World::registerBehaviors()
 
 void World::input()
 {
+	bool noEntitiesSpawned = true;
+
 	std::vector<size_t> removedEntities;
-	removedEntities.clear();
-	for(unsigned int i = 0; i < currentEntities; i++)
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		for(unsigned int j = 0; j < entities[i].scheduledToSpawn.size(); j++)
 		{
 			addEntity(entities[i].scheduledToSpawn[j]);
+			noEntitiesSpawned = false;
 		}
 
 		if(entities[i].scheduledForDeletion)
@@ -78,31 +88,43 @@ void World::input()
 
 	for(unsigned int i = 0; i < fields.size(); i++)
 	{
-		std::vector<Entity*> e; 
-		e.reserve(fieldEntities.at(fields[i]).size());
-		for(unsigned int j = 0; j < fieldEntities.at(fields[i]).size(); j++)
+		if(removedEntities.size() != 0 || noEntitiesSpawned)
 		{
-			e.push_back(&entities[fieldEntities.at(fields[i])[j]]);
+			std::vector<Entity*> e;
+			e.reserve(fieldEntities.at(fields[i]).size());
+			for(unsigned int j = 0; j < fieldEntities.at(fields[i]).size(); j++)
+			{
+				e.push_back(&entities[fieldEntities.at(fields[i])[j]]);
+			}
+			fields[i]->initialize(e);
 		}
 
-		fields[i]->initialize(e);
+		fields[i]->input();
 	}
 
-	for(unsigned int i = 0; i < currentEntities; i++)
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		entities[i].input();
 	}
 }
 void World::update()
 {
-	for(unsigned int i = 0; i < currentEntities; i++)
+	for(unsigned int i = 0; i < fields.size(); i++)
+	{
+		fields[i]->update();
+	}
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		entities[i].update();
 	}
 }
 void World::render()
 {
-	for(unsigned int i = 0; i < currentEntities; i++)
+	for(unsigned int i = 0; i < fields.size(); i++)
+	{
+		fields[i]->render();
+	}
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		entities[i].render();
 	}
@@ -110,13 +132,13 @@ void World::render()
 
 void World::addEntity(Entity e)
 {
-	entities[currentEntities] = e;
-	currentEntities += 1;
+	entities[currentEntityCount] = e;
+	currentEntityCount += 1;
 }
 void World::removeEntity(size_t i)
 {
-	currentEntities -= 1;
-	swap(entities[i], entities[currentEntities]);
+	currentEntityCount -= 1;
+	swap(entities[i], entities[currentEntityCount]);
 
 	for(unsigned int j = 0; j < fields.size(); j++)
 	{
@@ -138,7 +160,7 @@ void World::removeEntity(size_t i)
 				{
 					nextGreaterThanI = k;
 				}
-				else if(fieldEntitiesPointer->at(k) == currentEntities)
+				else if(fieldEntitiesPointer->at(k) == currentEntityCount)
 				{
 					hasCurrentEntities = true;
 				}

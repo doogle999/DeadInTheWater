@@ -15,13 +15,18 @@ class Game
 	public:
 		typedef std::chrono::duration<double, std::ratio<1, 1000>> ms;
 
-		static void init(int windowHeight, int windowWidth, ms msPerUpdate, World w);
+		static void init(int wH, int wW, ms tR, World w, double sF);
 
 		static void loop();
 
 		static void exit();
 
+		static double getTick();
+		static double getPureTick();
+
 		static sf::RenderWindow* window;
+
+		static ms tickRate;
 
 	private:
 		static World world;
@@ -29,5 +34,5 @@ class Game
 		static int windowWidth;
 		static int windowHeight;
 
-		static ms tickRate;
+		static double speedFactor;
 };

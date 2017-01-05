@@ -10,11 +10,11 @@ void KeyboardVelocity::run(Entity& e)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			e.AXS(xVelocity) = -1;
+			e.AXS(xVelocity) = -100;
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			e.AXS(xVelocity) = 1;
+			e.AXS(xVelocity) = 100;
 		}
 		else
 		{
@@ -23,11 +23,11 @@ void KeyboardVelocity::run(Entity& e)
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			e.AXS(yVelocity) = -1;
+			e.AXS(yVelocity) = -100;
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			e.AXS(yVelocity) = 1;
+			e.AXS(yVelocity) = 100;
 		}
 		else
 		{

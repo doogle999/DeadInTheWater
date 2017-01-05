@@ -120,12 +120,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera2D.cpp" />
+    <ClCompile Include="Camera2DRenderCircle.cpp" />
+    <ClCompile Include="SpawnOnSpace.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="IncrementPosition.cpp" />
+    <ClCompile Include="IncrementVelocity.cpp" />
     <ClCompile Include="KeyboardVelocity.cpp" />
     <ClCompile Include="KillIfNotMoving.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -136,13 +141,17 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="SpawnOnSpace.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Gravity.h" />
     <ClInclude Include="IncrementPosition.h" />
+    <ClInclude Include="IncrementVelocity.h" />
     <ClInclude Include="KeyboardVelocity.h" />
     <ClInclude Include="KillIfNotMoving.h" />
     <ClInclude Include="Properties.h" />

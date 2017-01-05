@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Fields">
       <UniqueIdentifier>{e82bc0f7-ff7a-42c2-b528-c18a7c9864f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fields\Camera2D Behaviors">
+      <UniqueIdentifier>{53167a54-0d09-4e2a-96d1-aafa3117072e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -69,6 +72,21 @@
     <ClCompile Include="Selectables.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="Gravity.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="IncrementVelocity.cpp">
+      <Filter>Source Files\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnOnSpace.cpp">
+      <Filter>Source Files\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2DRenderCircle.cpp">
+      <Filter>Source Files\Fields\Camera2D Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -111,6 +129,18 @@
       <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="Selectables.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Gravity.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="IncrementVelocity.h">
+      <Filter>Header Files\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnOnSpace.h">
+      <Filter>Header Files\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
   </ItemGroup>

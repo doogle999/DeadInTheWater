@@ -6,8 +6,8 @@ IncrementPosition::~IncrementPosition() {}
 
 void IncrementPosition::run(Entity& e)
 {
-	e.AXS(xPosition) += e.AXS(xVelocity);
-	e.AXS(yPosition) += e.AXS(yVelocity);
+	e.AXS(xPosition) += e.AXS(xVelocity) * Game::getTick();
+	e.AXS(yPosition) += e.AXS(yVelocity) * Game::getTick();
 };
 
 std::vector<P::Ids> IncrementPosition::getNecessaryProperties()

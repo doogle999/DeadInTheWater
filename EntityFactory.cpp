@@ -45,85 +45,37 @@ World EntityFactory::createWorld(std::string path)
 		world.fieldEntities[World::fields[i]] = temporaryEntitiesVector;
 	}	
 
-	world.currentEntities = 0;
-	for(tinyxml2::XMLElement* entityXMLElement = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityXMLElement != NULL; entityXMLElement = entityXMLElement->NextSiblingElement("ENTITY"))
+	world.currentEntityCount = 0;
+	for(tinyxml2::XMLElement* entityElem = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityElem != NULL; entityElem = entityElem->NextSiblingElement("ENTITY"))
 	{
-		world.entities[world.currentEntities] = createEntity(entityXMLElement, &world);
-
-		world.currentEntities += 1;
-		if(world.currentEntities == World::MAX_ENTITIES)
+		world.entities[world.currentEntityCount] = createEntity(entityElem, &world);
+		
+		world.currentEntityCount += 1;
+		if(world.currentEntityCount == World::MAX_ENTITIES)
 		{
 			break;
 		}
 	}
 
+	for(unsigned int i = 0; i < world.fields.size(); i++)
+	{
+		std::vector<Entity*> e;
+		e.reserve(world.fieldEntities.at(world.fields[i]).size());
+		for(unsigned int j = 0; j < world.fieldEntities.at(world.fields[i]).size(); j++)
+		{
+			e.push_back(&world.entities[world.fieldEntities.at(world.fields[i])[j]]);
+		}
+		world.fields[i]->initialize(e);
+	}
+
 	return world;
 }
 
-Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityElem, World* parentWorld)
-{	
+Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityElem, World* world)
+{
 	Entity entity = createEntityFromProperties(entityElem->FirstChildElement("PROPERTIES"));
-
-	// Dealing with fields
-	tinyxml2::XMLElement* fieldsXMLElement = entityElem->FirstChildElement("FIELDS");
-	for(tinyxml2::XMLElement* fieldXMLElement = fieldsXMLElement->FirstChildElement("FIELD"); fieldXMLElement; fieldXMLElement = fieldXMLElement->NextSiblingElement("FIELD"))
-	{
-		Field* fieldPointer = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), fieldXMLElement->FirstChildElement("NAME")->GetText()) - World::fieldNames.begin());
-		if(entity.compatible(fieldPointer))
-		{
-			parentWorld->fieldEntities.at(fieldPointer).push_back(parentWorld->currentEntities);
-		}
-		else
-		{
-			assert(0 && "Attempted to create an entity with a behavior that it doesn't have the necessary properties for");
-		}
-	}
-
-	// Dealing with behaviors
-	tinyxml2::XMLElement* behaviorsXMLElement = entityXMLElement->FirstChildElement("BEHAVIORS");
-	for(tinyxml2::XMLElement* behaviorXMLElement = behaviorsXMLElement->FirstChildElement("BEHAVIOR"); behaviorXMLElement; behaviorXMLElement = behaviorXMLElement->NextSiblingElement("BEHAVIOR"))
-	{
-		std::string behaviorName = behaviorXMLElement->FirstChildElement("NAME")->GetText();
-		size_t pos = behaviorName.find("::");
-		if(pos != std::string::npos) // Checks if the behavior is part of a field
-		{
-			Field* behaviorParentField = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), behaviorName.substr(0, pos)) - World::fieldNames.begin());
-			if(parentWorld->fieldEntities.at(behaviorParentField).empty())
-			{
-				assert(0 && "Attempted to create an entity with a behavior whose parent field it is not in");
-			}
-			if(parentWorld->fieldEntities.at(behaviorParentField).back() != parentWorld->currentEntities)
-			{
-				assert(0 && "Attempted to create an entity with a behavior whose parent field it is not in");
-			}
-		}
-
-		Behavior* behaviorPointer = World::behaviors.at(std::find(World::behaviorNames.begin(), World::behaviorNames.end(), behaviorName) - World::behaviorNames.begin());
-		if(entity.compatible(behaviorPointer))
-		{
-			std::string group = behaviorXMLElement->FirstChildElement("GROUP")->GetText();
-			if(group == "INPUTERS")
-			{
-				entity.inputers.push_back(behaviorPointer);
-			}
-			else if(group == "UPDATERS")
-			{
-				entity.updaters.push_back(behaviorPointer);
-			}
-			else if(group == "RENDERERS")
-			{
-				entity.renderers.push_back(behaviorPointer);
-			}
-			else
-			{
-				assert(0 && "Attempted to create an entity with a behavior in a group that doesn't exist");
-			}
-		}
-		else
-		{
-			assert(0 && "Attempted to create an entity with a behavior that it doesn't have the necessary properties for");
-		}
-	}
+	addEntityToFields(entity, entityElem->FirstChildElement("FIELDS"), world);
+	addBehaviorsToEntity(entity, entityElem->FirstChildElement("BEHAVIORS"), world);
 
 	return entity;
 }
@@ -160,8 +112,14 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 			ADD_PROPERTY_CASE(yPosition)
 			ADD_PROPERTY_CASE(xVelocity)
 			ADD_PROPERTY_CASE(yVelocity)
+			ADD_PROPERTY_CASE(xAcceleration)
+			ADD_PROPERTY_CASE(yAcceleration)
 			ADD_PROPERTY_CASE(selected)
 			ADD_PROPERTY_CASE(radius)
+			ADD_PROPERTY_CASE(mass)
+			ADD_PROPERTY_CASE(reloadTime)
+			ADD_PROPERTY_CASE(color)
+			ADD_PROPERTY_CASE(renderRadius)
 
 			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
 		}
@@ -169,18 +127,68 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 
 	return entity;
 }
-void EntityFactory::addEntityToFields(Entity entity, tinyxml2::XMLElement* fieldsElem)
+void EntityFactory::addEntityToFields(Entity& entity, tinyxml2::XMLElement* fieldsElem, World* world)
 {
 	for(tinyxml2::XMLElement* fieldElem = fieldsElem->FirstChildElement("FIELD"); fieldElem; fieldElem = fieldElem->NextSiblingElement("FIELD"))
 	{
 		Field* fieldPointer = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), fieldElem->FirstChildElement("NAME")->GetText()) - World::fieldNames.begin());
 		if(entity.compatible(fieldPointer))
 		{
-			parentWorld->fieldEntities.at(fieldPointer).push_back(parentWorld->currentEntities);
+			world->fieldEntities.at(fieldPointer).push_back(world->currentEntityCount);
 		}
 		else
 		{
-			assert(0 && "Attempted to create an entity with a behavior that it doesn't have the necessary properties for");
+			printf("Attempted to put an Entity in a filed it is not compatible with");
+		}
+	}
+}
+void EntityFactory::addBehaviorsToEntity(Entity& entity, tinyxml2::XMLElement* behaviorsElem, World* world)
+{
+	bool inParentField = true;
+
+	for(tinyxml2::XMLElement* behaviorElem = behaviorsElem->FirstChildElement("BEHAVIOR"); behaviorElem; behaviorElem = behaviorElem->NextSiblingElement("BEHAVIOR"))
+	{
+		std::string behaviorName = behaviorElem->FirstChildElement("NAME")->GetText();
+		size_t pos = behaviorName.find("::");
+		if(pos != std::string::npos) // Checks if the behavior is part of a field
+		{
+			Field* behaviorParentField = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), behaviorName.substr(0, pos)) - World::fieldNames.begin());
+			if(world->fieldEntities.at(behaviorParentField).empty())
+			{
+				printf("Attempted to create an entity with a behavior whose parent field it is not in");
+				inParentField = false;
+			}
+			if(world->fieldEntities.at(behaviorParentField).back() != world->currentEntityCount)
+			{
+				printf("Attempted to create an entity with a behavior whose parent field it is not in");
+				inParentField = false;
+			}
+		}
+
+		Behavior* behaviorPointer = World::behaviors.at(std::find(World::behaviorNames.begin(), World::behaviorNames.end(), behaviorName) - World::behaviorNames.begin());
+		if(entity.compatible(behaviorPointer) && inParentField)
+		{
+			std::string group = behaviorElem->FirstChildElement("GROUP")->GetText();
+			if(group == "INPUTERS")
+			{
+				entity.inputers.push_back(behaviorPointer);
+			}
+			else if(group == "UPDATERS")
+			{
+				entity.updaters.push_back(behaviorPointer);
+			}
+			else if(group == "RENDERERS")
+			{
+				entity.renderers.push_back(behaviorPointer);
+			}
+			else
+			{
+				printf("Attempted to create an entity with a behavior in a group that doesn't exist");
+			}
+		}
+		else
+		{
+			printf("Attempted to create an entity with a behavior that it doesn't have the necessary properties for");
 		}
 	}
 }
@@ -196,6 +204,16 @@ template<> double EntityFactory::interpretPropertyValue<double>(tinyxml2::XMLEle
 template<> bool EntityFactory::interpretPropertyValue<bool>(tinyxml2::XMLElement* value)
 {
 	return (strcmp(value->GetText(), "0") != 0);
+}
+template<> sf::Color EntityFactory::interpretPropertyValue<sf::Color>(tinyxml2::XMLElement* value)
+{
+	return sf::Color
+	(
+		interpretPropertyValue<int>(value->FirstChildElement("RED")),
+		interpretPropertyValue<int>(value->FirstChildElement("GREEN")),
+		interpretPropertyValue<int>(value->FirstChildElement("BLUE")),
+		interpretPropertyValue<int>(value->FirstChildElement("ALPHA"))
+	);
 }
 
 #undef ADD_PROPERTY_CASE

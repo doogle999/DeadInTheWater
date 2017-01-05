@@ -9,19 +9,19 @@
 
 class Entity;
 
-class Selectables : public Field
+class Gravity : public Field
 {
 	public:
-		Selectables();
+		Gravity();
+			
+		~Gravity();
 
-		~Selectables();
-
-		virtual void input();
+		virtual void update();
 
 		virtual std::vector<P::Ids> getNecessaryProperties();
 
 	private:
 		static const std::vector<P::Ids> necessaryProperties;
 
-		bool firstSelected;
+		static const double GRAV_CONSTANT;
 };

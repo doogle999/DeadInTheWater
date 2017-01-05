@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SFML\Graphics\Color.hpp"
+
 #include <map>
 #include <string>
 
@@ -13,16 +15,28 @@ struct P
 		yPosition,
 		xVelocity,
 		yVelocity,
+		xAcceleration,
+		yAcceleration,
 		selected,
-		radius
+		radius,
+		mass,
+		reloadTime,
+		color,
+		renderRadius
 	};
 
 	ADD_TYPE(xPosition, double)
 	ADD_TYPE(yPosition, double)
 	ADD_TYPE(xVelocity, double)
 	ADD_TYPE(yVelocity, double)
+	ADD_TYPE(xAcceleration, double)
+	ADD_TYPE(yAcceleration, double)
 	ADD_TYPE(selected, bool)
 	ADD_TYPE(radius, double)
+	ADD_TYPE(mass, double)
+	ADD_TYPE(reloadTime, double)
+	ADD_TYPE(color, sf::Color)
+	ADD_TYPE(renderRadius, double)
 
 	static const std::map<P::Ids, size_t> Sizes; // Used in Entity memory allocation
 	static const std::map<std::string, P::Ids> Names; // Used in decoding and recoding XML

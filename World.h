@@ -32,7 +32,7 @@ class World
 
 			swap(first.entities, second.entities);
 			swap(first.fieldEntities, second.fieldEntities);
-			swap(first.currentEntities, second.currentEntities);
+			swap(first.currentEntityCount, second.currentEntityCount);
 		}
 
 		static void registerFields();
@@ -47,7 +47,7 @@ class World
 		void removeEntity(size_t i);
 
 		static const size_t MAX_ENTITIES = 100;
-		size_t currentEntities;
+		size_t currentEntityCount;
 		Entity* entities;
 
 		std::map<Field*, std::vector<size_t>> fieldEntities;

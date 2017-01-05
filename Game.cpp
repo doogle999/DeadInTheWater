@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::init(int wW, int wH, ms tR, World w)
+void Game::init(int wW, int wH, ms tR, World w, double sF)
 {
 	windowWidth = wW;
 	windowHeight = wH;
@@ -10,22 +10,19 @@ void Game::init(int wW, int wH, ms tR, World w)
 	window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Game");
 
 	world = w;
+
+	speedFactor = sF;
 }
 
 void Game::loop()
 {
-	std::chrono::steady_clock::time_point previous = std::chrono::steady_clock::now();
-	ms lag(0);
-
 	bool exiting = false;
+
+	std::chrono::steady_clock::time_point updatePrevious = std::chrono::steady_clock::now();
+	ms updateLag(0);
 
 	while(window->isOpen())
 	{
-		std::chrono::steady_clock::time_point current = std::chrono::steady_clock::now();
-		ms elapsed = std::chrono::duration_cast<ms>(current - previous);
-		previous = current;
-		lag += elapsed;
-
 		// Inputing
 		Game::world.input();
 
@@ -42,15 +39,17 @@ void Game::loop()
 			}
 		}
 
+		std::chrono::steady_clock::time_point updateCurrent = std::chrono::steady_clock::now();
+		ms updateElapsed = std::chrono::duration_cast<ms>(updateCurrent - updatePrevious);
+		updatePrevious = updateCurrent;
+		updateLag += updateElapsed;
+
 		// Updating
-		while(lag >= tickRate)
+		while(updateLag >= tickRate)
 		{
-			// Components to get updated in the order of the entities
 			Game::world.update();
 
-			// Components to get updated after all entities have been updated
-
-			lag -= tickRate;
+			updateLag -= tickRate;
 		}
 
 		// Rendering
@@ -74,6 +73,15 @@ void Game::exit()
 	delete window;
 }
 
+double Game::getTick()
+{
+	return tickRate.count() / 1000 * speedFactor;
+}
+double Game::getPureTick()
+{
+	return tickRate.count() / 1000;
+}
+
 sf::RenderWindow* Game::window;
 
 World Game::world;
@@ -82,3 +90,5 @@ int Game::windowWidth;
 int Game::windowHeight;
 
 Game::ms Game::tickRate;
+
+double Game::speedFactor;
