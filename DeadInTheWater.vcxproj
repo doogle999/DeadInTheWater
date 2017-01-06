@@ -120,10 +120,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Behaviors.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera2DRenderCircle.cpp" />
-    <ClCompile Include="Fields.cpp" />
     <ClCompile Include="SpawnOnSpace.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -143,9 +141,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Behaviors.h" />
     <ClInclude Include="Camera2D.h" />
-    <ClInclude Include="Fields.h" />
     <ClInclude Include="SpawnOnSpace.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Collisions.h" />

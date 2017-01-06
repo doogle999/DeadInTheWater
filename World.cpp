@@ -11,28 +11,12 @@
 #include "KeyboardVelocity.h"
 #include "KillIfNotMoving.h"
 
-#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; 
-#define ADD_FIELD_BEHAVIOR(BEHAVIOR, FIELD) behaviors[Behaviors::Ids::Id_ ## FIELD ## _ ## BEHAVIOR] = new FIELD ## :: ## BEHAVIOR(*TEMP_ ## FIELD);
-#define ADD_BEHAVIOR(BEHAVIOR) behaviors[Behaviors::Ids::Id_ ## BEHAVIOR] = new BEHAVIOR;
+#define REGISTER_FIELD(FIELD) FIELD ## * FIELD ## _TEMP = new FIELD; fields.push_back(FIELD ## _TEMP); fieldNames.push_back(#FIELD); 
+#define REGISTER_FIELD_BEHAVIOR(BEHAVIOR, FIELD) behaviors.push_back(new BEHAVIOR(* ## FIELD ## _TEMP)); behaviorNames.push_back(#BEHAVIOR);
+#define REGISTER_BEHAVIOR(BEHAVIOR) behaviors.push_back(new BEHAVIOR); behaviorNames.push_back(#BEHAVIOR);
 
 World::World()
 {
-	ADD_FIELD(Selectables)
-
-		ADD_FIELD(Collisions)
-		ADD_FIELD_BEHAVIOR(StopOnCollision, Collisions)
-
-		ADD_FIELD(Gravity)
-
-		ADD_FIELD(Camera2D)
-		ADD_FIELD_BEHAVIOR(RenderCircle, Camera2D)
-
-		ADD_BEHAVIOR(IncrementPosition)
-		ADD_BEHAVIOR(IncrementVelocity)
-		ADD_BEHAVIOR(KillIfNotMoving)
-		ADD_BEHAVIOR(KeyboardVelocity)
-		ADD_BEHAVIOR(RenderCircle)
-
 	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 }
 World::World(World& w)
@@ -55,6 +39,27 @@ World& World::operator=(World other)
 	swap(*this, other);
 
 	return *this;
+}
+
+void World::registerFields()
+{
+	REGISTER_FIELD(Collisions)
+	REGISTER_FIELD_BEHAVIOR(Collisions::StopOnCollision, Collisions)
+
+	REGISTER_FIELD(Selectables)
+
+	REGISTER_FIELD(Gravity)
+
+	REGISTER_FIELD(Camera2D)
+	REGISTER_FIELD_BEHAVIOR(Camera2D::RenderCircle, Camera2D)
+}
+void World::registerBehaviors()
+{
+	REGISTER_BEHAVIOR(IncrementPosition);
+	REGISTER_BEHAVIOR(IncrementVelocity);
+	REGISTER_BEHAVIOR(RenderCircle);
+	REGISTER_BEHAVIOR(KeyboardVelocity);
+	REGISTER_BEHAVIOR(KillIfNotMoving);
 }
 
 void World::input()
@@ -177,6 +182,11 @@ void World::removeEntity(size_t i)
 		}
 	}
 }
+
+std::vector<Field*> World::fields;
+std::vector<std::string> World::fieldNames;
+std::vector<Behavior*> World::behaviors;
+std::vector<std::string> World::behaviorNames;
 
 #undef REGISTER_FIELD
 #undef REGISTER_FIELD_BEHAVIOR

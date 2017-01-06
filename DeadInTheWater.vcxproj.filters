@@ -87,12 +87,6 @@
     <ClCompile Include="Camera2DRenderCircle.cpp">
       <Filter>Source Files\Fields\Camera2D Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="Fields.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -148,12 +142,6 @@
     </ClInclude>
     <ClInclude Include="Camera2D.h">
       <Filter>Header Files\Fields</Filter>
-    </ClInclude>
-    <ClInclude Include="Fields.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Behaviors.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
