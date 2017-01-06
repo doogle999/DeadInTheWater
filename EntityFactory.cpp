@@ -40,9 +40,9 @@ World EntityFactory::createWorld(std::string path)
 
 	std::vector<size_t> temporaryEntitiesVector;
 
-	for(unsigned int i = 0; i < World::fields.size(); i++)
+	for(unsigned int i = 0; i < world.fieldEntities.size(); i++)
 	{
-		world.fieldEntities[World::fields[i]] = temporaryEntitiesVector;
+		world.fieldEntities[World.fields[i]] = temporaryEntitiesVector;
 	}	
 
 	world.currentEntityCount = 0;
@@ -131,7 +131,7 @@ void EntityFactory::addEntityToFields(Entity& entity, tinyxml2::XMLElement* fiel
 {
 	for(tinyxml2::XMLElement* fieldElem = fieldsElem->FirstChildElement("FIELD"); fieldElem; fieldElem = fieldElem->NextSiblingElement("FIELD"))
 	{
-		Field* fieldPointer = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), fieldElem->FirstChildElement("NAME")->GetText()) - World::fieldNames.begin());
+		Field* fieldPointer = world->fields.at(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
 		if(entity.compatible(fieldPointer))
 		{
 			world->fieldEntities.at(fieldPointer).push_back(world->currentEntityCount);
@@ -152,7 +152,7 @@ void EntityFactory::addBehaviorsToEntity(Entity& entity, tinyxml2::XMLElement* b
 		size_t pos = behaviorName.find("::");
 		if(pos != std::string::npos) // Checks if the behavior is part of a field
 		{
-			Field* behaviorParentField = World::fields.at(std::find(World::fieldNames.begin(), World::fieldNames.end(), behaviorName.substr(0, pos)) - World::fieldNames.begin());
+			Field* behaviorParentField = world->fields.at(Fields::fieldRegistry.at(behaviorName.substr(0, pos)));
 			if(world->fieldEntities.at(behaviorParentField).empty())
 			{
 				printf("Attempted to create an entity with a behavior whose parent field it is not in");
@@ -165,7 +165,7 @@ void EntityFactory::addBehaviorsToEntity(Entity& entity, tinyxml2::XMLElement* b
 			}
 		}
 
-		Behavior* behaviorPointer = World::behaviors.at(std::find(World::behaviorNames.begin(), World::behaviorNames.end(), behaviorName) - World::behaviorNames.begin());
+		Behavior* behaviorPointer = world->behaviors.at(Behaviors::behaviorRegistry.at(behaviorName));
 		if(entity.compatible(behaviorPointer) && inParentField)
 		{
 			std::string group = behaviorElem->FirstChildElement("GROUP")->GetText();
