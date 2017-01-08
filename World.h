@@ -7,7 +7,9 @@
 #include "Entity.h"
 #include "EntityFactory.h"
 #include "Field.h"
+#include "Fields.h"
 #include "Behavior.h"
+#include "Behaviors.h"
 #include "Game.h"
 
 class Entity;
@@ -35,9 +37,6 @@ class World
 			swap(first.currentEntityCount, second.currentEntityCount);
 		}
 
-		static void registerFields();
-		static void registerBehaviors();
-
 		void input();
 		void update();
 		void render();
@@ -52,10 +51,8 @@ class World
 
 		std::map<Field*, std::vector<size_t>> fieldEntities;
 
-		static std::vector<Field*> fields;
-		static std::vector<std::string> fieldNames;
-		static std::vector<Behavior*> behaviors;
-		static std::vector<std::string> behaviorNames;
+		std::vector<Field*> fields;
+		std::vector<Behavior*> behaviors;
 
 	friend EntityFactory;
 	friend Game;
