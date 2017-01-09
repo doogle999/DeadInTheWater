@@ -33,7 +33,6 @@ class World
 			using std::swap;
 
 			swap(first.entities, second.entities);
-			swap(first.fieldEntities, second.fieldEntities);
 			swap(first.fields, second.fields);
 			swap(first.behaviors, second.behaviors);
 			swap(first.currentEntityCount, second.currentEntityCount);
@@ -50,8 +49,6 @@ class World
 		static const size_t MAX_ENTITIES = 100;
 		size_t currentEntityCount;
 		Entity* entities;
-
-		std::map<Field*, std::vector<size_t>> fieldEntities;
 
 		std::vector<Field*> fields;
 		std::vector<Behavior*> behaviors;

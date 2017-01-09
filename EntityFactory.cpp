@@ -92,7 +92,7 @@ void EntityFactory::addEntityToFields(Entity& entity, tinyxml2::XMLElement* fiel
 		Field* fieldPointer = world->fields.at(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
 		if(entity.compatible(fieldPointer))
 		{
-			world->fieldEntities.at(fieldPointer).push_back(world->currentEntityCount);
+			fieldPointer->entities.push_back(&world->entities[world->currentEntityCount]);
 		}
 		else
 		{
@@ -111,12 +111,12 @@ void EntityFactory::addBehaviorsToEntity(Entity& entity, tinyxml2::XMLElement* b
 		if(pos != std::string::npos) // Checks if the behavior is part of a field
 		{
 			Field* behaviorParentField = world->fields.at(Fields::fieldRegistry.at(behaviorName.substr(0, pos)));
-			if(world->fieldEntities.at(behaviorParentField).empty())
+			if(behaviorParentField->entities.empty())
 			{
 				printf("Attempted to create an entity with a behavior whose parent field it is not in");
 				inParentField = false;
 			}
-			if(world->fieldEntities.at(behaviorParentField).back() != world->currentEntityCount)
+			if((behaviorParentField->entities.back() - world->entities) / sizeof(Entity) != world->currentEntityCount)
 			{
 				printf("Attempted to create an entity with a behavior whose parent field it is not in");
 				inParentField = false;

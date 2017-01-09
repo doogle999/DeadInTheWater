@@ -11,7 +11,7 @@
 #include "KeyboardVelocity.h"
 #include "KillIfNotMoving.h"
 
-#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fieldEntities[TEMP_ ## FIELD] = {};
+#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD;
 #define ADD_FIELD_BEHAVIOR(BEHAVIOR, FIELD) behaviors[Behaviors::Ids::Id_ ## FIELD ## ___ ## BEHAVIOR] = new FIELD ## :: ## BEHAVIOR(*TEMP_ ## FIELD);
 #define ADD_BEHAVIOR(BEHAVIOR) behaviors[Behaviors::Ids::Id_ ## BEHAVIOR] = new BEHAVIOR;
 
@@ -42,8 +42,6 @@ World::World(World& w)
 {
 	entities = (Entity*)malloc(MAX_ENTITIES * sizeof(Entity));
 	std::memcpy(entities, w.entities, MAX_ENTITIES * sizeof(Entity));
-
-	fieldEntities = w.fieldEntities;
 
 	fields = w.fields;
 	behaviors = w.behaviors;
@@ -89,18 +87,6 @@ void World::input()
 
 	for(unsigned int i = 0; i < fields.size(); i++)
 	{
-		if(removedEntities.size() != 0 || noEntitiesSpawned)
-		{
-			std::vector<Entity*> e;
-			int bozo = fieldEntities.at(fields.at(i)).size();
-			e.resize(fieldEntities.at(fields[i]).size());
-			for(unsigned int j = 0; j < fieldEntities.at(fields[i]).size(); j++)
-			{
-				e[j] = (&entities[fieldEntities.at(fields[i])[j]]);
-			}
-			fields[i]->initialize(e);
-		}
-
 		fields[i]->input();
 	}
 
@@ -144,25 +130,25 @@ void World::removeEntity(size_t i)
 
 	for(unsigned int j = 0; j < fields.size(); j++)
 	{
-		std::vector<size_t>* fieldEntitiesPointer = &fieldEntities[fields[j]];
+		std::vector<Entity*>* fieldEntitiesPointer = &fields[j]->entities;
 
 		if(fieldEntitiesPointer->size() > 0)
 		{
 			size_t hasI = -1;
-			size_t nextGreaterThanI = fieldEntitiesPointer->back();
+			size_t nextGreaterThanI = (fieldEntitiesPointer->back() - entities) / sizeof(Entity);
 			bool hasCurrentEntities = false;
 
 			for(unsigned int k = 0; k < fieldEntitiesPointer->size(); k++)
 			{
-				if(fieldEntitiesPointer->at(k) == i)
+				if((fieldEntitiesPointer->at(k) - entities) / sizeof(Entity) == i)
 				{
 					hasI = k;
 				}
-				else if(fieldEntitiesPointer->at(k) > i)
+				else if((fieldEntitiesPointer->at(k) - entities) / sizeof(Entity) > i)
 				{
 					nextGreaterThanI = k;
 				}
-				else if(fieldEntitiesPointer->at(k) == currentEntityCount)
+				else if((fieldEntitiesPointer->at(k) - entities) / sizeof(Entity) == currentEntityCount)
 				{
 					hasCurrentEntities = true;
 				}
@@ -178,7 +164,7 @@ void World::removeEntity(size_t i)
 			}
 			else if(hasI == -1 && hasCurrentEntities)
 			{
-				fieldEntitiesPointer->insert(fieldEntitiesPointer->begin() + nextGreaterThanI, i);
+				fieldEntitiesPointer->insert(fieldEntitiesPointer->begin() + nextGreaterThanI, &entities[i]);
 				fieldEntitiesPointer->pop_back();
 			}
 		}
