@@ -11,27 +11,30 @@
 #include "KeyboardVelocity.h"
 #include "KillIfNotMoving.h"
 
-#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; 
-#define ADD_FIELD_BEHAVIOR(BEHAVIOR, FIELD) behaviors[Behaviors::Ids::Id_ ## FIELD ## _ ## BEHAVIOR] = new FIELD ## :: ## BEHAVIOR(*TEMP_ ## FIELD);
+#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fieldEntities[TEMP_ ## FIELD] = {};
+#define ADD_FIELD_BEHAVIOR(BEHAVIOR, FIELD) behaviors[Behaviors::Ids::Id_ ## FIELD ## ___ ## BEHAVIOR] = new FIELD ## :: ## BEHAVIOR(*TEMP_ ## FIELD);
 #define ADD_BEHAVIOR(BEHAVIOR) behaviors[Behaviors::Ids::Id_ ## BEHAVIOR] = new BEHAVIOR;
 
 World::World()
 {
+	fields.resize(Fields::Ids::META_FIELD_COUNT);
+	behaviors.resize(Behaviors::Ids::META_BEHAVIOR_COUNT);
+
 	ADD_FIELD(Selectables)
 
-		ADD_FIELD(Collisions)
-		ADD_FIELD_BEHAVIOR(StopOnCollision, Collisions)
+	ADD_FIELD(Collisions)
+	ADD_FIELD_BEHAVIOR(StopOnCollision, Collisions)
 
-		ADD_FIELD(Gravity)
+	ADD_FIELD(Gravity)
 
-		ADD_FIELD(Camera2D)
-		ADD_FIELD_BEHAVIOR(RenderCircle, Camera2D)
+	ADD_FIELD(Camera2D)
+	ADD_FIELD_BEHAVIOR(RenderCircle, Camera2D)
 
-		ADD_BEHAVIOR(IncrementPosition)
-		ADD_BEHAVIOR(IncrementVelocity)
-		ADD_BEHAVIOR(KillIfNotMoving)
-		ADD_BEHAVIOR(KeyboardVelocity)
-		ADD_BEHAVIOR(RenderCircle)
+	ADD_BEHAVIOR(IncrementPosition)
+	ADD_BEHAVIOR(IncrementVelocity)
+	ADD_BEHAVIOR(KillIfNotMoving)
+	ADD_BEHAVIOR(KeyboardVelocity)
+	ADD_BEHAVIOR(RenderCircle)
 
 	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 }
@@ -41,6 +44,9 @@ World::World(World& w)
 	std::memcpy(entities, w.entities, MAX_ENTITIES * sizeof(Entity));
 
 	fieldEntities = w.fieldEntities;
+
+	fields = w.fields;
+	behaviors = w.behaviors;
 
 	currentEntityCount = w.currentEntityCount;
 }
@@ -86,10 +92,11 @@ void World::input()
 		if(removedEntities.size() != 0 || noEntitiesSpawned)
 		{
 			std::vector<Entity*> e;
-			e.reserve(fieldEntities.at(fields[i]).size());
+			int bozo = fieldEntities.at(fields.at(i)).size();
+			e.resize(fieldEntities.at(fields[i]).size());
 			for(unsigned int j = 0; j < fieldEntities.at(fields[i]).size(); j++)
 			{
-				e.push_back(&entities[fieldEntities.at(fields[i])[j]]);
+				e[j] = (&entities[fieldEntities.at(fields[i])[j]]);
 			}
 			fields[i]->initialize(e);
 		}

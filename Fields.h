@@ -12,7 +12,8 @@ struct Fields
 		Id_Selectables,
 		Id_Collisions,
 		Id_Gravity,
-		Id_Camera2D
+		Id_Camera2D,
+		META_FIELD_COUNT
 	};
 
 	static const std::map<std::string, Fields::Ids> fieldRegistry;

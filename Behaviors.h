@@ -13,9 +13,11 @@ struct Behaviors
 		Id_KeyboardVelocity,
 		Id_RenderCircle,
 
-		Id_Collisions_StopOnCollision,
-		Id_Selectables_SelectOnClick,
-		Id_Camera2D_RenderCircle
+		Id_Collisions___StopOnCollision,
+		Id_Selectables___SelectOnClick,
+		Id_Camera2D___RenderCircle,
+
+		META_BEHAVIOR_COUNT
 	};
 
 	static const std::map<std::string, Behaviors::Ids> behaviorRegistry;

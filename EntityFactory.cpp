@@ -4,30 +4,6 @@
 
 World EntityFactory::createWorld(std::string path)
 {
-	/* 
-	<ENTITIES>
-		<ENTITY>
-			<PROPERTIES>
-				<PROPERTY>
-					<NAME> </NAME>
-					<VALUE> </VALUE>
-				</PROPERTY>
-			</PROPERTIES>
-			<FIELDS>
-				<FIELD>
-					<NAME> </NAME>
-				</FIELD>
-			</FIELDS>
-			<BEHAVIORS>
-				<BEHAVIOR>
-					<NAME> </NAME>
-					<GROUP> </GROUP>
-				</BEHAVIOR>
-			</BEHAVIORS>
-		</ENTITY>
-	<ENTITIES>
-	*/
-
 	tinyxml2::XMLDocument document;
 	document.LoadFile(path.c_str());
 
@@ -37,13 +13,6 @@ World EntityFactory::createWorld(std::string path)
 	}
 
 	World world;
-
-	std::vector<size_t> temporaryEntitiesVector;
-
-	for(unsigned int i = 0; i < world.fieldEntities.size(); i++)
-	{
-		world.fieldEntities[World.fields[i]] = temporaryEntitiesVector;
-	}	
 
 	world.currentEntityCount = 0;
 	for(tinyxml2::XMLElement* entityElem = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityElem != NULL; entityElem = entityElem->NextSiblingElement("ENTITY"))
@@ -55,17 +24,6 @@ World EntityFactory::createWorld(std::string path)
 		{
 			break;
 		}
-	}
-
-	for(unsigned int i = 0; i < world.fields.size(); i++)
-	{
-		std::vector<Entity*> e;
-		e.reserve(world.fieldEntities.at(world.fields[i]).size());
-		for(unsigned int j = 0; j < world.fieldEntities.at(world.fields[i]).size(); j++)
-		{
-			e.push_back(&world.entities[world.fieldEntities.at(world.fields[i])[j]]);
-		}
-		world.fields[i]->initialize(e);
 	}
 
 	return world;
@@ -149,7 +107,7 @@ void EntityFactory::addBehaviorsToEntity(Entity& entity, tinyxml2::XMLElement* b
 	for(tinyxml2::XMLElement* behaviorElem = behaviorsElem->FirstChildElement("BEHAVIOR"); behaviorElem; behaviorElem = behaviorElem->NextSiblingElement("BEHAVIOR"))
 	{
 		std::string behaviorName = behaviorElem->FirstChildElement("NAME")->GetText();
-		size_t pos = behaviorName.find("::");
+		size_t pos = behaviorName.find("___");
 		if(pos != std::string::npos) // Checks if the behavior is part of a field
 		{
 			Field* behaviorParentField = world->fields.at(Fields::fieldRegistry.at(behaviorName.substr(0, pos)));

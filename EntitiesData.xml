@@ -66,7 +66,7 @@
 				<GROUP>UPDATERS</GROUP>
 			</BEHAVIOR>
 			<BEHAVIOR>
-				<NAME>Camera2D::RenderCircle</NAME>
+				<NAME>Camera2D___RenderCircle</NAME>
 				<GROUP>RENDERERS</GROUP>
 			</BEHAVIOR>
 		</BEHAVIORS>
@@ -138,7 +138,7 @@
 				<GROUP>UPDATERS</GROUP>
 			</BEHAVIOR>
 			<BEHAVIOR>
-				<NAME>Camera2D::RenderCircle</NAME>
+				<NAME>Camera2D___RenderCircle</NAME>
 				<GROUP>RENDERERS</GROUP>
 			</BEHAVIOR>
 		</BEHAVIORS>
@@ -210,7 +210,7 @@
 				<GROUP>UPDATERS</GROUP>
 			</BEHAVIOR>
 			<BEHAVIOR>
-				<NAME>Camera2D::RenderCircle</NAME>
+				<NAME>Camera2D___RenderCircle</NAME>
 				<GROUP>RENDERERS</GROUP>
 			</BEHAVIOR>
 		</BEHAVIORS>
@@ -282,7 +282,7 @@
 				<GROUP>UPDATERS</GROUP>
 			</BEHAVIOR>
 			<BEHAVIOR>
-				<NAME>Camera2D::RenderCircle</NAME>
+				<NAME>Camera2D___RenderCircle</NAME>
 				<GROUP>RENDERERS</GROUP>
 			</BEHAVIOR>
 		</BEHAVIORS>

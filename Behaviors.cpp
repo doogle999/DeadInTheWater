@@ -10,9 +10,9 @@ const std::map<std::string, Behaviors::Ids> Behaviors::behaviorRegistry
 	ADD_NAME(KeyboardVelocity),
 	ADD_NAME(RenderCircle),
 
-	ADD_NAME(Collisions_StopOnCollision),
-	ADD_NAME(Selectables_SelectOnClick),
-	ADD_NAME(Camera2D_RenderCircle)
+	ADD_NAME(Collisions___StopOnCollision),
+	ADD_NAME(Selectables___SelectOnClick),
+	ADD_NAME(Camera2D___RenderCircle)
 };
 
 #undef ADD_NAME

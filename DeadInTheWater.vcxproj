@@ -124,6 +124,7 @@
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera2DRenderCircle.cpp" />
     <ClCompile Include="Fields.cpp" />
+    <ClCompile Include="RenderShip.cpp" />
     <ClCompile Include="SpawnOnSpace.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Behaviors.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Fields.h" />
+    <ClInclude Include="RenderShip.h" />
     <ClInclude Include="SpawnOnSpace.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Collisions.h" />

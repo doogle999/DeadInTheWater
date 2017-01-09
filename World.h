@@ -34,6 +34,8 @@ class World
 
 			swap(first.entities, second.entities);
 			swap(first.fieldEntities, second.fieldEntities);
+			swap(first.fields, second.fields);
+			swap(first.behaviors, second.behaviors);
 			swap(first.currentEntityCount, second.currentEntityCount);
 		}
 

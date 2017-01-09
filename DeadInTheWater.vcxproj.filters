@@ -93,6 +93,9 @@
     <ClCompile Include="Behaviors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RenderShip.cpp">
+      <Filter>Source Files\Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Behaviors.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderShip.h">
+      <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
