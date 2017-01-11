@@ -45,6 +45,8 @@ World::World(World& w)
 
 	fields = w.fields;
 	behaviors = w.behaviors;
+
+	currentEntityCount = w.currentEntityCount;
 }
 
 World::~World()
@@ -61,17 +63,20 @@ World& World::operator=(World other)
 
 void World::input()
 {
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	bool noEntitiesSpawned = true;
+
+	std::vector<size_t> removedEntities;
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		for(unsigned int j = 0; j < entities[i].scheduledToSpawn.size(); j++)
 		{
-			for(unsigned int k = 0; k < MAX_ENTITIES; k++)
-			{
-				if(entities[k].scheduledForDeletion == true)
-				{
-					addEntity(entities[i].scheduledToSpawn[j]);
-				}
-			}
+			addEntity(entities[i].scheduledToSpawn[j]);
+			noEntitiesSpawned = false;
+		}
+
+		if(entities[i].scheduledForDeletion)
+		{
+			removedEntities.push_back(i);
 		}
 	}
 
@@ -85,7 +90,7 @@ void World::input()
 		fields[i]->input();
 	}
 
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		entities[i].input();
 	}
@@ -96,7 +101,7 @@ void World::update()
 	{
 		fields[i]->update();
 	}
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		entities[i].update();
 	}
@@ -107,33 +112,61 @@ void World::render()
 	{
 		fields[i]->render();
 	}
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int i = 0; i < currentEntityCount; i++)
 	{
 		entities[i].render();
 	}
 }
 
-void World::addEntities()
+void World::addEntity(Entity e)
 {
-	size_t entitiesIndex = 0;
+	entities[currentEntityCount] = e;
+	currentEntityCount += 1;
+}
+void World::removeEntity(size_t i)
+{
+	currentEntityCount -= 1;
+	swap(entities[i], entities[currentEntityCount]);
 
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int j = 0; j < fields.size(); j++)
 	{
-		if(!entities[i].scheduledToSpawn.empty())
+		std::vector<Entity*>* fieldEntitiesPointer = &fields[j]->entities;
+
+		if(fieldEntitiesPointer->size() > 0)
 		{
-			for(unsigned int j = 0; j < entities[i].scheduledToSpawn.size(); j++)
+			size_t hasI = -1;
+			size_t nextGreaterThanI = (fieldEntitiesPointer->back() - entities) / sizeof(Entity);
+			bool hasCurrentEntities = false;
+
+			for(unsigned int k = 0; k < fieldEntitiesPointer->size(); k++)
 			{
-				while(entitiesIndex < MAX_ENTITIES)
+				if((fieldEntitiesPointer->at(k) - entities) / sizeof(Entity) == i)
 				{
-					entitiesIndex += 1;
-					if(entities[entitiesIndex - 1].scheduledForDeletion == true)
-					{
-						entities[entitiesIndex - 1] = entities[i].scheduledToSpawn[j];
-						break;
-					}
+					hasI = k;
+				}
+				else if((fieldEntitiesPointer->at(k) - entities) / sizeof(Entity) > i)
+				{
+					nextGreaterThanI = k;
+				}
+				else if((fieldEntitiesPointer->at(k) - entities) / sizeof(Entity) == currentEntityCount)
+				{
+					hasCurrentEntities = true;
 				}
 			}
-			entities[i].scheduledToSpawn.clear();
+
+			if(hasI != -1 && hasCurrentEntities)
+			{
+				fieldEntitiesPointer->pop_back();
+			}
+			else if(hasI != -1 && !hasCurrentEntities)
+			{
+				fieldEntitiesPointer->erase(fieldEntitiesPointer->begin() + nextGreaterThanI);
+			}
+			else if(hasI == -1 && hasCurrentEntities)
+			{
+				fieldEntitiesPointer->insert(fieldEntitiesPointer->begin() + nextGreaterThanI, &entities[i]);
+				fieldEntitiesPointer->pop_back();
+			}
 		}
 	}
 }
