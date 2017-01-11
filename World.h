@@ -43,12 +43,11 @@ class World
 		void render();
 
 	private:
-		void addEntity(Entity e);
+		void addEntities();
 		void removeEntity(size_t i);
 
-		static const size_t MAX_ENTITIES = 100;
-		size_t currentEntityCount;
 		Entity* entities;
+		static const size_t MAX_ENTITIES = 100;
 
 		std::vector<Field*> fields;
 		std::vector<Behavior*> behaviors;
