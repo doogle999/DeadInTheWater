@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Entity.h"
 #include "Properties.h"
+#include "Fields.h"
 
 class World;
 class Entity;
@@ -12,6 +13,8 @@ class Entity;
 class Field
 {
 	public:
+		void setWorld(World* w);
+
 		virtual void input();
 		virtual void update();
 		virtual void render();
@@ -19,7 +22,8 @@ class Field
 		virtual std::vector<P::Ids> getNecessaryProperties() = 0;
 
 	protected:
-		std::vector<size_t> entities;
+		std::vector<size_t> ei;
+		World* w;
 
 	friend World;
 };

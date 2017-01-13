@@ -6,23 +6,25 @@ Selectables::~Selectables() {}
 
 void Selectables::input()
 {
+	/*
 	firstSelected = false;
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		for(unsigned int i = 0; i < entities.size(); i++)
+		for(unsigned int i = 0; i < ei.size(); i++)
 		{
-			if(!firstSelected && sqrt(pow(sf::Mouse::getPosition(*Game::window).x - entities[i]->AXS(xPosition), 2) + pow(sf::Mouse::getPosition(*Game::window).y - entities[i]->AXS(yPosition), 2)) < entities[i]->AXS(radius))
+			if(!firstSelected && sqrt(pow(sf::Mouse::getPosition(*Game::window).x - ei[i]->AXS(xPosition), 2) + pow(sf::Mouse::getPosition(*Game::window).y - ei[i]->AXS(yPosition), 2)) < ei[i]->AXS(radius))
 			{
-				entities[i]->AXS(selected) = true;
+				ei[i]->AXS(selected) = true;
 				firstSelected = true;
 			}
 			else
 			{
-				entities[i]->AXS(selected) = false;
+				ei[i]->AXS(selected) = false;
 			}
 		}
 	}
+	*/
 }
 
 std::vector<P::Ids> Selectables::getNecessaryProperties()

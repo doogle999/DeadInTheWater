@@ -64,15 +64,15 @@ void Camera2D::update()
 
 void Camera2D::render()
 {
-	for(unsigned int i = 0; i < entities.size(); i++)
+	for(unsigned int i = 0; i < ei.size(); i++)
 	{
-		sf::CircleShape c(entities[i]->AXS(renderRadius) / viewportS);
+		sf::CircleShape c(w->entities[ei[i]].AXS(renderRadius) / viewportS);
 
-		c.setOrigin(entities[i]->AXS(renderRadius) / viewportS, entities[i]->AXS(renderRadius) / viewportS);
+		c.setOrigin(w->entities[ei[i]].AXS(renderRadius) / viewportS, w->entities[ei[i]].AXS(renderRadius) / viewportS);
 
-		c.setPosition((entities[i]->AXS(xPosition) - viewportX) / viewportS, (entities[i]->AXS(yPosition) - viewportY) / viewportS);
+		c.setPosition((w->entities[ei[i]].AXS(xPosition) - viewportX) / viewportS, (w->entities[ei[i]].AXS(yPosition) - viewportY) / viewportS);
 
-		c.setFillColor(entities[i]->AXS(color));
+		c.setFillColor(w->entities[ei[i]].AXS(color));
 
 		Game::window->draw(c);
 	}

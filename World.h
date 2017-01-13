@@ -32,11 +32,18 @@ class World
 
 			swap(first.entities, second.entities);
 			swap(first.fields, second.fields);
+			for(unsigned int i = 0; i < first.fields.size(); i++)
+			{
+				first.fields[i]->setWorld(&first);
+				second.fields[i]->setWorld(&second);
+			}
 		}
 
 		void input();
 		void update();
 		void render();
+
+		Entity* entities;
 
 	private:
 		void addEntity(Entity e, unsigned int i);
@@ -45,7 +52,6 @@ class World
 		void checkScheduledForDeletion();
 
 		static const size_t MAX_ENTITIES = 100;
-		Entity* entities;
 
 		std::vector<Field*> fields;
 

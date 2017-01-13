@@ -11,16 +11,18 @@ std::vector<P::Ids> Collisions::getNecessaryProperties()
 
 bool Collisions::collision(Entity& e)
 {
-	for(unsigned int i = 0; i < entities.size(); i++)
+	/*
+	for(unsigned int i = 0; i < ei.size(); i++)
 	{
-		if(&e != entities[i])
+		if(&e != ei[i])
 		{
-			if(sqrt(pow(entities[i]->AXS(xPosition) - e.AXS(xPosition), 2) + pow(entities[i]->AXS(yPosition) - e.AXS(yPosition), 2)) < entities[i]->AXS(radius) + e.AXS(radius))
+			if(sqrt(pow(ei[i]->AXS(xPosition) - e.AXS(xPosition), 2) + pow(ei[i]->AXS(yPosition) - e.AXS(yPosition), 2)) < ei[i]->AXS(radius) + e.AXS(radius))
 			{
 				return true;
 			}
 		}
 	}
+	*/
 	return false;
 }
 

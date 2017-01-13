@@ -5,7 +5,7 @@
 #include "Gravity.h"
 #include "Camera2D.h"
 
-#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD;
+#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
 
 World::World()
 {
@@ -25,6 +25,10 @@ World::World(World& w)
 	std::memcpy(entities, w.entities, MAX_ENTITIES * sizeof(Entity));
 
 	fields = w.fields;
+	for(unsigned int i = 0; i < fields.size(); i++)
+	{
+		fields[i]->setWorld(this);
+	}
 }
 
 World::~World()
@@ -73,7 +77,7 @@ void World::addEntity(Entity e, unsigned int i)
 		{
 			if(entities[i].compatible(fields[entities[i].fields[j]]))
 			{
-				fields[entities[i].fields[j]]->entities.push_back(&entities[i]);
+				fields[entities[i].fields[j]]->ei.push_back(i);
 			}
 			else
 			{
