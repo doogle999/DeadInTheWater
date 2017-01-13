@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Field.h"
 
+class Field;
 class Entity;
 
 class Selectables : public Field

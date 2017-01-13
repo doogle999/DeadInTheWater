@@ -1,15 +1,54 @@
-﻿  World.cpp
+﻿  Selectables.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+  Gravity.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+  Field.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+  Entity.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.cpp(75): warning C4018: '<': signed/unsigned mismatch
+  Collisions.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+  Camera2D.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(37): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2027: use of undefined type 'Field'
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(15): note: see declaration of 'Field'
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\world.h(38): error C2227: left of '->setWorld' must point to class/struct/union/generic type
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\camera2d.cpp(69): warning C4244: 'argument': conversion from 'P::TYPE_renderRadius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\camera2d.cpp(71): warning C4244: 'argument': conversion from 'P::TYPE_renderRadius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\camera2d.cpp(73): warning C4244: 'argument': conversion from 'P::TYPE_renderRadius' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  World.cpp
   Generating Code...
   Skipping... (no relevant changes detected)
-  Fields.cpp
-  Selectables.cpp
   Main.cpp
-  Gravity.cpp
   Game.cpp
-  Field.cpp
   EntityFactory.cpp
-  Entity.cpp
-  Collisions.cpp
-  Camera2D.cpp
-  DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
-  DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

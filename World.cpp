@@ -9,8 +9,6 @@
 
 World::World()
 {
-	fields.resize(Fields::Ids::META_FIELD_COUNT);
-
 	// For now, the order these are in is their call order, will add a priority system at some point
 	ADD_FIELD(Selectables)
 	ADD_FIELD(Collisions)
