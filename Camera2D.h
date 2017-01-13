@@ -8,7 +8,6 @@
 #include "Entity.h"
 #include "Field.h"
 
-class Field;
 class Entity;
 
 class Camera2D : public Field

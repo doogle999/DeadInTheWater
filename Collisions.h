@@ -6,7 +6,6 @@
 #include "Entity.h"
 #include "Field.h"
 
-class Field;
 class Entity;
 
 class Collisions : public Field

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <array>
 #include <utility>
 #include <algorithm>
 
@@ -12,8 +11,9 @@
 #include "Game.h"
 
 class Entity;
-class Field;
 class EntityFactory;
+class Field;
+class Behavior;
 class Game;
 
 class World
@@ -53,7 +53,7 @@ class World
 
 		static const size_t MAX_ENTITIES = 100;
 
-		std::array<Field*, 4> fields;
+		std::vector<Field*> fields;
 
 	friend EntityFactory;
 	friend Game;
