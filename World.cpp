@@ -47,8 +47,6 @@ World::World(World& w)
 
 	fields = w.fields;
 	behaviors = w.behaviors;
-
-	currentEntityCount = w.currentEntityCount;
 }
 
 World::~World()
@@ -65,48 +63,15 @@ World& World::operator=(World other)
 
 void World::input()
 {
-	bool noEntitiesSpawned = true;
+	addEntities();
+	removeEntities();
 
-	std::vector<size_t> removedEntities;
-	for(unsigned int i = 0; i < currentEntityCount; i++)
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
 	{
-		for(unsigned int j = 0; j < entities[i].scheduledToSpawn.size(); j++)
+		for(unsigned int j = 0; j < entities[i].inputers.size(); j++)
 		{
-			addEntity(entities[i].scheduledToSpawn[j]);
-			noEntitiesSpawned = false;
+			behaviors[entities[i].inputers[j]]->run(entities[i]);
 		}
-
-		if(entities[i].scheduledForDeletion)
-		{
-			removedEntities.push_back(i);
-		}
-	}
-
-	for(int i = removedEntities.size() - 1; i >= 0; i--)
-	{
-		removeEntity(removedEntities[i]);
-	}
-
-	for(unsigned int i = 0; i < fields.size(); i++)
-	{
-		if(removedEntities.size() != 0 || noEntitiesSpawned)
-		{
-			std::vector<Entity*> e;
-			int bozo = fieldEntities.at(fields.at(i)).size();
-			e.resize(fieldEntities.at(fields[i]).size());
-			for(unsigned int j = 0; j < fieldEntities.at(fields[i]).size(); j++)
-			{
-				e[j] = (&entities[fieldEntities.at(fields[i])[j]]);
-			}
-			fields[i]->initialize(e);
-		}
-
-		fields[i]->input();
-	}
-
-	for(unsigned int i = 0; i < currentEntityCount; i++)
-	{
-		entities[i].input();
 	}
 }
 void World::update()
@@ -115,9 +80,12 @@ void World::update()
 	{
 		fields[i]->update();
 	}
-	for(unsigned int i = 0; i < currentEntityCount; i++)
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
 	{
-		entities[i].update();
+		for(unsigned int j = 0; j < entities[i].updaters.size(); j++)
+		{
+			behaviors[entities[i].updaters[j]]->run(entities[i]);
+		}
 	}
 }
 void World::render()
@@ -126,61 +94,47 @@ void World::render()
 	{
 		fields[i]->render();
 	}
-	for(unsigned int i = 0; i < currentEntityCount; i++)
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
 	{
-		entities[i].render();
+		for(unsigned int j = 0; j < entities[i].renderers.size(); j++)
+		{
+			behaviors[entities[i].renderers[j]]->run(entities[i]);
+		}
 	}
 }
 
-void World::addEntity(Entity e)
+void World::addEntities()
 {
-	entities[currentEntityCount] = e;
-	currentEntityCount += 1;
-}
-void World::removeEntity(size_t i)
-{
-	currentEntityCount -= 1;
-	swap(entities[i], entities[currentEntityCount]);
+	size_t entitiesIndex = 0;
 
-	for(unsigned int j = 0; j < fields.size(); j++)
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
 	{
-		std::vector<size_t>* fieldEntitiesPointer = &fieldEntities[fields[j]];
-
-		if(fieldEntitiesPointer->size() > 0)
+		if(!entities[i].scheduledToSpawn.empty())
 		{
-			size_t hasI = -1;
-			size_t nextGreaterThanI = fieldEntitiesPointer->back();
-			bool hasCurrentEntities = false;
-
-			for(unsigned int k = 0; k < fieldEntitiesPointer->size(); k++)
+			for(unsigned int j = 0; j < entities[i].scheduledToSpawn.size(); j++)
 			{
-				if(fieldEntitiesPointer->at(k) == i)
+				while(entitiesIndex < MAX_ENTITIES)
 				{
-					hasI = k;
-				}
-				else if(fieldEntitiesPointer->at(k) > i)
-				{
-					nextGreaterThanI = k;
-				}
-				else if(fieldEntitiesPointer->at(k) == currentEntityCount)
-				{
-					hasCurrentEntities = true;
+					entitiesIndex += 1;
+					if(entities[entitiesIndex - 1].scheduledForDeletion == true)
+					{
+						entities[entitiesIndex - 1] = entities[i].scheduledToSpawn[j];
+						break;
+					}
 				}
 			}
-
-			if(hasI != -1 && hasCurrentEntities)
-			{
-				fieldEntitiesPointer->pop_back();
-			}
-			else if(hasI != -1 && !hasCurrentEntities)
-			{
-				fieldEntitiesPointer->erase(fieldEntitiesPointer->begin() + nextGreaterThanI);
-			}
-			else if(hasI == -1 && hasCurrentEntities)
-			{
-				fieldEntitiesPointer->insert(fieldEntitiesPointer->begin() + nextGreaterThanI, i);
-				fieldEntitiesPointer->pop_back();
-			}
+			entities[i].scheduledToSpawn.clear();
+		}
+	}
+}
+void World::removeEntities()
+{
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	{
+		if(entities[i].scheduledForDeletion)
+		{
+			entities[i].deleted = true;
+			entities[i].scheduledForDeletion = false;
 		}
 	}
 }

@@ -6,6 +6,7 @@ Entity::Entity()
 	propertiesMapLength = nullptr;
 	propertiesMap = nullptr; 
 
+	deleted = false;
 	scheduledForDeletion = false;
 };
 Entity::Entity(const Entity& e) // Copy constructor
@@ -23,7 +24,11 @@ Entity::Entity(const Entity& e) // Copy constructor
 	updaters = e.updaters;
 	renderers = e.renderers;
 
+	fields = e.fields;
+
+	deleted = e.deleted;
 	scheduledForDeletion = e.scheduledForDeletion;
+	scheduledToSpawn = e.scheduledToSpawn;
 }
 Entity::Entity(std::vector<P::Ids> p)
 {
@@ -110,28 +115,4 @@ bool Entity::compatible(Field* f) // Checks to see if this object has all the re
 		found = false; // Reset the checker
 	}
 	return true; // We have all the properties
-}
-
-void Entity::input()
-{
-	scheduledToSpawn.clear();
-
-	for(unsigned int i = 0; i < inputers.size(); i++)
-	{
-		inputers[i]->run(*this);
-	}
-}
-void Entity::update()
-{
-	for(unsigned int i = 0; i < updaters.size(); i++)
-	{
-		updaters[i]->run(*this);
-	}
-}
-void Entity::render()
-{
-	for(unsigned int i = 0; i < renderers.size(); i++)
-	{
-		renderers[i]->run(*this);
-	}
 }

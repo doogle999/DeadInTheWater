@@ -1,24 +1,54 @@
-﻿  Camera2D.cpp
+﻿  World.cpp
+  RenderShip.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendership.cpp(9): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendership.cpp(11): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendership.cpp(13): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
+  Properties.cpp
+  Main.cpp
+  Gravity.cpp
+  Fields.cpp
+  Field.cpp
+  EntityFactory.cpp
+  Camera2D.cpp
+  Behaviors.cpp
   Generating Code...
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<sf::Color>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<bool>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
   Compiling...
-  World.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
   SpawnOnSpace.cpp
   Selectables.cpp
   RenderCircle.cpp
-  Main.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendercircle.cpp(9): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendercircle.cpp(11): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\rendercircle.cpp(13): warning C4244: 'argument': conversion from 'P::TYPE_radius' to 'float', possible loss of data
   KillIfNotMoving.cpp
   KeyboardVelocity.cpp
   IncrementVelocity.cpp
   IncrementPosition.cpp
-  Gravity.cpp
   Game.cpp
-  Fields.cpp
-  Field.cpp
-  EntityFactory.cpp
   Entity.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.cpp(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.cpp(98): warning C4018: '<': signed/unsigned mismatch
   Collisions.cpp
   Camera2DRenderCircle.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\camera2drendercircle.cpp(9): warning C4244: 'argument': conversion from 'P::TYPE_renderRadius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\camera2drendercircle.cpp(11): warning C4244: 'argument': conversion from 'P::TYPE_renderRadius' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\camera2drendercircle.cpp(13): warning C4244: 'argument': conversion from 'P::TYPE_renderRadius' to 'float', possible loss of data
+  Generating Code...
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<sf::Color>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<bool>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<double>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<bool>': not all control paths return a value
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(80): warning C4715: 'Entity::access<bool>': not all control paths return a value
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

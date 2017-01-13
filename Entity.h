@@ -5,8 +5,8 @@
 #include <utility>
 
 #include "Properties.h"
-#include "Behavior.h"
-#include "Field.h"
+#include "Behaviors.h"
+#include "Fields.h"
 #include "EntityFactory.h"
 
 class EntityFactory;
@@ -38,7 +38,10 @@ class Entity
 			swap(first.inputers, second.inputers);
 			swap(first.updaters, second.updaters);
 			swap(first.renderers, second.renderers);
+			swap(first.fields, second.fields);
+			swap(first.deleted, second.deleted);
 			swap(first.scheduledForDeletion, second.scheduledForDeletion);
+			swap(first.scheduledToSpawn, second.scheduledToSpawn);
 		}
 
 		template <typename T>
@@ -47,10 +50,13 @@ class Entity
 		bool compatible(Behavior* b);
 		bool compatible(Field* f);
 
-		void input();
-		void update();
-		void render();
+		std::vector<Behaviors::Ids> inputers;
+		std::vector<Behaviors::Ids> updaters;
+		std::vector<Behaviors::Ids> renderers;
 
+		std::vector<Fields::Ids> fields;
+
+		bool deleted;
 		bool scheduledForDeletion;
 		std::vector<Entity> scheduledToSpawn;
 
@@ -58,10 +64,6 @@ class Entity
 		void* properties;
 		int* propertiesMapLength;
 		std::pair<P::Ids, size_t>* propertiesMap;
-
-		std::vector<Behavior*> inputers;
-		std::vector<Behavior*> updaters;
-		std::vector<Behavior*> renderers;
 
 	friend EntityFactory;
 };

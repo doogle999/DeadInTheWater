@@ -44,11 +44,10 @@ class World
 		void render();
 
 	private:
-		void addEntity(Entity e);
-		void removeEntity(size_t i);
+		void addEntities();
+		void removeEntities();
 
 		static const size_t MAX_ENTITIES = 100;
-		size_t currentEntityCount;
 		Entity* entities;
 
 		std::map<Field*, std::vector<size_t>> fieldEntities;
