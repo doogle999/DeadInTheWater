@@ -2,16 +2,16 @@
 
 #include <vector>
 
+#include "World.h"
 #include "Entity.h"
 #include "Properties.h"
 
+class World;
 class Entity;
 
 class Field
 {
 	public:
-		void initialize(std::vector<Entity*> e);
-
 		virtual void input();
 		virtual void update();
 		virtual void render();
@@ -19,5 +19,7 @@ class Field
 		virtual std::vector<P::Ids> getNecessaryProperties() = 0;
 
 	protected:
-		std::vector<Entity*> entities;
+		std::vector<size_t> entities;
+
+	friend World;
 };

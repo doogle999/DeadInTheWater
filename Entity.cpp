@@ -20,10 +20,6 @@ Entity::Entity(const Entity& e) // Copy constructor
 
 	std::memcpy(properties, e.properties, totalSize); // Copy the bytes from one Entity to another
 
-	inputers = e.inputers;
-	updaters = e.updaters;
-	renderers = e.renderers;
-
 	fields = e.fields;
 
 	deleted = e.deleted;
@@ -68,30 +64,6 @@ Entity& Entity::operator=(Entity other)
 	return *this;
 }
 
-bool Entity::compatible(Behavior* b) // Checks to see if this object has all the required properties of a behavior
-{
-	bool found = false; // Checks if we have the required property np[i]
-
-	std::vector<P::Ids> np = b->getNecessaryProperties(); // Get the properties this object needs
-
-	for(unsigned int i = 0; i < np.size(); i++) // Loop through all the elements in the needed properties list
-	{
-		for(unsigned int j = 0; j < *propertiesMapLength; j++) // Loop through all the elements in the properties list
-		{
-			if((propertiesMap + j)->first == np[i]) // Check if they are the same
-			{
-				found = true; // We found the property we were looking for, so we go back to the first loop
-				break;
-			}
-		}
-		if(!found) // We didn't find one of the properties we needed, so we are not compatible
-		{
-			return false;
-		}
-		found = false; // Reset the checker
-	}
-	return true; // We have all the properties
-}
 bool Entity::compatible(Field* f) // Checks to see if this object has all the required properties of a behavior
 {
 	bool found = false; // Checks if we have the required property np[i]

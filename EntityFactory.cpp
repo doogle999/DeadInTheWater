@@ -14,26 +14,21 @@ World EntityFactory::createWorld(std::string path)
 
 	World world;
 
-	world.currentEntityCount = 0;
+	unsigned int entityCounter = 0;
+
 	for(tinyxml2::XMLElement* entityElem = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityElem != NULL; entityElem = entityElem->NextSiblingElement("ENTITY"))
 	{
-		world.entities[world.currentEntityCount] = createEntity(entityElem, &world);
-		
-		world.currentEntityCount += 1;
-		if(world.currentEntityCount == World::MAX_ENTITIES)
-		{
-			break;
-		}
+		world.addEntity(createEntity(entityElem), entityCounter);
+		entityCounter++;
 	}
 
 	return world;
 }
 
-Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityElem, World* world)
+Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityElem)
 {
 	Entity entity = createEntityFromProperties(entityElem->FirstChildElement("PROPERTIES"));
-	addEntityToFields(entity, entityElem->FirstChildElement("FIELDS"), world);
-	addBehaviorsToEntity(entity, entityElem->FirstChildElement("BEHAVIORS"), world);
+	addEntityToFields(entity, entityElem->FirstChildElement("FIELDS"));
 
 	return entity;
 }
@@ -52,7 +47,7 @@ Entity EntityFactory::createEntityFromProperties(tinyxml2::XMLElement* propertie
 		}
 		catch(std::out_of_range e) // The property was not recognized or its name is not in the P::Names map
 		{
-			printf(e.what());
+			printf("Error recognizing property %s \n", propertyElem->FirstChildElement("NAME")->GetText());
 		}
 	}
 
@@ -85,68 +80,17 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 
 	return entity;
 }
-void EntityFactory::addEntityToFields(Entity& entity, tinyxml2::XMLElement* fieldsElem, World* world)
+void EntityFactory::addEntityToFields(Entity& entity, tinyxml2::XMLElement* fieldsElem)
 {
 	for(tinyxml2::XMLElement* fieldElem = fieldsElem->FirstChildElement("FIELD"); fieldElem; fieldElem = fieldElem->NextSiblingElement("FIELD"))
 	{
-		Field* fieldPointer = world->fields.at(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
-		if(entity.compatible(fieldPointer))
+		try
 		{
-			world->fieldEntities.at(fieldPointer).push_back(world->currentEntityCount);
+			entity.fields.push_back(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
 		}
-		else
+		catch(std::out_of_range e) // The field was not recognized or its name is not in Fields::FieldRegistry for some reason (cough cough Ajax you idiot you forgot to register it again cough cough)
 		{
-			printf("Attempted to put an Entity in a filed it is not compatible with");
-		}
-	}
-}
-void EntityFactory::addBehaviorsToEntity(Entity& entity, tinyxml2::XMLElement* behaviorsElem, World* world)
-{
-	bool inParentField = true;
-
-	for(tinyxml2::XMLElement* behaviorElem = behaviorsElem->FirstChildElement("BEHAVIOR"); behaviorElem; behaviorElem = behaviorElem->NextSiblingElement("BEHAVIOR"))
-	{
-		std::string behaviorName = behaviorElem->FirstChildElement("NAME")->GetText();
-		size_t pos = behaviorName.find("___");
-		if(pos != std::string::npos) // Checks if the behavior is part of a field
-		{
-			Field* behaviorParentField = world->fields.at(Fields::fieldRegistry.at(behaviorName.substr(0, pos)));
-			if(world->fieldEntities.at(behaviorParentField).empty())
-			{
-				printf("Attempted to create an entity with a behavior whose parent field it is not in");
-				inParentField = false;
-			}
-			if(world->fieldEntities.at(behaviorParentField).back() != world->currentEntityCount)
-			{
-				printf("Attempted to create an entity with a behavior whose parent field it is not in");
-				inParentField = false;
-			}
-		}
-
-		Behavior* behaviorPointer = world->behaviors.at(Behaviors::behaviorRegistry.at(behaviorName));
-		if(entity.compatible(behaviorPointer) && inParentField)
-		{
-			std::string group = behaviorElem->FirstChildElement("GROUP")->GetText();
-			if(group == "INPUTERS")
-			{
-				entity.inputers.push_back(behaviorPointer);
-			}
-			else if(group == "UPDATERS")
-			{
-				entity.updaters.push_back(behaviorPointer);
-			}
-			else if(group == "RENDERERS")
-			{
-				entity.renderers.push_back(behaviorPointer);
-			}
-			else
-			{
-				printf("Attempted to create an entity with a behavior in a group that doesn't exist");
-			}
-		}
-		else
-		{
-			printf("Attempted to create an entity with a behavior that it doesn't have the necessary properties for");
+			printf("Error recognizing field %s \n", fieldElem->FirstChildElement("NAME")->GetText());
 		}
 	}
 }

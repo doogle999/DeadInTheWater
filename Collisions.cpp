@@ -4,24 +4,6 @@ Collisions::Collisions() {}
 
 Collisions::~Collisions() {}
 
-	Collisions::StopOnCollision::StopOnCollision(Collisions& o) : owner(o) {}
-
-	Collisions::StopOnCollision::~StopOnCollision() {}
-
-	void Collisions::StopOnCollision::run(Entity& e)
-	{
-		if(owner.collision(e))
-		{
-			e.AXS(xVelocity) = 0;
-			e.AXS(yVelocity) = 0;
-		}
-	};
-
-	std::vector<P::Ids> Collisions::StopOnCollision::getNecessaryProperties()
-	{
-		return Collisions::necessaryProperties;
-	};
-
 std::vector<P::Ids> Collisions::getNecessaryProperties()
 {
 	return Collisions::necessaryProperties;

@@ -5,13 +5,13 @@
 #include <utility>
 
 #include "Properties.h"
-#include "Behaviors.h"
+#include "Field.h"
 #include "Fields.h"
 #include "EntityFactory.h"
 
 class EntityFactory;
-class Behavior;
 class Field;
+struct Fields;
 
 // ACCESS PROPERTIES WITH THIS MACRO TO ENSURE THE TYPE IS CORRECT
 // AXS stands for Access (aka AXESS aka AXS), use to access an entity's property 
@@ -35,9 +35,6 @@ class Entity
 			swap(first.properties, second.properties);
 			swap(first.propertiesMapLength, second.propertiesMapLength);
 			swap(first.propertiesMap, second.propertiesMap);
-			swap(first.inputers, second.inputers);
-			swap(first.updaters, second.updaters);
-			swap(first.renderers, second.renderers);
 			swap(first.fields, second.fields);
 			swap(first.deleted, second.deleted);
 			swap(first.scheduledForDeletion, second.scheduledForDeletion);
@@ -47,12 +44,7 @@ class Entity
 		template <typename T>
 		T& access(P::Ids id);
 
-		bool compatible(Behavior* b);
 		bool compatible(Field* f);
-
-		std::vector<Behaviors::Ids> inputers;
-		std::vector<Behaviors::Ids> updaters;
-		std::vector<Behaviors::Ids> renderers;
 
 		std::vector<Fields::Ids> fields;
 
@@ -71,7 +63,7 @@ class Entity
 template<typename T>
 T& Entity::access(P::Ids id) // When called you need to pass the right type, if the property you want is an int but you call double you get undefined behavior
 {
-	for(int i = 0; i < *propertiesMapLength; i++) // Search through the properties map to find the propert we want
+	for(int i = 0; i < *propertiesMapLength; i++) // Search through the properties map to find the property we want
 	{
 		if((propertiesMap + i)->first == id)
 		{

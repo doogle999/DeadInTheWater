@@ -13,27 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Behaviors">
-      <UniqueIdentifier>{e81df4b1-361a-49e7-8da5-52349bbb9cd4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Fields">
       <UniqueIdentifier>{22fdf69a-0b60-4542-bbef-886e46b9aeb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Behaviors">
-      <UniqueIdentifier>{e1954c96-01ed-48f5-bcbd-1ee6b633454e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Fields">
       <UniqueIdentifier>{e82bc0f7-ff7a-42c2-b528-c18a7c9864f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Fields\Camera2D Behaviors">
-      <UniqueIdentifier>{53167a54-0d09-4e2a-96d1-aafa3117072e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -54,20 +42,8 @@
     <ClCompile Include="Collisions.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="IncrementPosition.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderCircle.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardVelocity.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="KillIfNotMoving.cpp">
-      <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
     <ClCompile Include="Selectables.cpp">
       <Filter>Source Files\Fields</Filter>
@@ -75,26 +51,14 @@
     <ClCompile Include="Gravity.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="IncrementVelocity.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="SpawnOnSpace.cpp">
-      <Filter>Source Files\Behaviors</Filter>
-    </ClCompile>
     <ClCompile Include="Camera2D.cpp">
       <Filter>Source Files\Fields</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera2DRenderCircle.cpp">
-      <Filter>Source Files\Fields\Camera2D Behaviors</Filter>
     </ClCompile>
     <ClCompile Include="Fields.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Behaviors.cpp">
+    <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderShip.cpp">
-      <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Behavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EntityFactory.h">
@@ -125,41 +86,17 @@
     <ClInclude Include="Collisions.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="IncrementPosition.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderCircle.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardVelocity.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="KillIfNotMoving.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
     <ClInclude Include="Selectables.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
     <ClInclude Include="Gravity.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="IncrementVelocity.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="SpawnOnSpace.h">
-      <Filter>Header Files\Behaviors</Filter>
-    </ClInclude>
     <ClInclude Include="Camera2D.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
     <ClInclude Include="Fields.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Behaviors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderShip.h">
-      <Filter>Header Files\Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,6 @@
 #include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
-#include "Behavior.h"
 
 class Entity;
 
@@ -19,25 +18,10 @@ class Camera2D : public Field
 		~Camera2D();
 
 		virtual void input();
-
+		
 		virtual void update();
 
-		class RenderCircle : public Behavior
-		{
-			public:
-				RenderCircle(Camera2D& o);
-
-				~RenderCircle();
-
-				virtual void run(Entity& e);
-
-				virtual std::vector<P::Ids> getNecessaryProperties();
-
-			private:
-				Camera2D& owner;
-
-				static const std::vector<P::Ids> necessaryProperties;
-		};
+		virtual void render();
 
 		virtual std::vector<P::Ids> getNecessaryProperties();
 

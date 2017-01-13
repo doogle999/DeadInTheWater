@@ -4,7 +4,7 @@ Camera2D::Camera2D()
 {
 	viewportX = 0;
 	viewportY = 0;
-	viewportS = 2000000000;
+	viewportS = 1;
 }
 
 Camera2D::~Camera2D() {}
@@ -62,9 +62,25 @@ void Camera2D::update()
 	viewportS *= viewportSFactor;
 }
 
+void Camera2D::render()
+{
+	for(unsigned int i = 0; i < entities.size(); i++)
+	{
+		sf::CircleShape c(entities[i]->AXS(renderRadius) / viewportS);
+
+		c.setOrigin(entities[i]->AXS(renderRadius) / viewportS, entities[i]->AXS(renderRadius) / viewportS);
+
+		c.setPosition((entities[i]->AXS(xPosition) - viewportX) / viewportS, (entities[i]->AXS(yPosition) - viewportY) / viewportS);
+
+		c.setFillColor(entities[i]->AXS(color));
+
+		Game::window->draw(c);
+	}
+}
+
 std::vector<P::Ids> Camera2D::getNecessaryProperties()
 {
 	return Camera2D::necessaryProperties;
 };
 
-const std::vector<P::Ids> Camera2D::necessaryProperties = {};
+const std::vector<P::Ids> Camera2D::necessaryProperties = { P::Ids::color, P::Ids::xPosition, P::Ids::yPosition, P::Ids::renderRadius };

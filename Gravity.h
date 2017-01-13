@@ -5,7 +5,6 @@
 #include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
-#include "Behavior.h"
 
 class Entity;
 

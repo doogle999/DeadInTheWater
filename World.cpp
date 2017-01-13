@@ -5,36 +5,17 @@
 #include "Gravity.h"
 #include "Camera2D.h"
 
-#include "IncrementPosition.h"
-#include "IncrementVelocity.h"
-#include "RenderCircle.h"
-#include "KeyboardVelocity.h"
-#include "KillIfNotMoving.h"
-
-#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fieldEntities[TEMP_ ## FIELD] = {};
-#define ADD_FIELD_BEHAVIOR(BEHAVIOR, FIELD) behaviors[Behaviors::Ids::Id_ ## FIELD ## ___ ## BEHAVIOR] = new FIELD ## :: ## BEHAVIOR(*TEMP_ ## FIELD);
-#define ADD_BEHAVIOR(BEHAVIOR) behaviors[Behaviors::Ids::Id_ ## BEHAVIOR] = new BEHAVIOR;
+#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD;
 
 World::World()
 {
 	fields.resize(Fields::Ids::META_FIELD_COUNT);
-	behaviors.resize(Behaviors::Ids::META_BEHAVIOR_COUNT);
 
+	// For now, the order these are in is their call order, will add a priority system at some point
 	ADD_FIELD(Selectables)
-
 	ADD_FIELD(Collisions)
-	ADD_FIELD_BEHAVIOR(StopOnCollision, Collisions)
-
 	ADD_FIELD(Gravity)
-
 	ADD_FIELD(Camera2D)
-	ADD_FIELD_BEHAVIOR(RenderCircle, Camera2D)
-
-	ADD_BEHAVIOR(IncrementPosition)
-	ADD_BEHAVIOR(IncrementVelocity)
-	ADD_BEHAVIOR(KillIfNotMoving)
-	ADD_BEHAVIOR(KeyboardVelocity)
-	ADD_BEHAVIOR(RenderCircle)
 
 	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 }
@@ -43,10 +24,7 @@ World::World(World& w)
 	entities = (Entity*)malloc(MAX_ENTITIES * sizeof(Entity));
 	std::memcpy(entities, w.entities, MAX_ENTITIES * sizeof(Entity));
 
-	fieldEntities = w.fieldEntities;
-
 	fields = w.fields;
-	behaviors = w.behaviors;
 }
 
 World::~World()
@@ -63,15 +41,12 @@ World& World::operator=(World other)
 
 void World::input()
 {
-	addEntities();
-	removeEntities();
+	checkScheduledToSpawn();
+	checkScheduledForDeletion();
 
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int i = 0; i < fields.size(); i++)
 	{
-		for(unsigned int j = 0; j < entities[i].inputers.size(); j++)
-		{
-			behaviors[entities[i].inputers[j]]->run(entities[i]);
-		}
+		fields[i]->input();
 	}
 }
 void World::update()
@@ -80,13 +55,6 @@ void World::update()
 	{
 		fields[i]->update();
 	}
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
-	{
-		for(unsigned int j = 0; j < entities[i].updaters.size(); j++)
-		{
-			behaviors[entities[i].updaters[j]]->run(entities[i]);
-		}
-	}
 }
 void World::render()
 {
@@ -94,16 +62,32 @@ void World::render()
 	{
 		fields[i]->render();
 	}
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+}
+
+void World::addEntity(Entity e, unsigned int i)
+{
+	if(i < MAX_ENTITIES)
 	{
-		for(unsigned int j = 0; j < entities[i].renderers.size(); j++)
+		entities[i] = e;
+		for(unsigned int j = 0; j < entities[i].fields.size(); j++)
 		{
-			behaviors[entities[i].renderers[j]]->run(entities[i]);
+			if(entities[i].compatible(fields[entities[i].fields[j]]))
+			{
+				fields[entities[i].fields[j]]->entities.push_back(&entities[i]);
+			}
+			else
+			{
+				printf("Tried to add an entity to a field, but it wasn't compatible \n");
+			}
 		}
+	}
+	else
+	{
+		printf("Tried to add an entity, but the world is full (exceeded MAX_ENTITIES), the entity was not added \n");
 	}
 }
 
-void World::addEntities()
+void World::checkScheduledToSpawn()
 {
 	size_t entitiesIndex = 0;
 
@@ -118,7 +102,7 @@ void World::addEntities()
 					entitiesIndex += 1;
 					if(entities[entitiesIndex - 1].scheduledForDeletion == true)
 					{
-						entities[entitiesIndex - 1] = entities[i].scheduledToSpawn[j];
+						addEntity(entities[i].scheduledToSpawn[j], entitiesIndex - 1);
 						break;
 					}
 				}
@@ -127,7 +111,7 @@ void World::addEntities()
 		}
 	}
 }
-void World::removeEntities()
+void World::checkScheduledForDeletion()
 {
 	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
 	{

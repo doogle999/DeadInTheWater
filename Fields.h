@@ -3,8 +3,6 @@
 #include <map>
 #include <string>
 
-#include "World.h"
-
 struct Fields
 {
 	enum Ids // It's important to note that all worlds have all fields, and that the enum values represent the indices of those fields in their field arrays

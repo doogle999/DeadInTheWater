@@ -4,19 +4,19 @@
 		<PROPERTIES>
 			<PROPERTY>
 				<NAME>xPosition</NAME>
-				<VALUE>-99726352504.8</VALUE>
+				<VALUE>0</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>yPosition</NAME>
-				<VALUE>-1.125246030989050E+11</VALUE>
+				<VALUE>0</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>xVelocity</NAME>
-				<VALUE>38783.0875179</VALUE>
+				<VALUE>0</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>yVelocity</NAME>
-				<VALUE>-34939.6835448</VALUE>
+				<VALUE>0</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>xAcceleration</NAME>
@@ -45,246 +45,13 @@
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>renderRadius</NAME>
-				<VALUE>3185500000</VALUE>
+				<VALUE>100</VALUE>
 			</PROPERTY>
 		</PROPERTIES>
 		<FIELDS>
 			<FIELD>
-				<NAME>Gravity</NAME>
-			</FIELD>
-			<FIELD>
 				<NAME>Camera2D</NAME>
 			</FIELD>
 		</FIELDS>
-		<BEHAVIORS>
-			<BEHAVIOR>
-				<NAME>IncrementVelocity</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>IncrementPosition</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>Camera2D___RenderCircle</NAME>
-				<GROUP>RENDERERS</GROUP>
-			</BEHAVIOR>
-		</BEHAVIORS>
-	</ENTITY>
-	
-	<ENTITY>
-		<PROPERTIES>
-			<PROPERTY>
-				<NAME>xPosition</NAME>
-				<VALUE>-1.832051787230327E+11</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yPosition</NAME>
-				<VALUE>-7.718266404584310E+11</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xVelocity</NAME>
-				<VALUE>1.255400711154192E+04</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yVelocity</NAME>
-				<VALUE>-2.393043109071348E+03</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xAcceleration</NAME>
-				<VALUE>0.0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yAcceleration</NAME>
-				<VALUE>0.0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>radius</NAME>
-				<VALUE>69911000</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>mass</NAME>
-				<VALUE>1.8986E+27</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>color</NAME>
-				<VALUE>
-					<RED>255</RED>
-					<GREEN>0</GREEN>
-					<BLUE>0</BLUE>
-					<ALPHA>255</ALPHA>
-				</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>renderRadius</NAME>
-				<VALUE>6991100000</VALUE>
-			</PROPERTY>
-		</PROPERTIES>
-		<FIELDS>
-			<FIELD>
-				<NAME>Gravity</NAME>
-			</FIELD>
-			<FIELD>
-				<NAME>Camera2D</NAME>
-			</FIELD>
-		</FIELDS>
-		<BEHAVIORS>
-			<BEHAVIOR>
-				<NAME>IncrementVelocity</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>IncrementPosition</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>Camera2D___RenderCircle</NAME>
-				<GROUP>RENDERERS</GROUP>
-			</BEHAVIOR>
-		</BEHAVIORS>
-	</ENTITY>
-
-	<ENTITY>
-		<PROPERTIES>
-			<PROPERTY>
-				<NAME>xPosition</NAME>
-				<VALUE>-9.973272350477691E+10</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yPosition</NAME>
-				<VALUE>-1.125246030989050E+11</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xVelocity</NAME>
-				<VALUE>2.192908544969840E+04</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yVelocity</NAME>
-				<VALUE>-1.972367908636907E+04</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xAcceleration</NAME>
-				<VALUE>0.0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yAcceleration</NAME>
-				<VALUE>0.0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>radius</NAME>
-				<VALUE>6371000</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>mass</NAME>
-				<VALUE>5.972E24</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>color</NAME>
-				<VALUE>
-					<RED>0</RED>
-					<GREEN>0</GREEN>
-					<BLUE>255</BLUE>
-					<ALPHA>255</ALPHA>
-				</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>renderRadius</NAME>
-				<VALUE>3185500000</VALUE>
-			</PROPERTY>
-		</PROPERTIES>
-		<FIELDS>
-			<FIELD>
-				<NAME>Gravity</NAME>
-			</FIELD>
-			<FIELD>
-				<NAME>Camera2D</NAME>
-			</FIELD>
-		</FIELDS>
-		<BEHAVIORS>
-			<BEHAVIOR>
-				<NAME>IncrementVelocity</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>IncrementPosition</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>Camera2D___RenderCircle</NAME>
-				<GROUP>RENDERERS</GROUP>
-			</BEHAVIOR>
-		</BEHAVIORS>
-	</ENTITY>
-
-	<ENTITY>
-		<PROPERTIES>
-			<PROPERTY>
-				<NAME>xPosition</NAME>
-				<VALUE>-2.705230210005018E+08</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yPosition</NAME>
-				<VALUE>1.137047798486537E+09</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xVelocity</NAME>
-				<VALUE>-1.448178043244328E+01</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yVelocity</NAME>
-				<VALUE>1.034128787123014E+00</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xAcceleration</NAME>
-				<VALUE>0.0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yAcceleration</NAME>
-				<VALUE>0.0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>radius</NAME>
-				<VALUE>695700000</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>mass</NAME>
-				<VALUE>1.988E30</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>color</NAME>
-				<VALUE>
-					<RED>255</RED>
-					<GREEN>255</GREEN>
-					<BLUE>0</BLUE>
-					<ALPHA>255</ALPHA>
-				</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>renderRadius</NAME>
-				<VALUE>69570000000</VALUE>
-			</PROPERTY>
-		</PROPERTIES>
-		<FIELDS>
-			<FIELD>
-				<NAME>Gravity</NAME>
-			</FIELD>
-			<FIELD>
-				<NAME>Camera2D</NAME>
-			</FIELD>
-		</FIELDS>
-		<BEHAVIORS>
-			<BEHAVIOR>
-				<NAME>IncrementVelocity</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>IncrementPosition</NAME>
-				<GROUP>UPDATERS</GROUP>
-			</BEHAVIOR>
-			<BEHAVIOR>
-				<NAME>Camera2D___RenderCircle</NAME>
-				<GROUP>RENDERERS</GROUP>
-			</BEHAVIOR>
-		</BEHAVIORS>
 	</ENTITY>
 </ENTITIES>
