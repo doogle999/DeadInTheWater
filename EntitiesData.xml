@@ -50,7 +50,7 @@
 		</PROPERTIES>
 		<FIELDS>
 			<FIELD>
-				<NAME>Camera2D</NAME>
+				<NAME>RenderBoat</NAME>
 			</FIELD>
 		</FIELDS>
 	</ENTITY>

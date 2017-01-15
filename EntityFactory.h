@@ -8,6 +8,7 @@
 
 #include "World.h"
 #include "Field.h"
+#include "Fields.h"
 #include "Entity.h"
 #include "Properties.h"
 
@@ -15,6 +16,7 @@
 
 class World;
 class Entity;
+class Field;
 
 class EntityFactory
 {

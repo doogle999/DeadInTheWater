@@ -15,6 +15,7 @@ class Field
 	public:
 		void setWorld(World* w);
 
+
 		virtual void input();
 		virtual void update();
 		virtual void render();

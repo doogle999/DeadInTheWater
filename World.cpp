@@ -4,25 +4,28 @@
 #include "Selectables.h"
 #include "Gravity.h"
 #include "Camera2D.h"
+#include "RenderBoat.h"
 
 #define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
 
 World::World()
 {
-	fields.resize(Fields::Ids::META_FIELD_COUNT);
-
 	// For now, the order these are in is their call order, will add a priority system at some point
 	ADD_FIELD(Selectables)
 	ADD_FIELD(Collisions)
 	ADD_FIELD(Gravity)
 	ADD_FIELD(Camera2D)
+	ADD_FIELD(RenderBoat)
 
 	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 }
-World::World(World& w)
+World::World(World& w) // Copy constructor (deep)
 {
-	entities = (Entity*)malloc(MAX_ENTITIES * sizeof(Entity));
-	std::memcpy(entities, w.entities, MAX_ENTITIES * sizeof(Entity));
+	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
+	for(int i = 0; i < MAX_ENTITIES; i++)
+	{
+		entities[i] = Entity(w.entities[i]);
+	}
 
 	fields = w.fields;
 	for(unsigned int i = 0; i < fields.size(); i++)
@@ -38,8 +41,14 @@ World::~World()
 
 World& World::operator=(World other)
 {
-	swap(*this, other);
+	using std::swap;
 
+	swap(this->entities, other.entities);
+	swap(this->fields, other.fields);
+	for(unsigned int i = 0; i < this->fields.size(); i++)
+	{
+		this->fields[i]->setWorld(this);
+	}
 	return *this;
 }
 

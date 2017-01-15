@@ -8,8 +8,8 @@
 int main()
 {
 	World world = EntityFactory::createWorld("EntitiesData.xml");
-
-	Game::init(1000, 500, (Game::ms)5, world, 100000);
+	
+	Game::init(1000, 500, (Game::ms)1, world, 100000);
 
 	Game::loop();
 

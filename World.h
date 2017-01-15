@@ -1,20 +1,16 @@
 #pragma once
 
-#include <vector>
+#include <array>
 #include <utility>
 #include <algorithm>
 
 #include "Entity.h"
-#include "EntityFactory.h"
 #include "Field.h"
 #include "Fields.h"
 #include "Game.h"
 
 class Entity;
-class EntityFactory;
 class Field;
-class Behavior;
-class Game;
 
 class World
 {
@@ -26,35 +22,18 @@ class World
 
 		World& operator=(World other);
 
-		friend void swap(World& first, World& second)
-		{
-			using std::swap;
-
-			swap(first.entities, second.entities);
-			swap(first.fields, second.fields);
-			for(unsigned int i = 0; i < first.fields.size(); i++)
-			{
-				first.fields[i]->setWorld(&first);
-				second.fields[i]->setWorld(&second);
-			}
-		}
-
 		void input();
 		void update();
 		void render();
 
 		Entity* entities;
+		std::array<Field*, Fields::Ids::META_FIELD_COUNT> fields;
 
-	private:
 		void addEntity(Entity e, unsigned int i);
 
+	private:
 		void checkScheduledToSpawn();
 		void checkScheduledForDeletion();
 
 		static const size_t MAX_ENTITIES = 100;
-
-		std::vector<Field*> fields;
-
-	friend EntityFactory;
-	friend Game;
 };

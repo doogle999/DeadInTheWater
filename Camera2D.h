@@ -7,8 +7,10 @@
 #include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
+#include "RenderBoat.h"
 
 class Entity;
+class RenderBoat;
 
 class Camera2D : public Field
 {
@@ -20,8 +22,6 @@ class Camera2D : public Field
 		virtual void input();
 		
 		virtual void update();
-
-		virtual void render();
 
 		virtual std::vector<P::Ids> getNecessaryProperties();
 
@@ -35,4 +35,6 @@ class Camera2D : public Field
 		double viewportXVelocity; // Independent of scale
 		double viewportYVelocity;
 		double viewportSFactor;
+
+	friend RenderBoat;
 };

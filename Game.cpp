@@ -12,6 +12,8 @@ void Game::init(int wW, int wH, ms tR, World w, double sF)
 	world = w;
 
 	speedFactor = sF;
+
+	Textures::load();
 }
 
 void Game::loop()
@@ -71,6 +73,8 @@ void Game::exit()
 	window->close();
 
 	delete window;
+
+	Textures::unload();
 }
 
 double Game::getTick()

@@ -6,19 +6,31 @@ Entity::Entity()
 	propertiesMapLength = nullptr;
 	propertiesMap = nullptr; 
 
+	fields = {};
+
 	deleted = false;
 	scheduledForDeletion = false;
+	scheduledToSpawn = {};
 };
-Entity::Entity(const Entity& e) // Copy constructor
+Entity::Entity(const Entity& e) // Copy constructor (deep)
 {
-	size_t propertiesSize = reinterpret_cast<char*>(e.propertiesMapLength) - static_cast<char*>(e.properties); // Size of the properties 
-	size_t totalSize = reinterpret_cast<char*>(e.propertiesMap + *(e.propertiesMapLength)) - static_cast<char*>(e.properties); // Size of the properties, the propertiesMap, and its length
+	if(e.properties == nullptr || e.propertiesMap == nullptr || e.propertiesMapLength == nullptr)
+	{
+		properties = nullptr;
+		propertiesMapLength = nullptr;
+		propertiesMap = nullptr;
+	}
+	else
+	{
+		size_t propertiesSize = reinterpret_cast<char*>(e.propertiesMapLength) - static_cast<char*>(e.properties); // Size of the properties 
+		size_t totalSize = reinterpret_cast<char*>(e.propertiesMap + *(e.propertiesMapLength)) - static_cast<char*>(e.properties); // Size of the properties, the propertiesMap, and its length
 
-	properties = malloc(totalSize); // Allocate the memory for all three
-	propertiesMapLength = reinterpret_cast<int*>(static_cast<char*>(properties) + propertiesSize); // Set the location of the propertiesMap length
-	propertiesMap = reinterpret_cast<std::pair<P::Ids, size_t>*>(static_cast<char*>(properties) + propertiesSize + sizeof(int)); // Set the location of the propertiesMap
+		properties = malloc(totalSize); // Allocate the memory for all three
+		propertiesMapLength = reinterpret_cast<int*>(static_cast<char*>(properties) + propertiesSize); // Set the location of the propertiesMap length
+		propertiesMap = reinterpret_cast<std::pair<P::Ids, size_t>*>(static_cast<char*>(properties) + propertiesSize + sizeof(int)); // Set the location of the propertiesMap
 
-	std::memcpy(properties, e.properties, totalSize); // Copy the bytes from one Entity to another
+		std::memcpy(properties, e.properties, totalSize); // Copy the bytes from one Entity to another
+	}
 
 	fields = e.fields;
 

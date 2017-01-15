@@ -11,6 +11,7 @@ struct Fields
 		Id_Collisions,
 		Id_Gravity,
 		Id_Camera2D,
+		Id_RenderBoat,
 		META_FIELD_COUNT
 	};
 
