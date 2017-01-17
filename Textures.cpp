@@ -1,5 +1,7 @@
 #include "Textures.h"
 
+#define ADD_PATH(NAME) textures[Textures::Ids:: ## NAME] = new sf::Texture(); textures[Textures::Ids:: ## NAME]->loadFromFile("Textures\\" ## #NAME ##".png");
+
 std::array<sf::Texture*, Textures::Ids::META_TEXTURE_COUNT> Textures::textures;
 
 sf::Texture& Textures::get(Textures::Ids id)
@@ -9,9 +11,8 @@ sf::Texture& Textures::get(Textures::Ids id)
 
 void Textures::load()
 {
-	textures[Textures::Ids::Boat] = new sf::Texture();
-	textures[Textures::Ids::Boat]->create(32, 16);
-	textures[Textures::Ids::Boat]->loadFromFile("Textures\\Boat.png");
+	ADD_PATH(Boat)
+	ADD_PATH(Projectile)
 }
 void Textures::unload()
 {
@@ -20,3 +21,5 @@ void Textures::unload()
 		delete textures[i];
 	}
 }
+
+#undef ADD_PATH

@@ -10,6 +10,7 @@ class Textures
 		enum Ids
 		{
 			Boat,
+			Projectile,
 			META_TEXTURE_COUNT
 		};
 

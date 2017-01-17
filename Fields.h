@@ -12,6 +12,8 @@ struct Fields
 		Id_Gravity,
 		Id_Camera2D,
 		Id_RenderBoat,
+		Id_SpawnProjectile,
+		Id_RenderProjectile,
 		META_FIELD_COUNT
 	};
 

@@ -8,7 +8,9 @@ const std::map<std::string, Fields::Ids> Fields::fieldRegistry
 	ADD_NAME(Collisions),
 	ADD_NAME(Gravity),
 	ADD_NAME(Camera2D),
-	ADD_NAME(RenderBoat)
+	ADD_NAME(RenderBoat),
+	ADD_NAME(SpawnProjectile),
+	ADD_NAME(RenderProjectile)
 };
 
 #undef ADD_NAME

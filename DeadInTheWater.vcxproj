@@ -131,6 +131,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RenderBoat.cpp" />
+    <ClCompile Include="RenderProjectile.cpp" />
+    <ClCompile Include="SpawnProjectile.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Selectables.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -147,6 +149,8 @@
     <ClInclude Include="Gravity.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="RenderBoat.h" />
+    <ClInclude Include="RenderProjectile.h" />
+    <ClInclude Include="SpawnProjectile.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Selectables.h" />
     <ClInclude Include="tinyxml2.h" />

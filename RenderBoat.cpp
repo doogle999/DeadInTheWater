@@ -28,4 +28,4 @@ std::vector<P::Ids> RenderBoat::getNecessaryProperties()
 	return RenderBoat::necessaryProperties;
 };
 
-const std::vector<P::Ids> RenderBoat::necessaryProperties = { P::Ids::color, P::Ids::xPosition, P::Ids::yPosition };
+const std::vector<P::Ids> RenderBoat::necessaryProperties = { P::Ids::xPosition, P::Ids::yPosition };

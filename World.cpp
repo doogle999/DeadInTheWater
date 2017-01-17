@@ -5,6 +5,8 @@
 #include "Gravity.h"
 #include "Camera2D.h"
 #include "RenderBoat.h"
+#include "SpawnProjectile.h"
+#include "RenderProjectile.h"
 
 #define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
 
@@ -16,6 +18,8 @@ World::World()
 	ADD_FIELD(Gravity)
 	ADD_FIELD(Camera2D)
 	ADD_FIELD(RenderBoat)
+	ADD_FIELD(SpawnProjectile)
+	ADD_FIELD(RenderProjectile)
 
 	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 }

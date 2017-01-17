@@ -8,9 +8,11 @@
 #include "Entity.h"
 #include "Field.h"
 #include "RenderBoat.h"
+#include "RenderProjectile.h"
 
 class Entity;
 class RenderBoat;
+class RenderProjectile;
 
 class Camera2D : public Field
 {
@@ -37,4 +39,5 @@ class Camera2D : public Field
 		double viewportSFactor;
 
 	friend RenderBoat;
+	friend RenderProjectile;
 };
