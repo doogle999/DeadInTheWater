@@ -26,14 +26,22 @@ class World
 		void update();
 		void render();
 
-		Entity* entities;
-		std::array<Field*, Fields::Ids::META_FIELD_COUNT> fields;
+		void addEntity(Entity e, std::vector<Fields::Ids> f, size_t i);
 
-		void addEntity(Entity e, unsigned int i);
+		void scheduleToSpawn(Entity e, std::vector<Fields::Ids> f);
+		void scheduleToDespawn(size_t i);
+
+		Entity* entities;
+
+		std::array<Field*, Fields::Ids::META_FIELD_COUNT> fields;
 
 	private:
 		void checkScheduledToSpawn();
-		void checkScheduledForDeletion();
+		void checkScheduledToDespawn();
+
+		std::vector<std::pair<Entity, std::vector<Fields::Ids>>> scheduledToSpawn;
+		std::vector<size_t> scheduledToDespawn;
 
 		static const size_t MAX_ENTITIES = 100;
+		std::array<bool, MAX_ENTITIES> currentEntities;
 };

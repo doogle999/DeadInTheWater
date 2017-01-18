@@ -5,12 +5,6 @@ Entity::Entity()
 	properties = nullptr; 
 	propertiesMapLength = nullptr;
 	propertiesMap = nullptr; 
-
-	fields = {};
-
-	deleted = false;
-	scheduledForDeletion = false;
-	scheduledToSpawn = {};
 };
 Entity::Entity(const Entity& e) // Copy constructor (deep)
 {
@@ -31,12 +25,6 @@ Entity::Entity(const Entity& e) // Copy constructor (deep)
 
 		std::memcpy(properties, e.properties, totalSize); // Copy the bytes from one Entity to another
 	}
-
-	fields = e.fields;
-
-	deleted = e.deleted;
-	scheduledForDeletion = e.scheduledForDeletion;
-	scheduledToSpawn = e.scheduledToSpawn;
 }
 Entity::Entity(std::vector<P::Ids> p)
 {
@@ -60,8 +48,6 @@ Entity::Entity(std::vector<P::Ids> p)
 	{
 		*(propertiesMap + i) = propertiesMapTemporary[i];
 	}
-	
-	scheduledForDeletion = false;
 }
 
 Entity::~Entity()

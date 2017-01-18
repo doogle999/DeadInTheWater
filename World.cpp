@@ -13,6 +13,12 @@
 
 World::World()
 {
+	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	{
+		currentEntities[i] = false;
+	}
+
 	// For now, the order these are in is their call order, will add a priority system at some point
 	ADD_FIELD(Selectables)
 	ADD_FIELD(Collisions)
@@ -22,12 +28,6 @@ World::World()
 	ADD_FIELD(SpawnProjectile)
 	ADD_FIELD(RenderProjectile)
 	ADD_FIELD(Timeout)
-
-	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
-	{
-		entities[i].deleted = true;
-	}
 }
 World::World(World& w) // Copy constructor (deep)
 {
@@ -42,6 +42,11 @@ World::World(World& w) // Copy constructor (deep)
 	{
 		fields[i]->setWorld(this);
 	}
+
+	scheduledToSpawn = w.scheduledToSpawn;
+	scheduledToDespawn = w.scheduledToDespawn;
+
+	currentEntities = w.currentEntities;
 }
 
 World::~World()
@@ -49,23 +54,30 @@ World::~World()
 	free(entities);
 }
 
-World& World::operator=(World other)
+World& World::operator=(World w)
 {
 	using std::swap;
 
-	swap(this->entities, other.entities);
-	swap(this->fields, other.fields);
+	swap(this->entities, w.entities);
+
+	swap(this->fields, w.fields);
 	for(unsigned int i = 0; i < this->fields.size(); i++)
 	{
 		this->fields[i]->setWorld(this);
 	}
+
+	swap(this->scheduledToSpawn, w.scheduledToSpawn);
+	swap(this->scheduledToDespawn, w.scheduledToDespawn);
+
+	swap(this->currentEntities, w.currentEntities);
+
 	return *this;
 }
 
 void World::input()
 {
 	checkScheduledToSpawn();
-	checkScheduledForDeletion();
+	checkScheduledToDespawn();
 
 	for(unsigned int i = 0; i < fields.size(); i++)
 	{
@@ -87,16 +99,17 @@ void World::render()
 	}
 }
 
-void World::addEntity(Entity e, unsigned int i)
+void World::addEntity(Entity e, std::vector<Fields::Ids> f,  size_t i)
 {
 	if(i < MAX_ENTITIES)
 	{
 		entities[i] = e;
-		for(unsigned int j = 0; j < entities[i].fields.size(); j++)
+		currentEntities[i] = true;
+		for(unsigned int j = 0; j < f.size(); j++)
 		{
-			if(entities[i].compatible(fields[entities[i].fields[j]]))
+			if(entities[i].compatible(fields[f[j]]))
 			{
-				fields[entities[i].fields[j]]->ei.push_back(i);
+				fields[f[j]]->addEntityIndex(i);
 			}
 			else
 			{
@@ -110,45 +123,47 @@ void World::addEntity(Entity e, unsigned int i)
 	}
 }
 
-void World::checkScheduledToSpawn()
+void World::scheduleToSpawn(Entity e, std::vector<Fields::Ids> f)
+{
+	scheduledToSpawn.push_back(std::make_pair(e, f));
+}
+void World::scheduleToDespawn(size_t i)
+{
+	scheduledToDespawn.push_back(i);
+}
+
+void World::checkScheduledToSpawn() // This is optimized so that it only has to run through the whole entities array checking for free spots once
 {
 	size_t entitiesIndex = 0;
 
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int j = 0; j < scheduledToSpawn.size(); j++)
 	{
-		if(!entities[i].scheduledToSpawn.empty())
+		while(entitiesIndex < MAX_ENTITIES)
 		{
-			for(unsigned int j = 0; j < entities[i].scheduledToSpawn.size(); j++)
+			entitiesIndex += 1;
+			if(currentEntities[entitiesIndex - 1] == false)
 			{
-				while(entitiesIndex < MAX_ENTITIES)
-				{
-					entitiesIndex += 1;
-					if(entities[entitiesIndex - 1].deleted == true)
-					{
-						addEntity(entities[i].scheduledToSpawn[j], entitiesIndex - 1);
-						break;
-					}
-				}
+				addEntity(scheduledToSpawn[j].first, scheduledToSpawn[j].second, entitiesIndex - 1);
+				break;
 			}
-			entities[i].scheduledToSpawn.clear();
 		}
 	}
+	
+	scheduledToSpawn.clear();
 }
-void World::checkScheduledForDeletion()
+void World::checkScheduledToDespawn()
 {
-	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	for(unsigned int i = 0; i < scheduledToDespawn.size(); i++)
 	{
-		if(entities[i].scheduledForDeletion)
-		{
-			entities[i].deleted = true;
-			entities[i].scheduledForDeletion = false;
+		currentEntities[scheduledToDespawn[i]] = false;
 
-			for(unsigned int j = 0; j < fields.size(); j++)
-			{
-				fields[j]->ei.erase(std::remove(fields[j]->ei.begin(), fields[j]->ei.end(), i), fields[j]->ei.end());
-			}
+		for(unsigned int j = 0; j < fields.size(); j++)
+		{
+			fields[j]->removeEntityIndex(scheduledToDespawn[i]);
 		}
 	}
+
+	scheduledToDespawn.clear();
 }
 
 #undef REGISTER_FIELD

@@ -14,7 +14,7 @@ void Timeout::update()
 		}
 		else
 		{
-			w->entities[ei[i]].scheduledForDeletion = true;
+			w->scheduleToDespawn(ei[i]);
 		}
 	}
 }

@@ -35,22 +35,12 @@ class Entity
 			swap(first.properties, second.properties);
 			swap(first.propertiesMapLength, second.propertiesMapLength);
 			swap(first.propertiesMap, second.propertiesMap);
-			swap(first.fields, second.fields);
-			swap(first.deleted, second.deleted);
-			swap(first.scheduledForDeletion, second.scheduledForDeletion);
-			swap(first.scheduledToSpawn, second.scheduledToSpawn);
 		}
 
 		template <typename T>
 		T& access(P::Ids id);
 
 		bool compatible(Field* f);
-
-		std::vector<Fields::Ids> fields;
-
-		bool deleted;
-		bool scheduledForDeletion;
-		std::vector<Entity> scheduledToSpawn;
 
 	private:
 		void* properties;

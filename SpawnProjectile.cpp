@@ -11,17 +11,17 @@ void SpawnProjectile::input()
 		if(w->entities[ei[i]].AXS(reloadTime) <= 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			Entity e({ P::Ids::xPosition, P::Ids::yPosition, P::Ids::xVelocity, P::Ids::yVelocity, P::Ids::timeoutTime });
-
 			e.AXS(xPosition) = w->entities[ei[i]].AXS(xPosition);
 			e.AXS(yPosition) = w->entities[ei[i]].AXS(yPosition);
 			e.AXS(xVelocity) = 10;
 			e.AXS(yVelocity) = 10;
 			e.AXS(timeoutTime) = 1;
 
-			e.fields.push_back(Fields::Ids::Id_RenderProjectile);
-			e.fields.push_back(Fields::Ids::Id_Timeout);
+			std::vector<Fields::Ids> f;
+			f.push_back(Fields::Ids::Id_RenderProjectile);
+			f.push_back(Fields::Ids::Id_Timeout);
 
-			w->entities[ei[i]].scheduledToSpawn.push_back(e);
+			w->scheduleToSpawn(e, f);
 
 			w->entities[ei[i]].AXS(reloadTime) = cooldown;
 		}

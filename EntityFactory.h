@@ -23,11 +23,9 @@ class EntityFactory
 	public:
 		static World createWorld(std::string path);
 
-		static Entity createEntity(tinyxml2::XMLElement* entityElem);
-
 		static Entity createEntityFromProperties(tinyxml2::XMLElement* propertiesElem);
 		static Entity createEntityFromProperties(std::vector<P::Ids> propertyIds, std::vector<tinyxml2::XMLElement*> propertyValues);
-		static void addEntityToFields(Entity& entity, tinyxml2::XMLElement* fieldsElem);
+		static std::vector<Fields::Ids> convertFieldElemsToFieldIds(tinyxml2::XMLElement* fieldsElem);
 
 		template<typename T>
 		static T interpretPropertyValue(tinyxml2::XMLElement* value); // Interprets an XML element that holds the value of a property and converts it into the specified type

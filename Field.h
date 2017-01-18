@@ -15,6 +15,8 @@ class Field
 	public:
 		void setWorld(World* w);
 
+		void addEntityIndex(size_t i);
+		void removeEntityIndex(size_t i);
 
 		virtual void input();
 		virtual void update();
@@ -25,6 +27,4 @@ class Field
 	protected:
 		std::vector<size_t> ei;
 		World* w;
-
-	friend World;
 };

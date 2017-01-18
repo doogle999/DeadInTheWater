@@ -14,23 +14,12 @@ World EntityFactory::createWorld(std::string path)
 
 	World world;
 
-	unsigned int entityCounter = 0;
-
 	for(tinyxml2::XMLElement* entityElem = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityElem != NULL; entityElem = entityElem->NextSiblingElement("ENTITY"))
 	{
-		world.addEntity(createEntity(entityElem), entityCounter);
-		entityCounter++;
+		world.scheduleToSpawn(createEntityFromProperties(entityElem->FirstChildElement("PROPERTIES")), convertFieldElemsToFieldIds(entityElem->FirstChildElement("FIELDS")));
 	}
 
 	return world;
-}
-
-Entity EntityFactory::createEntity(tinyxml2::XMLElement* entityElem)
-{
-	Entity entity = createEntityFromProperties(entityElem->FirstChildElement("PROPERTIES"));
-	addEntityToFields(entity, entityElem->FirstChildElement("FIELDS"));
-
-	return entity;
 }
 
 Entity EntityFactory::createEntityFromProperties(tinyxml2::XMLElement* propertiesElem)
@@ -81,19 +70,22 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 
 	return entity;
 }
-void EntityFactory::addEntityToFields(Entity& entity, tinyxml2::XMLElement* fieldsElem)
+std::vector<Fields::Ids> EntityFactory::convertFieldElemsToFieldIds(tinyxml2::XMLElement* fieldsElem)
 {
+	std::vector<Fields::Ids> f;
 	for(tinyxml2::XMLElement* fieldElem = fieldsElem->FirstChildElement("FIELD"); fieldElem; fieldElem = fieldElem->NextSiblingElement("FIELD"))
 	{
 		try
 		{
-			entity.fields.push_back(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
+			f.push_back(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
 		}
 		catch(std::out_of_range e) // The field was not recognized or its name is not in Fields::FieldRegistry for some reason (cough cough Ajax you idiot you forgot to register it again cough cough)
 		{
 			printf("Error recognizing field %s \n", fieldElem->FirstChildElement("NAME")->GetText());
 		}
 	}
+
+	return f;
 }
 
 template<> int EntityFactory::interpretPropertyValue<int>(tinyxml2::XMLElement* value)
