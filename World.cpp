@@ -7,6 +7,7 @@
 #include "RenderBoat.h"
 #include "SpawnProjectile.h"
 #include "RenderProjectile.h"
+#include "Timeout.h"
 
 #define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
 
@@ -20,8 +21,13 @@ World::World()
 	ADD_FIELD(RenderBoat)
 	ADD_FIELD(SpawnProjectile)
 	ADD_FIELD(RenderProjectile)
+	ADD_FIELD(Timeout)
 
 	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
+	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
+	{
+		entities[i].deleted = true;
+	}
 }
 World::World(World& w) // Copy constructor (deep)
 {
@@ -117,7 +123,7 @@ void World::checkScheduledToSpawn()
 				while(entitiesIndex < MAX_ENTITIES)
 				{
 					entitiesIndex += 1;
-					if(entities[entitiesIndex - 1].scheduledForDeletion == true)
+					if(entities[entitiesIndex - 1].deleted == true)
 					{
 						addEntity(entities[i].scheduledToSpawn[j], entitiesIndex - 1);
 						break;
@@ -136,6 +142,11 @@ void World::checkScheduledForDeletion()
 		{
 			entities[i].deleted = true;
 			entities[i].scheduledForDeletion = false;
+
+			for(unsigned int j = 0; j < fields.size(); j++)
+			{
+				fields[j]->ei.erase(std::remove(fields[j]->ei.begin(), fields[j]->ei.end(), i), fields[j]->ei.end());
+			}
 		}
 	}
 }

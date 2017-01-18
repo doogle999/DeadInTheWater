@@ -135,6 +135,7 @@
     <ClCompile Include="SpawnProjectile.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Selectables.cpp" />
+    <ClCompile Include="Timeout.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="SpawnProjectile.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Selectables.h" />
+    <ClInclude Include="Timeout.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

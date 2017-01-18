@@ -1,6 +1,3 @@
-﻿  RenderProjectile.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(20): warning C4244: 'argument': conversion from 'P::TYPE_xPosition' to 'float', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(74): warning C4715: 'Entity::access<double>': not all control paths return a value
+﻿  World.cpp
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

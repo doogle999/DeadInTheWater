@@ -14,6 +14,7 @@ struct Fields
 		Id_RenderBoat,
 		Id_SpawnProjectile,
 		Id_RenderProjectile,
+		Id_Timeout,
 		META_FIELD_COUNT
 	};
 

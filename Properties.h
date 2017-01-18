@@ -22,7 +22,8 @@ struct P
 		mass,
 		reloadTime,
 		color,
-		renderRadius
+		renderRadius,
+		timeoutTime
 	};
 
 	ADD_TYPE(xPosition, double)
@@ -37,6 +38,7 @@ struct P
 	ADD_TYPE(reloadTime, double)
 	ADD_TYPE(color, sf::Color)
 	ADD_TYPE(renderRadius, double)
+	ADD_TYPE(timeoutTime, double)
 
 	static const std::map<P::Ids, size_t> Sizes; // Used in Entity memory allocation
 	static const std::map<std::string, P::Ids> Names; // Used in decoding and recoding XML

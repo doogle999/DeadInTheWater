@@ -12,14 +12,12 @@
 class Entity;
 class Camera2D;
 
-class SpawnProjectile : public Field
+class Timeout : public Field
 {
 	public:
-		SpawnProjectile();
+		Timeout();
 
-		~SpawnProjectile();
-
-		virtual void input();
+		~Timeout();
 
 		virtual void update();
 
@@ -27,6 +25,4 @@ class SpawnProjectile : public Field
 
 	private:
 		static const std::vector<P::Ids> necessaryProperties;
-
-		static const double cooldown;
 };

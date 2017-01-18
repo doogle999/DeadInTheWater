@@ -72,6 +72,9 @@
     <ClCompile Include="RenderProjectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Timeout.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="RenderProjectile.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timeout.h">
+      <Filter>Header Files\Fields</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

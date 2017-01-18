@@ -73,6 +73,7 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 			ADD_PROPERTY_CASE(reloadTime)
 			ADD_PROPERTY_CASE(color)
 			ADD_PROPERTY_CASE(renderRadius)
+			ADD_PROPERTY_CASE(timeoutTime)
 
 			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
 		}
