@@ -15,8 +15,6 @@
 #include "tinyxml2.h"
 
 class World;
-class Entity;
-class Field;
 
 class EntityFactory
 {

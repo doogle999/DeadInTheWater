@@ -1,4 +1,24 @@
-﻿  Timeout.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.h(64): warning C4715: 'Entity::access<double>': not all control paths return a value
+﻿  Camera2D.cpp
+  Generating Code...
+  Compiling...
+  World.cpp
+  Timeout.cpp
+  SpawnProjectile.cpp
+  Selectables.cpp
+  RenderProjectile.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(20): warning C4244: 'argument': conversion from 'P::TYPE_xPosition' to 'float', possible loss of data
+  RenderBoat.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderboat.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderboat.cpp(20): warning C4244: 'argument': conversion from 'P::TYPE_xPosition' to 'float', possible loss of data
+  Main.cpp
+  Gravity.cpp
+  Game.cpp
+  Field.cpp
+  EntityFactory.cpp
+  Entity.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\entity.cpp(67): warning C4018: '<': signed/unsigned mismatch
+  Collisions.cpp
+  Generating Code...
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

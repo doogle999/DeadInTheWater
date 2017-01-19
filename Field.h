@@ -8,7 +8,6 @@
 #include "Fields.h"
 
 class World;
-class Entity;
 
 class Field
 {
@@ -23,6 +22,7 @@ class Field
 		virtual void render();
 
 		virtual std::vector<P::Ids> getNecessaryProperties() = 0;
+		bool compatible(Entity* e);
 
 	protected:
 		std::vector<size_t> ei;

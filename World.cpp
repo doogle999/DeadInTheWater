@@ -13,7 +13,6 @@
 
 World::World()
 {
-	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 	for(unsigned int i = 0; i < MAX_ENTITIES; i++)
 	{
 		currentEntities[i] = false;
@@ -31,7 +30,6 @@ World::World()
 }
 World::World(World& w) // Copy constructor (deep)
 {
-	entities = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
 	for(int i = 0; i < MAX_ENTITIES; i++)
 	{
 		entities[i] = Entity(w.entities[i]);
@@ -49,10 +47,7 @@ World::World(World& w) // Copy constructor (deep)
 	currentEntities = w.currentEntities;
 }
 
-World::~World()
-{
-	free(entities);
-}
+World::~World() {}
 
 World& World::operator=(World w)
 {
@@ -107,7 +102,7 @@ void World::addEntity(Entity e, std::vector<Fields::Ids> f,  size_t i)
 		currentEntities[i] = true;
 		for(unsigned int j = 0; j < f.size(); j++)
 		{
-			if(entities[i].compatible(fields[f[j]]))
+			if(fields[f[j]]->compatible(&entities[i]))
 			{
 				fields[f[j]]->addEntityIndex(i);
 			}

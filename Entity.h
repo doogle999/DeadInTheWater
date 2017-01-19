@@ -2,16 +2,10 @@
 
 #include <vector>
 #include <cassert>
+#include <exception>
 #include <utility>
 
 #include "Properties.h"
-#include "Field.h"
-#include "Fields.h"
-#include "EntityFactory.h"
-
-class EntityFactory;
-class Field;
-struct Fields;
 
 // ACCESS PROPERTIES WITH THIS MACRO TO ENSURE THE TYPE IS CORRECT
 // AXS stands for Access (aka AXESS aka AXS), use to access an entity's property 
@@ -40,14 +34,12 @@ class Entity
 		template <typename T>
 		T& access(P::Ids id);
 
-		bool compatible(Field* f);
+		bool hasProperty(P::Ids id);
 
 	private:
 		void* properties;
 		int* propertiesMapLength;
 		std::pair<P::Ids, size_t>* propertiesMap;
-
-	friend EntityFactory;
 };
 
 template<typename T>
@@ -61,4 +53,5 @@ T& Entity::access(P::Ids id) // When called you need to pass the right type, if 
 		}
 	}
 	assert(0 && "Attempted to access a property that either does not exist or this entity does not have"); // The property that was being accessed was not in the map
+	abort(); // Get rid of the goddamn warning that prints for every single call to this function that "not all control paths return a value"
 }
