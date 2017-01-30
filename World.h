@@ -2,6 +2,7 @@
 
 #include <array>
 #include <utility>
+#include <tuple>
 #include <algorithm>
 
 #include "Entity.h"
@@ -19,7 +20,7 @@ class World
 
 		~World();
 
-		World& operator=(World other);
+		World& operator=(World w);
 
 		void input();
 		void update();
@@ -27,6 +28,8 @@ class World
 
 		void scheduleToSpawn(Entity e, std::vector<Fields::Ids> f);
 		void scheduleToDespawn(size_t i);
+
+		void scheduleToChangeFields(size_t i, Fields::Ids f, bool b);
 
 		static const size_t MAX_ENTITIES = 100;
 		std::array<Entity, MAX_ENTITIES> entities;
@@ -39,8 +42,12 @@ class World
 		void checkScheduledToSpawn();
 		void checkScheduledToDespawn();
 
+		void checkScheduledToChangeFields();
+
 		std::vector<std::pair<Entity, std::vector<Fields::Ids>>> scheduledToSpawn;
 		std::vector<size_t> scheduledToDespawn;
+
+		std::vector<std::tuple<size_t, Fields::Ids, bool>> scheduledToChangeFields;
 
 		std::array<bool, MAX_ENTITIES> currentEntities;
 };

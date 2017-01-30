@@ -15,7 +15,9 @@ class Field
 		void setWorld(World* w);
 
 		void addEntityIndex(size_t i);
+		void safeAddEntityIndex(size_t i); // Checks if the index is already there before adding, nothing special
 		void removeEntityIndex(size_t i);
+		void safeRemoveEntityIndex(size_t i);
 
 		virtual void input();
 		virtual void update();

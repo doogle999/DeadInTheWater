@@ -9,7 +9,18 @@ void Field::addEntityIndex(size_t i)
 {
 	ei.push_back(i);
 }
+void Field::safeAddEntityIndex(size_t i)
+{
+	if(std::find(ei.begin(), ei.end(), i) == ei.end())
+	{
+		ei.push_back(i);
+	}
+}
 void Field::removeEntityIndex(size_t i)
+{
+	ei.erase(std::remove(ei.begin(), ei.end(), i), ei.end());
+}
+void Field::safeRemoveEntityIndex(size_t i)
 {
 	ei.erase(std::remove(ei.begin(), ei.end(), i), ei.end());
 }

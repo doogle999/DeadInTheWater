@@ -38,14 +38,14 @@ class Entity
 
 	private:
 		void* properties;
-		int* propertiesMapLength;
+		unsigned int* propertiesMapLength;
 		std::pair<P::Ids, size_t>* propertiesMap;
 };
 
 template<typename T>
 T& Entity::access(P::Ids id) // When called you need to pass the right type, if the property you want is an int but you call double you get undefined behavior
 {
-	for(int i = 0; i < *propertiesMapLength; i++) // Search through the properties map to find the property we want
+	for(unsigned int i = 0; i < *propertiesMapLength; i++) // Search through the properties map to find the property we want
 	{
 		if((propertiesMap + i)->first == id)
 		{

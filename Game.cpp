@@ -55,6 +55,7 @@ void Game::loop()
 		}
 
 		// Rendering
+
 		window->clear();
 
 		Game::world.render();

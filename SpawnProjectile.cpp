@@ -22,6 +22,7 @@ void SpawnProjectile::input()
 			f.push_back(Fields::Ids::Id_Timeout);
 
 			w->scheduleToSpawn(e, f);
+			w->scheduleToChangeFields(ei[i], Fields::Ids::Id_RenderBoat, false);
 
 			w->entities[ei[i]].AXS(reloadTime) = cooldown;
 		}

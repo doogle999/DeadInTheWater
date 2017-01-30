@@ -43,6 +43,7 @@ World::World(World& w) // Copy constructor (deep)
 
 	scheduledToSpawn = w.scheduledToSpawn;
 	scheduledToDespawn = w.scheduledToDespawn;
+	scheduledToChangeFields = w.scheduledToChangeFields;
 
 	currentEntities = w.currentEntities;
 }
@@ -63,6 +64,7 @@ World& World::operator=(World w)
 
 	swap(this->scheduledToSpawn, w.scheduledToSpawn);
 	swap(this->scheduledToDespawn, w.scheduledToDespawn);
+	swap(this->scheduledToChangeFields, w.scheduledToChangeFields);
 
 	swap(this->currentEntities, w.currentEntities);
 
@@ -73,6 +75,7 @@ void World::input()
 {
 	checkScheduledToSpawn();
 	checkScheduledToDespawn();
+	checkScheduledToChangeFields();
 
 	for(unsigned int i = 0; i < fields.size(); i++)
 	{
@@ -127,6 +130,11 @@ void World::scheduleToDespawn(size_t i)
 	scheduledToDespawn.push_back(i);
 }
 
+void World::scheduleToChangeFields(size_t i, Fields::Ids f, bool b)
+{
+	scheduledToChangeFields.push_back(std::make_tuple(i, f, b));
+}
+
 void World::checkScheduledToSpawn() // This is optimized so that it only has to run through the whole entities array checking for free spots once
 {
 	size_t entitiesIndex = 0;
@@ -159,6 +167,26 @@ void World::checkScheduledToDespawn()
 	}
 
 	scheduledToDespawn.clear();
+}
+
+void World::checkScheduledToChangeFields()
+{
+	for(unsigned int i = 0; i < scheduledToChangeFields.size(); i++)
+	{
+		if(std::get<2>(scheduledToChangeFields[i]) == true)
+		{
+			if(fields[std::get<1>(scheduledToChangeFields[i])]->compatible(&entities[std::get<0>(scheduledToChangeFields[i])]))
+			{
+				fields[std::get<1>(scheduledToChangeFields[i])]->safeAddEntityIndex(std::get<0>(scheduledToChangeFields[i]));
+			}
+		}
+		else
+		{
+			fields[std::get<1>(scheduledToChangeFields[i])]->safeRemoveEntityIndex(std::get<0>(scheduledToChangeFields[i]));
+		}
+	}
+
+	scheduledToChangeFields.clear();
 }
 
 #undef REGISTER_FIELD
