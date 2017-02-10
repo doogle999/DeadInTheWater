@@ -5,6 +5,7 @@
 #include "SFML/System.hpp"
 
 #include <chrono>
+#include <random>
 
 #include "World.h"
 #include "Textures.h"
@@ -28,6 +29,8 @@ class Game
 		static sf::RenderWindow* window;
 
 		static ms tickRate;
+
+		static std::mt19937 rng;
 
 	private:
 		static World world;

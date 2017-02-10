@@ -69,10 +69,13 @@
     <ClCompile Include="SpawnProjectile.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="RenderProjectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Timeout.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderProjectile.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="IslandMaker.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,10 +125,13 @@
     <ClInclude Include="SpawnProjectile.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="RenderProjectile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Timeout.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderProjectile.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="IslandMaker.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
   </ItemGroup>

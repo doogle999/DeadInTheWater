@@ -13,6 +13,8 @@ void Game::init(int wW, int wH, ms tR, World w, double sF)
 
 	speedFactor = sF;
 
+	rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+
 	Textures::load();
 }
 
@@ -95,5 +97,7 @@ int Game::windowWidth;
 int Game::windowHeight;
 
 Game::ms Game::tickRate;
+
+std::mt19937 Game::rng;
 
 double Game::speedFactor;

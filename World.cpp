@@ -177,12 +177,12 @@ void World::checkScheduledToChangeFields()
 		{
 			if(fields[std::get<1>(scheduledToChangeFields[i])]->compatible(&entities[std::get<0>(scheduledToChangeFields[i])]))
 			{
-				fields[std::get<1>(scheduledToChangeFields[i])]->safeAddEntityIndex(std::get<0>(scheduledToChangeFields[i]));
+				fields[std::get<1>(scheduledToChangeFields[i])]->noRepeatAddEntityIndex(std::get<0>(scheduledToChangeFields[i]));
 			}
 		}
 		else
 		{
-			fields[std::get<1>(scheduledToChangeFields[i])]->safeRemoveEntityIndex(std::get<0>(scheduledToChangeFields[i]));
+			fields[std::get<1>(scheduledToChangeFields[i])]->removeEntityIndex(std::get<0>(scheduledToChangeFields[i]));
 		}
 	}
 
