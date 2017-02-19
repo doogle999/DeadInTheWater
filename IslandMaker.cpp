@@ -11,6 +11,35 @@ std::vector<P::Ids> IslandMaker::getNecessaryProperties()
 
 const std::vector<P::Ids> IslandMaker::necessaryProperties = {};
 
+
+std::vector<std::vector<bool>> IslandMaker::generateIslandBoolMap(unsigned int sizeFactor, double threshold)
+{
+	Noise noise(sizeFactor);
+
+	std::vector<std::vector<bool>> boolMap;
+	boolMap.resize(sizeFactor * UPSCALE);
+
+	double maxDistance = sqrt((double)((UPSCALE * sizeFactor / 2) * (UPSCALE * sizeFactor / 2)) + (double)((UPSCALE * sizeFactor / 2) * (UPSCALE * sizeFactor / 2))); // Max distance from center
+	double tempDistance;
+	double tempHeight;
+
+	for(unsigned int i = 0; i < UPSCALE * sizeFactor; i++)
+	{
+		boolMap[i].resize(sizeFactor * UPSCALE);
+
+		for(unsigned int j = 0; j < UPSCALE * sizeFactor; j++)
+		{
+			tempDistance = sqrt((double)((i - UPSCALE * sizeFactor / 2) * (i - UPSCALE * sizeFactor / 2)) + (double)((j - UPSCALE * sizeFactor / 2) * (j - UPSCALE * sizeFactor / 2))); // Distance from center
+			tempHeight = -2 * tempDistance / maxDistance + 1;
+			tempHeight += 1.5 * noise.getHeightOctave((double)i / UPSCALE, (double)j / UPSCALE, 5, 0.2);
+
+			boolMap[i][j] = tempHeight > threshold;
+		}
+	}
+
+	return boolMap;
+}
+
 IslandMaker::Noise::Noise(unsigned int period)
 {
 	std::iota(permutations.begin(), permutations.end(), 0);
@@ -20,19 +49,6 @@ IslandMaker::Noise::Noise(unsigned int period)
 }
 
 IslandMaker::Noise::~Noise() {}
-
-std::vector<std::vector<bool>> IslandMaker::generateIslandHeightMap(unsigned int sizeFactor)
-{
-	Noise noise(sizeFactor);
-
-	for(unsigned int i = 0; i < 16 * sizeFactor; i++)
-	{
-		for(unsigned int j = 0; j < 16 * sizeFactor; j++)
-		{
-			
-		}
-	}
-}
 
 double IslandMaker::Noise::getHeight(double x, double y) const
 {                            

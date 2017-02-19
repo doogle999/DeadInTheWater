@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Fields">
       <UniqueIdentifier>{e82bc0f7-ff7a-42c2-b528-c18a7c9864f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Geometry">
+      <UniqueIdentifier>{7bd5d42f-fc66-473f-ba46-d4404b98d49e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Geometry">
+      <UniqueIdentifier>{f8a46319-1b2f-4052-87e7-04b8989bd123}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -78,6 +84,9 @@
     <ClCompile Include="IslandMaker.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -133,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="IslandMaker.h">
       <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

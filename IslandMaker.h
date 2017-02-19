@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include "Properties.h"
+#include "Game.h"
 #include "Entity.h"
 #include "Field.h"
 #include "Point.h"
@@ -25,8 +26,10 @@ class IslandMaker : public Field
 
 		virtual std::vector<P::Ids> getNecessaryProperties();
 
-	private:
+	//private:
 		static const std::vector<P::Ids> necessaryProperties;
+
+		static const unsigned int UPSCALE = 16;
 
 		class Noise // Perlin Noise, with octaves
 		{
@@ -55,11 +58,7 @@ class IslandMaker : public Field
 				std::array<unsigned char, SIZE> permutations;
 		};
 
-		class Polygon
-		{	
-			public:
-				std::vector<Point> points; // Points in clockwise order
-		};
+		//std::vector<> generateIsland(unsigned int sizeFactor); // Generates the polygon (or polygons, if there are surrounding islets) that describe an island, the size of the island is sizeFactor times the UPSCALE constant
 
-		Polygon generateIsland();
+		std::vector<std::vector<bool>> generateIslandBoolMap(unsigned int sizeFactor, double threshold); // Generates a map of the island and the water surrounding it that says if there is land or water at a point, threshold is a value between -1 and 1 that specifies above what value is land
 };
