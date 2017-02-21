@@ -84,7 +84,7 @@
     <ClCompile Include="IslandMaker.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="Point.cpp">
+    <ClCompile Include="Polygon.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
@@ -144,6 +144,9 @@
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
   </ItemGroup>

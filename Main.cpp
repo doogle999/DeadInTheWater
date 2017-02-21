@@ -7,6 +7,8 @@
 #include "Game.h"
 
 #include "IslandMaker.h"
+#include "Polygon.h"
+#include "Point.h"
 
 int main()
 {
@@ -16,22 +18,25 @@ int main()
 
 	IslandMaker im;
 
-	std::vector<std::vector<bool>> map = im.generateIslandBoolMap(6, 0.0);
+	std::vector<Polygon> polys = im.generateIsland(4, 0.2);
 
-	for(unsigned int i = 0; i < 16 * 6; i++)
+	for(unsigned int k = 0; k < polys.size(); k++)
 	{
-		for(unsigned int j = 0; j < 16 * 6; j++)
+		for(unsigned int i = 0; i < 16 * 6 + 1; i++)
 		{
-			if(map[i][j])
+			for(unsigned int j = 0; j < 16 * 6 + 1; j++)
 			{
-				std::cout << "#";
+				if()
+				{
+					std::cout << "#";
+				}
+				else
+				{
+					std::cout << " ";
+				}
 			}
-			else
-			{
-				std::cout << " ";
-			}
+			std::cout << std::endl;
 		}
-		std::cout << std::endl;
 	}
 
 	std::cin.get();

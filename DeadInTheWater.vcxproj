@@ -130,7 +130,7 @@
     <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="IslandMaker.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RenderBoat.cpp" />
     <ClCompile Include="RenderProjectile.cpp" />
@@ -152,6 +152,7 @@
     <ClInclude Include="Gravity.h" />
     <ClInclude Include="IslandMaker.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="RenderBoat.h" />
     <ClInclude Include="RenderProjectile.h" />
