@@ -26,14 +26,7 @@ int main()
 		{
 			for(unsigned int j = 0; j < 16 * 6 + 1; j++)
 			{
-				if()
-				{
-					std::cout << "#";
-				}
-				else
-				{
-					std::cout << " ";
-				}
+			
 			}
 			std::cout << std::endl;
 		}

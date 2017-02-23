@@ -8,49 +8,112 @@ std::vector<Polygon> IslandMaker::generateIsland(unsigned int sizeFactor, double
 {
 	IslandData islandData(sizeFactor, threshold);
 
-	std::vector<std::vector<bool>> usedOpenEdgeMap; // Edges that have already been used
-	usedOpenEdgeMap.resize(sizeFactor * UPSCALE);
+	std::vector<std::vector<bool>> unusedOpenEdge; // Locations of land that edge on water or the border
+	unusedOpenEdge.resize(sizeFactor * UPSCALE);
+	for(unsigned int i = 0; i < unusedOpenEdge.size(); i++)
+	{
+		unusedOpenEdge[i].resize(unusedOpenEdge.size());
+	}
 	for(unsigned int i = 0; i < UPSCALE * sizeFactor; i++)
 	{
-		usedOpenEdgeMap[i].resize(sizeFactor * UPSCALE);
 		for(unsigned int j = 0; j < UPSCALE * sizeFactor; j++)
 		{
-			usedOpenEdgeMap[i][j] = false;
+			std::array<bool, 4> temp = islandData.getLocationOpenEdges(j, i);
+			if(islandData.boolMap[j][i])
+			{
+				if(temp[0] + temp[1] + temp[2] + temp[3] > 0)
+				{
+					unusedOpenEdge[j][i] = true;
+					//printf("X");
+				}
+				else
+				{
+					unusedOpenEdge[j][i] = false;
+					//printf("#");
+				}
+			}
+			else
+			{
+				unusedOpenEdge[j][i] = false;
+				//printf(" ");
+			}
 		}
+		//printf("\n");
 	}
 
 	std::vector<Polygon> polys; // Grid coordinaes between the squares, 1 larger in both directions than the boolmap
 
-	for(unsigned int i = 0; i < UPSCALE * sizeFactor; i++) // Find the top left most edge
+	for(unsigned int j = 0; j < UPSCALE * sizeFactor; j++) // Y position
 	{
-		for(unsigned int j = 0; j < UPSCALE * sizeFactor; j++)
+		for(unsigned int i = 0; i < UPSCALE * sizeFactor; i++) // X position
 		{
-			if(islandData.boolMap[i][j] && !usedOpenEdgeMap[i][j])
+			if(unusedOpenEdge[i][j])
 			{
-				usedOpenEdgeMap[i][j] = true;
-				
 				Polygon poly;
 
-				poly.points.push_back(Point(i, j)); // Starting grid coordinates, top left of the square found
-				poly.points.push_back(Point(i + 1, j + 1)); // Step to the right, since we know above this square is nothing or water
+				std::vector<std::pair<unsigned int, unsigned int>> possibleLocationsInTwoPolygons; // Locations that are open on two sides and closed on the other two could be part of two polygons, we can't just mark them as used
+	
+				std::array<bool, 4> temp = islandData.getGridLandLocations(i, j); // If this is an internal lake, we should start 1 down because that's the actual edge
+				if(temp[0] + 2 * temp[1] + 4 * temp[2] + 8 * temp[3] == 15)
+				{
+					poly.points.push_back(Point(i, j + 1)); // Starting grid coordinates, bottom left of the square found
+					poly.points.push_back(Point(i + 1, j + 1)); // Step to the right, since we know below this square is nothing or water
+				}
+				else
+				{
+					poly.points.push_back(Point(i, j)); // Starting grid coordinates, top left of the square found
+					poly.points.push_back(Point(i + 1, j)); // Step to the right, since we know above this square is nothing or water
+				}
 
 				bool closed = false;
 				while(!closed)
 				{
-					std::array<std::pair<unsigned int, unsigned int>, 2> possibleNextPoint;
+					std::array<std::pair<signed char, signed char>, 2> possibleNextPoint;
 
 					std::array<bool, 4> temp = islandData.getGridLandLocations(poly.points[poly.points.size() - 1].x, poly.points[poly.points.size() - 1].y);
-					unsigned char code = temp[0] + 2 * temp[1] + 4 * temp[3] + 8 * temp[4]; // The surroundings code number: top left determines 0 or 1, top right determines 0 or 2, bottom right determines 0 or 4, bottom left determiens 0 or 8, 16 possible cases
-					
+					unsigned char code = temp[0] + 2 * temp[1] + 4 * temp[2] + 8 * temp[3]; // The surroundings code number: top left determines 0 or 1, top right determines 0 or 2, bottom right determines 0 or 4, bottom left determiens 0 or 8, 16 possible cases
+
+					for(unsigned int k = 0; k < 4; k++) // Set the locations we used to used except if they can possibly be in two polygons
+					{
+						try 
+						{ 
+							if(islandData.boolMap.at(poly.points.back().x - (k % 2)).at(poly.points.back().y - (k / 2)))
+							{
+								std::array<bool, 4> temp = islandData.getLocationOpenEdges(j, i);
+
+								if(abs(temp[0] + temp[2] - temp[1] - temp[3]) == 2)
+								{
+									if(possibleLocationsInTwoPolygons.erase(
+										std::remove(possibleLocationsInTwoPolygons.begin(), 
+										possibleLocationsInTwoPolygons.end(), 
+										std::make_pair((unsigned int)poly.points.back().x - (k % 2), (unsigned int)poly.points.back().y - (k / 2))),
+										possibleLocationsInTwoPolygons.end()) != possibleLocationsInTwoPolygons.end()) // This has been passed over twice, so it can't be in any other polygons, remove it and set it used
+									{
+										unusedOpenEdge.at(poly.points.back().x - (k % 2)).at(poly.points.back().y - (k / 2)) = false;
+									}
+									else
+									{
+										possibleLocationsInTwoPolygons.push_back(std::make_pair(poly.points.back().x - (k % 2), poly.points.back().y - (k / 2)));
+									}
+								}
+								else
+								{
+									unusedOpenEdge.at(poly.points.back().x - (k % 2)).at(poly.points.back().y - (k / 2)) = false;
+								}
+							}
+						}
+						catch(std::out_of_range) {}
+					}
+
 					switch(code)
 					{
 						case 1: 
 							possibleNextPoint[0] = std::make_pair(-1, 0);	// #O
-							possibleNextPoint[1] = std::make_pair(0, 1);	// OO
+							possibleNextPoint[1] = std::make_pair(0, -1);	// OO
 							break;
 						case 2:
 							possibleNextPoint[0] = std::make_pair(1, 0);	// O#
-							possibleNextPoint[1] = std::make_pair(0, 1);	// OO
+							possibleNextPoint[1] = std::make_pair(0, -1);	// OO
 							break;
 						case 3:
 							possibleNextPoint[0] = std::make_pair(1, 0);	// ##
@@ -58,18 +121,20 @@ std::vector<Polygon> IslandMaker::generateIsland(unsigned int sizeFactor, double
 							break;
 						case 4:
 							possibleNextPoint[0] = std::make_pair(1, 0);	// OO
-							possibleNextPoint[1] = std::make_pair(0, -1);	// O#
+							possibleNextPoint[1] = std::make_pair(0, 1);	// O#
 							break;
 						case 5:
-							if(poly.points[poly.points.size() - 2].x == poly.points[poly.points.size() - 1].x - 1 || poly.points[poly.points.size() - 2].y == poly.points[poly.points.size() - 1].y + 1)
+							if(poly.points[poly.points.size() - 2].x == poly.points[poly.points.size() - 1].x - 1 || poly.points[poly.points.size() - 2].y == poly.points[poly.points.size() - 1].y - 1)
 							{
 								possibleNextPoint[0] = std::make_pair(-1, 0);	// #O
-								possibleNextPoint[1] = std::make_pair(0, 1);	// O#
+								possibleNextPoint[1] = std::make_pair(0, -1);	// O#
+								unusedOpenEdge[poly.points.back().x][poly.points.back().y] = true;
 							}
 							else
 							{
 								possibleNextPoint[0] = std::make_pair(1, 0);	// #O
-								possibleNextPoint[1] = std::make_pair(0, -1);	// O#
+								possibleNextPoint[1] = std::make_pair(0, 1);	// O#
+								unusedOpenEdge[poly.points.back().x - 1][poly.points.back().y - 1] = true;
 							}
 							break;
 						case 6:
@@ -78,31 +143,33 @@ std::vector<Polygon> IslandMaker::generateIsland(unsigned int sizeFactor, double
 							break;
 						case 7:
 							possibleNextPoint[0] = std::make_pair(-1, 0);	// ##
-							possibleNextPoint[1] = std::make_pair(0, -1);	// O#
+							possibleNextPoint[1] = std::make_pair(0, 1);	// O#
 							break;
 						case 8:
 							possibleNextPoint[0] = std::make_pair(-1, 0);	// OO
-							possibleNextPoint[1] = std::make_pair(0, -1);	// #O
+							possibleNextPoint[1] = std::make_pair(0, 1);	// #O
 							break;
 						case 9:
 							possibleNextPoint[0] = std::make_pair(0, 1);	// #O
 							possibleNextPoint[1] = std::make_pair(0, -1);	// #O
 							break;
 						case 10:
-							if(poly.points[poly.points.size() - 2].x == poly.points[poly.points.size() - 1].x - 1 || poly.points[poly.points.size() - 2].y == poly.points[poly.points.size() - 1].y - 1)
+							if(poly.points[poly.points.size() - 2].x == poly.points[poly.points.size() - 1].x - 1 || poly.points[poly.points.size() - 2].y == poly.points[poly.points.size() - 1].y + 1)
 							{
 								possibleNextPoint[0] = std::make_pair(-1, 0);	// O#
-								possibleNextPoint[1] = std::make_pair(0, -1);	// #O
+								possibleNextPoint[1] = std::make_pair(0, 1);	// #O
+								unusedOpenEdge[poly.points.back().x][poly.points.back().y - 1] = true;
 							}
 							else
 							{
 								possibleNextPoint[0] = std::make_pair(1, 0);	// O#
-								possibleNextPoint[1] = std::make_pair(0, 1);	// #O
+								possibleNextPoint[1] = std::make_pair(0, -1);	// #O
+								unusedOpenEdge[poly.points.back().x][poly.points.back().y - 1] = true;
 							}
 							break;
 						case 11:
 							possibleNextPoint[0] = std::make_pair(1, 0);	// ##
-							possibleNextPoint[1] = std::make_pair(0, -1);	// #O
+							possibleNextPoint[1] = std::make_pair(0, 1);	// #O
 							break;
 						case 12:
 							possibleNextPoint[0] = std::make_pair(1, 0);	// OO
@@ -110,10 +177,10 @@ std::vector<Polygon> IslandMaker::generateIsland(unsigned int sizeFactor, double
 							break;
 						case 13:
 							possibleNextPoint[0] = std::make_pair(1, 0);	// #O
-							possibleNextPoint[1] = std::make_pair(0, 1);	// ##
+							possibleNextPoint[1] = std::make_pair(0, -1);	// ##
 							break;
 						case 14:
-							possibleNextPoint[0] = std::make_pair(0, 1);	// O#
+							possibleNextPoint[0] = std::make_pair(0, -1);	// O#
 							possibleNextPoint[1] = std::make_pair(-1, 0);	// ##
 							break;
 						case 15:
@@ -128,22 +195,18 @@ std::vector<Polygon> IslandMaker::generateIsland(unsigned int sizeFactor, double
 					if(poly.points[poly.points.size() - 1].x + possibleNextPoint[0].first == poly.points[poly.points.size() - 2].x &&
 						poly.points[poly.points.size() - 1].y + possibleNextPoint[0].second == poly.points[poly.points.size() - 2].y) // Checks which possible next point to use
 					{
-						poly.points.push_back(Point(poly.points[poly.points.size() - 1].x + possibleNextPoint[0].first, poly.points[poly.points.size() - 1].y + possibleNextPoint[0].second));
+						poly.points.push_back(Point(poly.points[poly.points.size() - 1].x + possibleNextPoint[1].first, poly.points[poly.points.size() - 1].y + possibleNextPoint[1].second));
 					}
 					else
 					{
-						poly.points.push_back(Point(poly.points[poly.points.size() - 1].x + possibleNextPoint[1].first, poly.points[poly.points.size() - 1].y + possibleNextPoint[1].second));
+						poly.points.push_back(Point(poly.points[poly.points.size() - 1].x + possibleNextPoint[0].first, poly.points[poly.points.size() - 1].y + possibleNextPoint[0].second));
 					}
 					
-					if(poly.points[poly.points.size() - 1] == poly.points[0])
+					if(poly.points[poly.points.size() - 1] == poly.points[0]) // If we are on the same point as the beginning we are done
 					{
 						closed = true;
 						poly.points.pop_back();
 					}
-				}
-				for(unsigned int k = 0; k < poly.points.size(); k++)
-				{
-					if()
 				}
 				polys.push_back(poly);
 			}
@@ -237,15 +300,15 @@ double IslandMaker::Noise::grad(int hash, double x, double y)
 {
 	switch(hash & 0x7)
 	{
-	case 0x0: return  x + y;
-	case 0x1: return -x + y;
-	case 0x2: return  x - y;
-	case 0x3: return -x - y;
-	case 0x4: return  x;
-	case 0x5: return -x;
-	case 0x6: return  y;
-	case 0x7: return -y;
-	default: return 0;
+		case 0x0: return  x + y;
+		case 0x1: return -x + y;
+		case 0x2: return  x - y;
+		case 0x3: return -x - y;
+		case 0x4: return  x;
+		case 0x5: return -x;
+		case 0x6: return  y;
+		case 0x7: return -y;
+		default: return 0;
 	}
 }
 
@@ -289,82 +352,96 @@ double IslandMaker::IslandData::getLocationHeight(unsigned int x, unsigned int y
 {
 	double distance = sqrt((double)((x - UPSCALE * sizeFactor / 2) * (x - UPSCALE * sizeFactor / 2)) + (double)((y - UPSCALE * sizeFactor / 2) * (y - UPSCALE * sizeFactor / 2))); // Distance from center
 	double height = -2 * distance / maxDistance + 1;
-	height += 1.5 * noise.getHeightOctave((double)x / UPSCALE, (double)y / UPSCALE, 5, 0.2);
+	height += 0.75 * noise.getHeightOctave((double)x / UPSCALE, (double)y / UPSCALE, 5, 0.2);
 
 	return height;
 }
 
-std::array<bool, 4> IslandMaker::IslandData::getGridLandLocations(unsigned int xg, unsigned int yg)
+std::array<bool, 4> IslandMaker::IslandData::getGridLandLocations(unsigned int xg, unsigned int yg) 
 {
-	std::array<bool, 4> locations { false, false, false, false };
+	std::array<bool, 4> locations;
 
-	if(xg != 0 && yg != boolMap.size())
+	try
 	{
-		locations[0] = boolMap[xg - 1][yg]; // Top left
+		locations[0] = boolMap.at(xg - 1).at(yg - 1); // Top left
 	}
-	if(xg != boolMap.size() && yg != boolMap.size())
+	catch(std::out_of_range)
 	{
-		locations[1] = boolMap[xg][yg]; // Top right
+		locations[0] = false;
 	}
-	if(xg != boolMap.size() && yg != 0)
+	try
 	{
-		locations[2] = boolMap[xg][yg - 1]; // Bottom right
+		locations[1] = boolMap.at(xg).at(yg - 1); // Top right
 	}
-	if(xg != 0 && yg != 0)
+	catch(std::out_of_range)
 	{
-		locations[3] = boolMap[xg - 1][yg - 1]; // Bottom left
+		locations[1] = false;
 	}
-
+	try
+	{
+		locations[2] = boolMap.at(xg).at(yg); // Bottom right
+	}
+	catch(std::out_of_range)
+	{
+		locations[2] = false;
+	}
+	try
+	{
+		locations[3] = boolMap.at(xg - 1).at(yg); // Bottom left
+	}
+	catch(std::out_of_range)
+	{
+		locations[3] = false;
+	}
 	return locations;
+}
+bool IslandMaker::IslandData::getLocationIsBorder(unsigned int x, unsigned int y)
+{
+	return x == 0 || y == 0 || x == boolMap.size() - 1 || y == boolMap.size();
 }
 std::array<bool, 4> IslandMaker::IslandData::getLocationOpenEdges(unsigned int x, unsigned int y)
 {
-	std::array<bool, 4> edges { false, false, false, false };
+	std::array<bool, 4> edges;
 
-	if(x != 0)
+	try
 	{
-		if(boolMap[x - 1][y] != boolMap[x][y]) // Left
-		{
-			edges[0] = true;
-		}
+		edges[0] = (boolMap.at(x - 1).at(y) != boolMap.at(x).at(y)); // Left
 	}
-	else
+	catch(std::out_of_range)
 	{
 		edges[0] = true;
 	}
-	if(y != boolMap.size() - 1)
+	try
 	{
-		if(boolMap[x][y + 1] != boolMap[x][y]) // Top
-		{
-			edges[1] = true;
-		}
+		edges[1] = (boolMap.at(x).at(y - 1) != boolMap.at(x).at(y)); // Top
 	}
-	else
+	catch(std::out_of_range)
 	{
 		edges[1] = true;
 	}
-	if(x != boolMap.size() - 1)
+	try
 	{
-		if(boolMap[x + 1][y] != boolMap[x][y]) // Right
-		{
-			edges[2] = true;
-		}
+		edges[2] = (boolMap.at(x + 1).at(y) != boolMap.at(x).at(y)); // Right
 	}
-	else
+	catch(std::out_of_range)
 	{
 		edges[2] = true;
 	}
-	if(y != 0)
+	try
 	{
-		if(boolMap[x][y - 1] != boolMap[x][y]) // Bottom
-		{
-			edges[3] = true;
-		}
+		edges[3] = (boolMap.at(x).at(y + 1) != boolMap.at(x).at(y)); // Bottom
 	}
-	else
+	catch(std::out_of_range)
 	{
 		edges[3] = true;
 	}
+	return edges;
+}
+unsigned char IslandMaker::IslandData::countLocationOpenEdges(unsigned int x, unsigned int y)
+{
+	std::array<bool, 4> edges = getLocationOpenEdges(x, y);
+
+	return edges[0] + edges[1] + edges[2] + edges[3];
 }
 unsigned int IslandMaker::IslandData::countTotalOpenEdges()
 {
@@ -374,9 +451,10 @@ unsigned int IslandMaker::IslandData::countTotalOpenEdges()
 	{
 		for(unsigned int j = 0; j < UPSCALE * sizeFactor; j++)
 		{
-			std::array<bool, 4> edges = getLocationOpenEdges(i, j);
-
-			edgeCount += edges[0] + edges[1] + edges[2] + edges[3];
+			if(boolMap[i][j])
+			{
+				countLocationOpenEdges(i, j);
+			}
 		}
 	}
 

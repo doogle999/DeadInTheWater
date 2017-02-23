@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,11 +78,14 @@
     <ClCompile Include="RenderProjectile.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="Polygon.cpp">
+      <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
     <ClCompile Include="IslandMaker.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="Polygon.cpp">
-      <Filter>Source Files\Geometry</Filter>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,14 +140,14 @@
     <ClInclude Include="RenderProjectile.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="IslandMaker.h">
-      <Filter>Header Files\Fields</Filter>
-    </ClInclude>
     <ClInclude Include="Point.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Polygon.h">
       <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="IslandMaker.h">
+      <Filter>Header Files\Fields</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

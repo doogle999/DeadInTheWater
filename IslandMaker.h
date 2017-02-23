@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <array>
-#include <random>
+#include <exception>
 #include <algorithm>
 #include <numeric>
 #include <math.h>
@@ -71,8 +71,10 @@ class IslandMaker : public Field
 
 				double getLocationHeight(unsigned int x, unsigned int y); // Gets the height of an location
 
-				std::array<bool, 4> getGridLandLocations(unsigned int xg, unsigned int yg); // Gets whether the locations around a grid intersection are land or water, top left going clockwise is the order
-				std::array<bool, 4> getLocationOpenEdges(unsigned int x, unsigned int y); // Gets the open edges of a location, left going clockwise is the order
+				std::array<bool, 4> getGridLandLocations(unsigned int xg, unsigned int yg); // Gets whether the locations around a grid intersection are land or water, top left going clockwise is the order, the grid's origin is the top left
+				bool getLocationIsBorder(unsigned int x, unsigned int y); // Is this location one the edge of the map
+				std::array<bool, 4> getLocationOpenEdges(unsigned int x, unsigned int y); // Gets the open edges of a location, left going clockwise is the order, the locations' origin is the top left
+				unsigned char countLocationOpenEdges(unsigned int x, unsigned int y); // Counts the number of open edges for a location
 				unsigned int countTotalOpenEdges(); // Counts the total number of open edges for all locations
 
 				std::vector<std::vector<bool>> boolMap; // A map of the island and the water surrounding it that says if there is land or water at a location
