@@ -130,7 +130,7 @@ void World::scheduleToDespawn(size_t i)
 	scheduledToDespawn.push_back(i);
 }
 
-void World::scheduleToChangeFields(size_t i, Fields::Ids f, bool b)
+void World::scheduleToChangeFields(size_t i, Fields::Ids f, bool b) // Index of the entity, fields it is changing, 
 {
 	scheduledToChangeFields.push_back(std::make_tuple(i, f, b));
 }

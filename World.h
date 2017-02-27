@@ -47,7 +47,7 @@ class World
 		std::vector<std::pair<Entity, std::vector<Fields::Ids>>> scheduledToSpawn;
 		std::vector<size_t> scheduledToDespawn;
 
-		std::vector<std::tuple<size_t, Fields::Ids, bool>> scheduledToChangeFields;
+		std::vector<std::tuple<size_t, Fields::Ids, bool>> scheduledToChangeFields; // Index of the entity, field it is changing, whether it is joining (true) or leaving (false)
 
 		std::array<bool, MAX_ENTITIES> currentEntities;
 };

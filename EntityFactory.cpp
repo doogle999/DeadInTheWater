@@ -50,12 +50,11 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 	{
 		switch(propertyIds[i]) // All properties need to have a case here if they are to be used
 		{
-			ADD_PROPERTY_CASE(xPosition)
-			ADD_PROPERTY_CASE(yPosition)
-			ADD_PROPERTY_CASE(xVelocity)
-			ADD_PROPERTY_CASE(yVelocity)
-			ADD_PROPERTY_CASE(xAcceleration)
-			ADD_PROPERTY_CASE(yAcceleration)
+			ADD_PROPERTY_CASE(position)
+			ADD_PROPERTY_CASE(velocity)
+			ADD_PROPERTY_CASE(acceleration)
+			ADD_PROPERTY_CASE(orientation)
+			ADD_PROPERTY_CASE(orientationVelocity)
 			ADD_PROPERTY_CASE(selected)
 			ADD_PROPERTY_CASE(radius)
 			ADD_PROPERTY_CASE(mass)

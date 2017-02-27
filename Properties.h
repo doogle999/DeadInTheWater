@@ -5,18 +5,19 @@
 #include <map>
 #include <string>
 
+#include "Point.h"
+
 #define ADD_TYPE(NAME, TYPE) typedef TYPE TYPE_ ## NAME;
 
 struct P
 {
 	enum Ids // Used for access
 	{
-		xPosition,
-		yPosition,
-		xVelocity,
-		yVelocity,
-		xAcceleration,
-		yAcceleration,
+		position,
+		velocity,
+		acceleration,
+		orientation,
+		orientationVelocity,
 		selected,
 		radius,
 		mass,
@@ -26,12 +27,11 @@ struct P
 		timeoutTime
 	};
 
-	ADD_TYPE(xPosition, double)
-	ADD_TYPE(yPosition, double)
-	ADD_TYPE(xVelocity, double)
-	ADD_TYPE(yVelocity, double)
-	ADD_TYPE(xAcceleration, double)
-	ADD_TYPE(yAcceleration, double)
+	ADD_TYPE(position, Point)
+	ADD_TYPE(velocity, Point)
+	ADD_TYPE(acceleration, Point)
+	ADD_TYPE(orientation, double) // Radians, 0 to 2PI, measured from positive x-axis
+	ADD_TYPE(orientationVelocity, double)
 	ADD_TYPE(selected, bool)
 	ADD_TYPE(radius, double)
 	ADD_TYPE(mass, double)

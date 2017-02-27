@@ -16,7 +16,7 @@ class Field
 
 		void addEntityIndex(size_t i);
 		void noRepeatAddEntityIndex(size_t i); // Checks if the index is already there before adding, nothing special
-		void removeEntityIndex(size_t i);
+		virtual void removeEntityIndex(size_t i); // Removes the entity if it is in this field
 
 		virtual void input();
 		virtual void update();

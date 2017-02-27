@@ -19,26 +19,15 @@ std::vector<Polygon> IslandMaker::generateIsland(unsigned int sizeFactor, double
 		for(unsigned int j = 0; j < UPSCALE * sizeFactor; j++)
 		{
 			std::array<bool, 4> temp = islandData.getLocationOpenEdges(j, i);
-			if(islandData.boolMap[j][i])
+			if(islandData.boolMap[j][i] && temp[0] + temp[1] + temp[2] + temp[3] > 0)
 			{
-				if(temp[0] + temp[1] + temp[2] + temp[3] > 0)
-				{
-					unusedOpenEdge[j][i] = true;
-					//printf("X");
-				}
-				else
-				{
-					unusedOpenEdge[j][i] = false;
-					//printf("#");
-				}
+				unusedOpenEdge[j][i] = true;
 			}
 			else
 			{
 				unusedOpenEdge[j][i] = false;
-				//printf(" ");
 			}
 		}
-		//printf("\n");
 	}
 
 	std::vector<Polygon> polys; // Grid coordinaes between the squares, 1 larger in both directions than the boolmap

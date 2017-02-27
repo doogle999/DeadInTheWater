@@ -87,6 +87,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShipController.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -148,6 +151,15 @@
     </ClInclude>
     <ClInclude Include="IslandMaker.h">
       <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipController.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
