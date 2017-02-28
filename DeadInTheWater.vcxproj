@@ -123,13 +123,13 @@
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Fields.cpp" />
-    <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="IslandMaker.cpp" />
+    <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RenderBoat.cpp" />
@@ -137,7 +137,6 @@
     <ClCompile Include="ShipController.cpp" />
     <ClCompile Include="SpawnProjectile.cpp" />
     <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="Selectables.cpp" />
     <ClCompile Include="Timeout.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="World.cpp" />
@@ -145,12 +144,11 @@
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Fields.h" />
-    <ClInclude Include="Collisions.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Gravity.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="ShipController.h" />
     <ClInclude Include="KeyMapper.h" />
     <ClInclude Include="IslandMaker.h" />
@@ -162,7 +160,6 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="SpawnProjectile.h" />
     <ClInclude Include="Textures.h" />
-    <ClInclude Include="Selectables.h" />
     <ClInclude Include="Timeout.h" />
     <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="World.h" />

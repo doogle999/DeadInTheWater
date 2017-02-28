@@ -10,11 +10,9 @@ void SpawnProjectile::input()
 	{
 		if(w->entities[ei[i]].AXS(reloadTime) <= 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			Entity e({ P::Ids::xPosition, P::Ids::yPosition, P::Ids::xVelocity, P::Ids::yVelocity, P::Ids::timeoutTime });
-			e.AXS(xPosition) = w->entities[ei[i]].AXS(xPosition);
-			e.AXS(yPosition) = w->entities[ei[i]].AXS(yPosition);
-			e.AXS(xVelocity) = 10;
-			e.AXS(yVelocity) = 10;
+			Entity e({ P::Ids::position, P::Ids::velocity, P::Ids::timeoutTime });
+			e.AXS(position) = w->entities[ei[i]].AXS(position);
+			e.AXS(velocity) = w->entities[ei[i]].AXS(velocity);
 			e.AXS(timeoutTime) = 1;
 
 			std::vector<Fields::Ids> f;
@@ -45,6 +43,6 @@ std::vector<P::Ids> SpawnProjectile::getNecessaryProperties()
 	return SpawnProjectile::necessaryProperties;
 };
 
-const std::vector<P::Ids> SpawnProjectile::necessaryProperties = { P::Ids::reloadTime, P::Ids::xPosition, P::Ids::yPosition };
+const std::vector<P::Ids> SpawnProjectile::necessaryProperties = { P::Ids::reloadTime, P::Ids::position };
 
 const double SpawnProjectile::cooldown = 2;

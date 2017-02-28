@@ -1,8 +1,5 @@
 #include "World.h"
 
-#include "Collisions.h"
-#include "Selectables.h"
-#include "Gravity.h"
 #include "Camera2D.h"
 #include "RenderBoat.h"
 #include "SpawnProjectile.h"
@@ -19,9 +16,6 @@ World::World()
 	}
 
 	// For now, the order these are in is their call order, will add a priority system at some point
-	ADD_FIELD(Selectables)
-	ADD_FIELD(Collisions)
-	ADD_FIELD(Gravity)
 	ADD_FIELD(Camera2D)
 	ADD_FIELD(RenderBoat)
 	ADD_FIELD(SpawnProjectile)

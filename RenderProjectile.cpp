@@ -17,7 +17,7 @@ void RenderProjectile::render()
 
 		s.setScale(1 / cameraPtr->viewportS, 1 / cameraPtr->viewportS);
 
-		s.setPosition((w->entities[ei[i]].AXS(xPosition) - cameraPtr->viewportX) / cameraPtr->viewportS, (w->entities[ei[i]].AXS(yPosition) - cameraPtr->viewportY) / cameraPtr->viewportS);
+		s.setPosition((w->entities[ei[i]].AXS(position).x - cameraPtr->viewportX) / cameraPtr->viewportS, (w->entities[ei[i]].AXS(position).y - cameraPtr->viewportY) / cameraPtr->viewportS);
 
 		Game::window->draw(s);
 	}
@@ -28,4 +28,4 @@ std::vector<P::Ids> RenderProjectile::getNecessaryProperties()
 	return RenderProjectile::necessaryProperties;
 };
 
-const std::vector<P::Ids> RenderProjectile::necessaryProperties = { P::Ids::xPosition, P::Ids::yPosition };
+const std::vector<P::Ids> RenderProjectile::necessaryProperties = { P::Ids::position };

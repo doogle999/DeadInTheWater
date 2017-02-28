@@ -64,7 +64,5 @@ void Camera2D::update()
 
 std::vector<P::Ids> Camera2D::getNecessaryProperties()
 {
-	return Camera2D::necessaryProperties;
+	return {};
 };
-
-const std::vector<P::Ids> Camera2D::necessaryProperties = { P::Ids::color, P::Ids::xPosition, P::Ids::yPosition, P::Ids::renderRadius };

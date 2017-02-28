@@ -3,20 +3,18 @@
 	<ENTITY>
 		<PROPERTIES>
 			<PROPERTY>
-				<NAME>xPosition</NAME>
-				<VALUE>0</VALUE>
+				<NAME>position</NAME>
+				<VALUE>
+					<X>0</X>
+					<Y>0</Y>
+				</VALUE>
 			</PROPERTY>
 			<PROPERTY>
-				<NAME>yPosition</NAME>
-				<VALUE>0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>xVelocity</NAME>
-				<VALUE>0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>yVelocity</NAME>
-				<VALUE>0</VALUE>
+				<NAME>velocity</NAME>
+				<VALUE>
+					<X>0</X>
+					<Y>0</Y>
+				</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>reloadTime</NAME>

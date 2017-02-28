@@ -42,17 +42,8 @@
     <ClCompile Include="tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Collisions.cpp">
-      <Filter>Source Files\Fields</Filter>
-    </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Selectables.cpp">
-      <Filter>Source Files\Fields</Filter>
-    </ClCompile>
-    <ClCompile Include="Gravity.cpp">
-      <Filter>Source Files\Fields</Filter>
     </ClCompile>
     <ClCompile Include="Camera2D.cpp">
       <Filter>Source Files\Fields</Filter>
@@ -90,6 +81,12 @@
     <ClCompile Include="ShipController.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -112,15 +109,6 @@
     </ClInclude>
     <ClInclude Include="tinyxml2.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collisions.h">
-      <Filter>Header Files\Fields</Filter>
-    </ClInclude>
-    <ClInclude Include="Selectables.h">
-      <Filter>Header Files\Fields</Filter>
-    </ClInclude>
-    <ClInclude Include="Gravity.h">
-      <Filter>Header Files\Fields</Filter>
     </ClInclude>
     <ClInclude Include="Camera2D.h">
       <Filter>Header Files\Fields</Filter>
@@ -155,10 +143,13 @@
     <ClInclude Include="KeyMapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files\Fields</Filter>
-    </ClInclude>
     <ClInclude Include="ShipController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

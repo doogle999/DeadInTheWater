@@ -32,4 +32,5 @@ class EntityFactory
 		template<> static double interpretPropertyValue<double>(tinyxml2::XMLElement* value);
 		template<> static bool interpretPropertyValue<bool>(tinyxml2::XMLElement* value);
 		template<> static sf::Color interpretPropertyValue<sf::Color>(tinyxml2::XMLElement* value);
+		template<> static Point interpretPropertyValue<Point>(tinyxml2::XMLElement* value);
 };

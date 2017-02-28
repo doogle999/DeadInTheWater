@@ -11,6 +11,8 @@ struct Point
 		{
 			x = p.x;
 			y = p.y;
+
+			return *this;
 		};
 
 		bool operator==(const Point& p)

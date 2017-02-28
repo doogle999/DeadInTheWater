@@ -55,12 +55,7 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 			ADD_PROPERTY_CASE(acceleration)
 			ADD_PROPERTY_CASE(orientation)
 			ADD_PROPERTY_CASE(orientationVelocity)
-			ADD_PROPERTY_CASE(selected)
-			ADD_PROPERTY_CASE(radius)
-			ADD_PROPERTY_CASE(mass)
 			ADD_PROPERTY_CASE(reloadTime)
-			ADD_PROPERTY_CASE(color)
-			ADD_PROPERTY_CASE(renderRadius)
 			ADD_PROPERTY_CASE(timeoutTime)
 
 			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
@@ -107,6 +102,14 @@ template<> sf::Color EntityFactory::interpretPropertyValue<sf::Color>(tinyxml2::
 		interpretPropertyValue<int>(value->FirstChildElement("GREEN")),
 		interpretPropertyValue<int>(value->FirstChildElement("BLUE")),
 		interpretPropertyValue<int>(value->FirstChildElement("ALPHA"))
+	);
+}
+template<> Point EntityFactory::interpretPropertyValue<Point>(tinyxml2::XMLElement* value)
+{
+	return Point
+	(
+		interpretPropertyValue<double>(value->FirstChildElement("X")),
+		interpretPropertyValue<double>(value->FirstChildElement("Y"))
 	);
 }
 
