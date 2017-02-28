@@ -8,7 +8,8 @@ void TranslationIncrementer::update()
 {
 	for(unsigned int i = 0; i < ei.size(); i++)
 	{
-		//w->entities[ei[i]].AXS(position);
+		w->entities[ei[i]].AXS(position) = w->entities[ei[i]].AXS(position) + w->entities[ei[i]].AXS(velocity) * Game::getTick();
+		w->entities[ei[i]].AXS(velocity) = w->entities[ei[i]].AXS(velocity) + w->entities[ei[i]].AXS(acceleration) * Game::getTick();
 	}
 }
 

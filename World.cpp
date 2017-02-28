@@ -1,5 +1,6 @@
 #include "World.h"
 
+#include "TranslationIncrementer.h"
 #include "Camera2D.h"
 #include "RenderBoat.h"
 #include "SpawnProjectile.h"
@@ -16,6 +17,7 @@ World::World()
 	}
 
 	// For now, the order these are in is their call order, will add a priority system at some point
+	ADD_FIELD(TranslationIncrementer)
 	ADD_FIELD(Camera2D)
 	ADD_FIELD(RenderBoat)
 	ADD_FIELD(SpawnProjectile)

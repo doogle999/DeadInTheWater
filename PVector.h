@@ -71,10 +71,9 @@ PVector<T, N> PVector<T, N>::operator*(const double& s) const
 {
 	PVector<T, N> r;
 
-	std::memcpy(r.c, c, sizeof(c));
 	for(unsigned int i = 0; i < N; i++)
 	{
-		r.c[i] *= s;
+		r.c[i] = c[i] * s;
 	}
 
 	return r;
@@ -97,22 +96,24 @@ PVector<T, N> PVector<T, N>::operator+(const PVector<T, N>& pv) const
 {
 	PVector<T, N> r;
 
-	std::memcpy(r.c, c, sizeof(c));
 	for(unsigned int i = 0; i < N; i++)
 	{
-		r.c[i] += pv.c[i];
+		r.c[i] = c[i] + pv.c[i];
 	}
+
+	return r;
 }
 template <typename T, unsigned int N>
 PVector<T, N> PVector<T, N>::operator-(const PVector<T, N>& pv) const
 {
 	PVector<T, N> r;
 
-	std::memcpy(r.c, c, sizeof(c));
 	for(unsigned int i = 0; i < N; i++)
 	{
-		r.c[i] -= pv.c[i];
+		r.c[i] = c[i] - pv.c[i];
 	}
+
+	return r;
 }
 
 template <typename T, unsigned int N>

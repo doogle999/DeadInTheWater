@@ -12,7 +12,14 @@
 			<PROPERTY>
 				<NAME>velocity</NAME>
 				<VALUE>
-					<X>0</X>
+					<X>-50</X>
+					<Y>0</Y>
+				</VALUE>
+			</PROPERTY>
+			<PROPERTY>
+				<NAME>acceleration</NAME>
+				<VALUE>
+					<X>10</X>
 					<Y>0</Y>
 				</VALUE>
 			</PROPERTY>
@@ -22,6 +29,9 @@
 			</PROPERTY>
 		</PROPERTIES>
 		<FIELDS>
+			<FIELD>
+				<NAME>TranslationIncrementer</NAME>
+			</FIELD>
 			<FIELD>
 				<NAME>RenderBoat</NAME>
 			</FIELD>
