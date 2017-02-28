@@ -104,12 +104,12 @@ template<> sf::Color EntityFactory::interpretPropertyValue<sf::Color>(tinyxml2::
 		interpretPropertyValue<int>(value->FirstChildElement("ALPHA"))
 	);
 }
-template<> Point EntityFactory::interpretPropertyValue<Point>(tinyxml2::XMLElement* value)
+template<> PVector<double, 2> EntityFactory::interpretPropertyValue<PVector<double, 2>>(tinyxml2::XMLElement* value)
 {
-	return Point
+	return PVector<double, 2>
 	(
-		interpretPropertyValue<double>(value->FirstChildElement("X")),
-		interpretPropertyValue<double>(value->FirstChildElement("Y"))
+		{ interpretPropertyValue<double>(value->FirstChildElement("X")),
+		interpretPropertyValue<double>(value->FirstChildElement("Y")) }
 	);
 }
 

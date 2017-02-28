@@ -11,7 +11,7 @@
 #include "Game.h"
 #include "Entity.h"
 #include "Field.h"
-#include "Point.h"
+#include "PVector.h"
 #include "Polygon.h"
 
 class Entity;
@@ -28,7 +28,7 @@ class IslandMaker : public Field
 		virtual std::vector<P::Ids> getNecessaryProperties();
 
 		// Generates the polygon (or polygons, if there are surrounding islets) that describe an island, the size of the island is sizeFactor times the UPSCALE constant	
-		std::vector<Polygon> generateIsland(unsigned int sizeFactor, double threshold);
+		std::vector<Polygon<unsigned int>> generateIsland(unsigned int sizeFactor, double threshold);
 
 	private:
 		static const std::vector<P::Ids> necessaryProperties;

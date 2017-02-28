@@ -17,7 +17,7 @@ void RenderBoat::render()
 
 		s.setScale(1 / cameraPtr->viewportS, 1 / cameraPtr->viewportS);
 
-		s.setPosition((w->entities[ei[i]].AXS(position).x - cameraPtr->viewportX) / cameraPtr->viewportS, (w->entities[ei[i]].AXS(position).y - cameraPtr->viewportY) / cameraPtr->viewportS);	
+		s.setPosition((w->entities[ei[i]].AXS(position).c[0] - cameraPtr->viewportX) / cameraPtr->viewportS, (w->entities[ei[i]].AXS(position).c[1] - cameraPtr->viewportY) / cameraPtr->viewportS);	
 
 		Game::window->draw(s);
 	}
@@ -26,6 +26,6 @@ void RenderBoat::render()
 std::vector<P::Ids> RenderBoat::getNecessaryProperties()
 {
 	return RenderBoat::necessaryProperties;
-};
+}
 
 const std::vector<P::Ids> RenderBoat::necessaryProperties = { P::Ids::position };

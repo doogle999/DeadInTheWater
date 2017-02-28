@@ -5,9 +5,10 @@
 #include <map>
 #include <string>
 
-#include "Point.h"
+#include "PVector.h"
 
 #define ADD_TYPE(NAME, TYPE) typedef TYPE TYPE_ ## NAME;
+#define COMMA ,
 
 struct P
 {
@@ -22,9 +23,9 @@ struct P
 		timeoutTime,
 	};
 
-	ADD_TYPE(position, Point)
-	ADD_TYPE(velocity, Point)
-	ADD_TYPE(acceleration, Point)
+	ADD_TYPE(position, PVector<double COMMA 2>)
+	ADD_TYPE(velocity, PVector<double COMMA 2>)
+	ADD_TYPE(acceleration, PVector<double COMMA 2>)
 	ADD_TYPE(orientation, double) // Radians, 0 to 2PI, measured from positive x-axis
 	ADD_TYPE(orientationVelocity, double)
 	ADD_TYPE(reloadTime, double)
@@ -35,3 +36,4 @@ struct P
 };
 
 #undef ADD_TYPE
+#undef COMMA

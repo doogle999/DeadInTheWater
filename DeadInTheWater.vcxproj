@@ -130,8 +130,8 @@
     <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Properties.cpp" />
+    <ClCompile Include="PVector.cpp" />
     <ClCompile Include="RenderBoat.cpp" />
     <ClCompile Include="RenderProjectile.cpp" />
     <ClCompile Include="ShipController.cpp" />
@@ -139,6 +139,7 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Timeout.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="TranslationIncrementer.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,10 +150,10 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PVector.h" />
     <ClInclude Include="ShipController.h" />
     <ClInclude Include="KeyMapper.h" />
     <ClInclude Include="IslandMaker.h" />
-    <ClInclude Include="Point.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="RenderBoat.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Timeout.h" />
     <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="TranslationIncrementer.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
