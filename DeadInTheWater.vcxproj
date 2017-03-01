@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Fields.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera2D.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="Fields.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />

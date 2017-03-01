@@ -25,5 +25,5 @@ class ShipController : public Controller
 	private:
 		static const std::vector<P::Ids> necessaryProperties;
 
-		int selectedIndex; // The ship that is currently selected, negative if nothing is selected
+		int selectedIndex; // The ship that is currently selected, negative if nothing is selected, of w->entities not ei
 };

@@ -2,6 +2,8 @@
 
 ShipController::ShipController() 
 {
+	cedeToController = -1;
+
 	selectedIndex = -1;
 }
 
@@ -18,9 +20,24 @@ void ShipController::removeEntityIndex(size_t i)
 
 void ShipController::handleInput()
 {
-	if(KeyMapper::checkFunc(KeyMapper::Func::left))
+	if(selectedIndex > 0)
 	{
-
+		if(KeyMapper::checkFunc(KeyMapper::Func::left))
+		{
+			w->entities[selectedIndex].AXS(acceleration).c[0] = -10;
+		}
+		if(KeyMapper::checkFunc(KeyMapper::Func::right))
+		{
+			w->entities[selectedIndex].AXS(acceleration).c[0] = 10;
+		}
+		if(KeyMapper::checkFunc(KeyMapper::Func::up))
+		{
+			w->entities[selectedIndex].AXS(acceleration).c[1] = -10;
+		}
+		if(KeyMapper::checkFunc(KeyMapper::Func::down))
+		{
+			w->entities[selectedIndex].AXS(acceleration).c[1] = 10;
+		}
 	}
 }
 

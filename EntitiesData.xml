@@ -30,13 +30,16 @@
 		</PROPERTIES>
 		<FIELDS>
 			<FIELD>
+				<NAME>ShipController</NAME>
+			</FIELD>
+			<FIELD>
+				<NAME>SpawnProjectile</NAME>
+			</FIELD>
+			<FIELD>
 				<NAME>TranslationIncrementer</NAME>
 			</FIELD>
 			<FIELD>
 				<NAME>RenderBoat</NAME>
-			</FIELD>
-			<FIELD>
-				<NAME>SpawnProjectile</NAME>
 			</FIELD>
 		</FIELDS>
 	</ENTITY>

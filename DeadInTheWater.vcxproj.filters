@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Geometry">
       <UniqueIdentifier>{f8a46319-1b2f-4052-87e7-04b8989bd123}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\NonFieldInput">
+      <UniqueIdentifier>{e73130c5-f104-4fe0-867e-a10479bc1511}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NonFieldInput">
+      <UniqueIdentifier>{6bd3a45f-3d2e-40f9-87f2-a603397fba09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -75,17 +81,20 @@
     <ClCompile Include="ShipController.cpp">
       <Filter>Source Files\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyMapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TranslationIncrementer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PVector.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\NonFieldInput</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMapper.cpp">
+      <Filter>Source Files\NonFieldInput</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>Source Files\NonFieldInput</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,15 +146,6 @@
     <ClInclude Include="IslandMaker.h">
       <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="KeyMapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShipController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -154,6 +154,18 @@
     </ClInclude>
     <ClInclude Include="PVector.h">
       <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Header Files\NonFieldInput</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMapper.h">
+      <Filter>Header Files\NonFieldInput</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\NonFieldInput</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipController.h">
+      <Filter>Header Files\Fields</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

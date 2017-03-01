@@ -23,7 +23,7 @@ struct P
 		timeoutTime,
 	};
 
-	ADD_TYPE(position, PVector<double COMMA 2>)
+	ADD_TYPE(position, PVector<double COMMA 2>) // If we don't use this trick the , is recognized as a param seperator in the macro... 
 	ADD_TYPE(velocity, PVector<double COMMA 2>)
 	ADD_TYPE(acceleration, PVector<double COMMA 2>)
 	ADD_TYPE(orientation, double) // Radians, 0 to 2PI, measured from positive x-axis

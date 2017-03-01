@@ -1,6 +1,9 @@
 #include "Player.h"
 
-Player::Player() {}
+Player::Player() 
+{
+	currentController = Fields::Ids::Id_ShipController;
+}
 
 Player::~Player() {}
 

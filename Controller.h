@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "KeyMapper.h"
+#include "Cursor.h"
 #include "Field.h"
 #include "Fields.h"
 
@@ -25,6 +26,6 @@ class Controller : public Field // Interface for a controller that can cede cont
 			}
 		}
 
-	private:
+	protected:
 		int cedeToController; // This controller is broadcasting to cede its control to a different controller
 };

@@ -5,4 +5,4 @@ bool KeyMapper::checkFunc(Func f) // Checks if the key associated with a funcion
 	return sf::Keyboard::isKeyPressed(KEY_FUNC_MAP[f]);
 };
 
-std::vector<sf::Keyboard::Key> KeyMapper::KEY_FUNC_MAP = {};
+std::vector<sf::Keyboard::Key> KeyMapper::KEY_FUNC_MAP = { sf::Keyboard::Key::A, sf::Keyboard::Key::D, sf::Keyboard::Key::W, sf::Keyboard::Key::S };
