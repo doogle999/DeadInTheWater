@@ -89,6 +89,11 @@ double Game::getPureTick()
 	return tickRate.count() / 1000;
 }
 
+PVector<unsigned int, 2> Game::getWindowSize()
+{
+	return PVector<unsigned int, 2>(window->getSize());
+}
+
 sf::RenderWindow* Game::window;
 
 World Game::world;

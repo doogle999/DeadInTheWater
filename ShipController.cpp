@@ -46,4 +46,4 @@ std::vector<P::Ids> ShipController::getNecessaryProperties()
 	return ShipController::necessaryProperties;
 }
 
-const std::vector<P::Ids> ShipController::necessaryProperties = { P::Ids::position, P::Ids::velocity, P::Ids::acceleration, P::Ids::orientation, P::Ids::orientationVelocity };
+const std::vector<P::Ids> ShipController::necessaryProperties = { P::Ids::position, P::Ids::velocity, P::Ids::acceleration, P::Ids::hitPolygon };

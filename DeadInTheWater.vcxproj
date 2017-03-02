@@ -132,7 +132,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Properties.cpp" />
-    <ClCompile Include="PVector.cpp" />
     <ClCompile Include="RenderBoat.cpp" />
     <ClCompile Include="RenderProjectile.cpp" />
     <ClCompile Include="ShipController.cpp" />

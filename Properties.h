@@ -6,6 +6,7 @@
 #include <string>
 
 #include "PVector.h"
+#include "Polygon.h"
 
 #define ADD_TYPE(NAME, TYPE) typedef TYPE TYPE_ ## NAME;
 #define COMMA ,
@@ -21,6 +22,7 @@ struct P
 		orientationVelocity,
 		reloadTime,
 		timeoutTime,
+		hitPolygon
 	};
 
 	ADD_TYPE(position, PVector<double COMMA 2>) // If we don't use this trick the , is recognized as a param seperator in the macro... 
@@ -30,6 +32,7 @@ struct P
 	ADD_TYPE(orientationVelocity, double)
 	ADD_TYPE(reloadTime, double)
 	ADD_TYPE(timeoutTime, double)
+	ADD_TYPE(hitPolygon, Polygon<double>)
 
 	static const std::map<P::Ids, size_t> Sizes; // Used in Entity memory allocation
 	static const std::map<std::string, P::Ids> Names; // Used in decoding and recoding XML

@@ -57,6 +57,7 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 			ADD_PROPERTY_CASE(orientationVelocity)
 			ADD_PROPERTY_CASE(reloadTime)
 			ADD_PROPERTY_CASE(timeoutTime)
+			ADD_PROPERTY_CASE(hitPolygon)
 
 			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
 		}
@@ -73,7 +74,7 @@ std::vector<Fields::Ids> EntityFactory::convertFieldElemsToFieldIds(tinyxml2::XM
 		{
 			f.push_back(Fields::fieldRegistry.at(fieldElem->FirstChildElement("NAME")->GetText()));
 		}
-		catch(std::out_of_range e) // The field was not recognized or its name is not in Fields::FieldRegistry for some reason (cough cough Ajax you idiot you forgot to register it again cough cough)
+		catch(std::out_of_range e) // The field was not recognized or its name is not in Fields::FieldRegistry for some reason
 		{
 			printf("Error recognizing field %s \n", fieldElem->FirstChildElement("NAME")->GetText());
 		}
@@ -112,5 +113,15 @@ template<> PVector<double, 2> EntityFactory::interpretPropertyValue<PVector<doub
 		interpretPropertyValue<double>(value->FirstChildElement("Y")) }
 	);
 }
+template<> Polygon<double> EntityFactory::interpretPropertyValue<Polygon<double>>(tinyxml2::XMLElement* value)
+{
+	Polygon<double> poly;
 
+	for(tinyxml2::XMLElement* pointElem = value->FirstChildElement("POINT"); pointElem; pointElem = pointElem->NextSiblingElement("POINT"))
+	{
+		poly.points.push_back(interpretPropertyValue<PVector<double, 2>>(pointElem));
+	}
+
+	return poly;
+}
 #undef ADD_PROPERTY_CASE

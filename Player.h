@@ -14,11 +14,8 @@ class Player : public Field // Handles the switching and calls to controllers
 {
 	public:
 		Player();
-		Player(const Player& p);
 
 		~Player();
-
-		Player& operator=(Player p);
 
 		virtual void input();
 

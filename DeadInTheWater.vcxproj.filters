@@ -84,9 +84,6 @@
     <ClCompile Include="TranslationIncrementer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\NonFieldInput</Filter>
     </ClCompile>

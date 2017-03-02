@@ -9,6 +9,7 @@
 
 #include "World.h"
 #include "Textures.h"
+#include "PVector.h"
 
 class World;
 
@@ -25,6 +26,8 @@ class Game
 
 		static double getTick();
 		static double getPureTick();
+
+		static PVector<unsigned int, 2> getWindowSize();
 
 		static sf::RenderWindow* window;
 

@@ -9,6 +9,7 @@
 #include "Field.h"
 #include "RenderBoat.h"
 #include "RenderProjectile.h"
+#include "PVector.h"
 
 class Entity;
 class RenderBoat;
@@ -25,17 +26,17 @@ class Camera2D : public Field
 		
 		virtual void update();
 
+		PVector<double, 2> screenPosToGamePos(PVector<double, 2> sp);
+
 		virtual std::vector<P::Ids> getNecessaryProperties();
 
 	private:
-		double viewportX; // X position of the left of the viewport, measured from the left of the screen rightward
-		double viewportY; // Y position of the top of the viewport, measured from the top of the screen downard
-		double viewportS; // Scaling of the viewport based on the window, bigger numbers means bigger viewport
+		PVector<double, 2> viewportPos; // X, Y, origin in top left, 
+		PVector<double, 2> viewportVel; // X, Y, independent of scale
 
-		double viewportXVelocity; // Independent of scale
-		double viewportYVelocity;
-		double viewportSFactor;
-
+		double viewportS; // Scale: bigger numbers means bigger viewport
+		double viewportSMult; // Scale multiplier
+	
 	friend RenderBoat;
 	friend RenderProjectile;
 };
