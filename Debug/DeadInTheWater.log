@@ -1,3 +1,20 @@
-﻿  Camera2D.cpp
+﻿  EntityFactory.cpp
+  Entity.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  World.cpp
+  TranslationIncrementer.cpp
+  Timeout.cpp
+  SpawnProjectile.cpp
+  ShipController.cpp
+  RenderProjectile.cpp
+  RenderBoat.cpp
+  Properties.cpp
+  Player.cpp
+  Main.cpp
+  IslandMaker.cpp
+  Game.cpp
+  Field.cpp
+  Camera2D.cpp
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

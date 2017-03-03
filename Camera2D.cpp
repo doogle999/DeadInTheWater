@@ -57,12 +57,34 @@ void Camera2D::update()
 
 	viewportS *= viewportSMult;
 }
-/*
+
 PVector<double, 2> Camera2D::screenPosToGamePos(PVector<double, 2> sp)
 {
-
+	return sp * viewportS + viewportPos;
 }
-*/
+PVector<double, 2> Camera2D::gamePosToScreenPos(PVector<double, 2> sp)
+{
+	return (sp - viewportPos) * (1 / viewportS);
+}
+
+PVector<double, 2> Camera2D::getViewportPos()
+{
+	return viewportPos;
+}
+PVector<double, 2> Camera2D::getViewportVel()
+{
+	return viewportVel;
+}
+
+double Camera2D::getViewportS()
+{
+	return viewportS;
+}
+double Camera2D::getViewportSMult()
+{
+	return viewportSMult;
+}
+
 std::vector<P::Ids> Camera2D::getNecessaryProperties()
 {
 	return {};

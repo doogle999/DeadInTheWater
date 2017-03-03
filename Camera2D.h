@@ -7,13 +7,9 @@
 #include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
-#include "RenderBoat.h"
-#include "RenderProjectile.h"
 #include "PVector.h"
 
 class Entity;
-class RenderBoat;
-class RenderProjectile;
 
 class Camera2D : public Field
 {
@@ -27,6 +23,13 @@ class Camera2D : public Field
 		virtual void update();
 
 		PVector<double, 2> screenPosToGamePos(PVector<double, 2> sp);
+		PVector<double, 2> gamePosToScreenPos(PVector<double, 2> sp);
+
+		PVector<double, 2> getViewportPos();
+		PVector<double, 2> getViewportVel();
+
+		double getViewportS();
+		double getViewportSMult();
 
 		virtual std::vector<P::Ids> getNecessaryProperties();
 
@@ -36,7 +39,4 @@ class Camera2D : public Field
 
 		double viewportS; // Scale: bigger numbers means bigger viewport
 		double viewportSMult; // Scale multiplier
-	
-	friend RenderBoat;
-	friend RenderProjectile;
 };

@@ -12,20 +12,41 @@
 			<PROPERTY>
 				<NAME>velocity</NAME>
 				<VALUE>
-					<X>-50</X>
+					<X>0</X>
 					<Y>0</Y>
 				</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>acceleration</NAME>
 				<VALUE>
-					<X>10</X>
+					<X>0</X>
 					<Y>0</Y>
 				</VALUE>
 			</PROPERTY>
 			<PROPERTY>
 				<NAME>reloadTime</NAME>
 				<VALUE>0</VALUE>
+			</PROPERTY>
+			<PROPERTY>
+				<NAME>hitPolygon</NAME>
+				<VALUE>
+					<POINT>
+						<X>-16</X>
+						<Y>-8</Y>
+					</POINT>
+					<POINT>
+						<X>16</X>
+						<Y>-8</Y>
+					</POINT>
+					<POINT>
+						<X>16</X>
+						<Y>8</Y>
+					</POINT>
+					<POINT>
+						<X>-16</X>
+						<Y>8</Y>
+					</POINT>
+				</VALUE>
 			</PROPERTY>
 		</PROPERTIES>
 		<FIELDS>

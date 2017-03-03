@@ -15,6 +15,9 @@ class PVectorBase
 		PVectorBase(std::array<T, N> c);
 		PVectorBase(const PVector<T, N>& pv);
 
+		template <typename otherT>
+		PVector<otherT, N> convert();
+
 		~PVectorBase();
 
 		PVector<T, N>& operator=(const PVector<T, N>& pv);
@@ -48,6 +51,20 @@ PVectorBase<T, N>::PVectorBase(const PVector<T, N>& pv)
 }
 
 template <typename T, unsigned int N>
+template <typename otherT>
+PVector<otherT, N> PVectorBase<T, N>::convert()
+{
+	PVector<otherT, N> pv;
+
+	for(unsigned int i = 0; i < N; i++)
+	{
+		pv.c[i] = c[i];
+	}
+
+	return pv;
+}
+
+template <typename T, unsigned int N>
 PVectorBase<T, N>::~PVectorBase() {};
 
 template <typename T, unsigned int N>
@@ -56,7 +73,7 @@ PVector<T, N>& PVectorBase<T, N>::operator=(const PVector<T, N>& pv)
 	c = pv.c;
 
 	return *this;
-};
+}
 template <typename T, unsigned int N>
 bool PVectorBase<T, N>::operator==(const PVector<T, N>& pv) const
 {

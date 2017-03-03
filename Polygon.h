@@ -10,10 +10,13 @@ class Polygon
 	public:
 		Polygon();
 		Polygon(std::vector<PVector<T, 2>> p);
+		Polygon(const Polygon<T>& p);
+
+		Polygon& operator=(const Polygon<T>& p);
 
 		~Polygon();
 
-		bool pointInside(PVector<T, 2> p); // Relative to top left, so we need to orient the point relative to that origin before using this
+		bool pointInside(PVector<T, 2> p) const; // Relative to top left, so we need to orient the point relative to that origin before using this
 
 		std::vector<PVector<T, 2>> points; // Points go clockwise, last attaches back to first but is not the same point
 };
@@ -22,9 +25,25 @@ template <typename T>
 Polygon<T>::Polygon() {}
 template <typename T>
 Polygon<T>::Polygon(std::vector<PVector<T, 2>> p) : points(p) {}
+template <typename T>
+Polygon<T>::Polygon(const Polygon<T>& p) 
+{
+	points = p.points;
+}
+
+template<typename T>
+Polygon<T>& Polygon<T>::operator=(const Polygon<T>& p)
+{
+	points.reserve(1);
+
+	return *this;
+}
 
 template <typename T>
-bool Polygon<T>::pointInside(PVector<T, 2> p)
+Polygon<T>::~Polygon() {}
+
+template <typename T>
+bool Polygon<T>::pointInside(PVector<T, 2> p) const
 {
 	if(points.size() >= 3) // Minimum is triangle for a point to be inside
 	{
@@ -57,6 +76,3 @@ bool Polygon<T>::pointInside(PVector<T, 2> p)
 		return false;
 	}
 }
-
-template <typename T>
-Polygon<T>::~Polygon() {}

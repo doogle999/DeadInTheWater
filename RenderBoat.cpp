@@ -15,9 +15,9 @@ void RenderBoat::render()
 
 		s.setOrigin(16, 8);
 
-		s.setScale(1 / cameraPtr->viewportS, 1 / cameraPtr->viewportS);
+		s.setScale(1 / cameraPtr->getViewportS(), 1 / cameraPtr->getViewportS());
 
-		s.setPosition((w->entities[ei[i]].AXS(position).c[0] - cameraPtr->viewportPos.c[0]) / cameraPtr->viewportS, (w->entities[ei[i]].AXS(position).c[1] - cameraPtr->viewportPos.c[1]) / cameraPtr->viewportS);	
+		s.setPosition((cameraPtr->gamePosToScreenPos(w->entities[ei[i]].AXS(position))).convert<float>().toVector2());
 
 		Game::window->draw(s);
 	}

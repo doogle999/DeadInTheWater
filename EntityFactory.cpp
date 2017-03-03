@@ -1,6 +1,6 @@
 #include "EntityFactory.h"
 
-#define ADD_PROPERTY_CASE(NAME) case P::Ids:: ## NAME: entity.AXS(NAME) = interpretPropertyValue<P::TYPE_ ## NAME>(propertyValues[i]); break;
+#define ADD_PROPERTY_CASE(NAME) case P::Ids:: ## NAME: { P::TYPE_ ## NAME temp; temp = interpretPropertyValue<P::TYPE_ ## NAME>(propertyValues[i]); std::memcpy(&entity.AXS(NAME), &temp, sizeof(temp)); break; }
 
 World EntityFactory::createWorld(std::string path)
 {

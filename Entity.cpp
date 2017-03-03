@@ -40,6 +40,8 @@ Entity::Entity(std::vector<P::Ids> p)
 
 	properties = malloc(size + sizeof(int) + sizeof(std::pair<P::Ids, size_t>) * propertiesMapTemporary.size()); // Allocate a big chunk of memory for properties, a property map, and a property map length
 
+	
+
 	propertiesMapLength = reinterpret_cast<unsigned int*>(static_cast<char*>(properties) + size); // Start the properties map length after the end of the properties
 	*propertiesMapLength = propertiesMapTemporary.size(); // Give properties map length an actual value, which is the amount of properties passed
 
