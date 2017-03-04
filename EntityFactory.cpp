@@ -57,11 +57,45 @@ Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds
 			ADD_PROPERTY_CASE(orientationVelocity)
 			ADD_PROPERTY_CASE(reloadTime)
 			ADD_PROPERTY_CASE(timeoutTime)
-			ADD_PROPERTY_CASE(hitPolygon)
+			case P::Ids::hitPolygon: 
+			{ 
+				P::TYPE_hitPolygon polygkrejgjers;
+
+				unsigned char* bytes = reinterpret_cast<unsigned char*>(&entity.properties);
+				size_t j;
+
+				printf("[ ");
+				for(j = 0; j < sizeof(double) + 3 * sizeof(PVector<double, 2>) + sizeof(Polygon<double>); j++)
+				{
+					printf("%02x ", bytes[i]);
+				}
+				printf("]\n");
+
+
+				bytes = reinterpret_cast<unsigned char*>(&polygkrejgjers);
+
+				printf("[ ");
+				for(j = 0; j < sizeof(Polygon<double>); j++)
+				{
+					printf("%02x ", bytes[i]);
+				}
+				printf("]\n");
+
+				bool b = std::is_trivially_copyable<PVector<double, 2>>::value;
+
+
+				entity.AXS(hitPolygon) = (interpretPropertyValue<P::TYPE_hitPolygon>(propertyValues[i]));
+				std::memcpy(&entity.AXS(hitPolygon), &polygkrejgjers, sizeof(Polygon<double>));
+				break;
+			}
+			//ADD_PROPERTY_CASE(hitPolygon)
 
 			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
 		}
 	}
+
+	Polygon<double> bozo3 = reinterpret_cast<Polygon<double>&>(entity.access<void*>(P::Ids::hitPolygon));
+	double aaaaaaa = bozo3.points[1].c[0];
 
 	return entity;
 }

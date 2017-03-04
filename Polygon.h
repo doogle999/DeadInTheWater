@@ -34,7 +34,7 @@ Polygon<T>::Polygon(const Polygon<T>& p)
 template<typename T>
 Polygon<T>& Polygon<T>::operator=(const Polygon<T>& p)
 {
-	points.reserve(1);
+	points = p.points;
 
 	return *this;
 }

@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Field.h"
 #include "Controller.h"
+#include "Camera2D.h"
 
 class Entity;
 

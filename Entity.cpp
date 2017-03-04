@@ -40,8 +40,6 @@ Entity::Entity(std::vector<P::Ids> p)
 
 	properties = malloc(size + sizeof(int) + sizeof(std::pair<P::Ids, size_t>) * propertiesMapTemporary.size()); // Allocate a big chunk of memory for properties, a property map, and a property map length
 
-	
-
 	propertiesMapLength = reinterpret_cast<unsigned int*>(static_cast<char*>(properties) + size); // Start the properties map length after the end of the properties
 	*propertiesMapLength = propertiesMapTemporary.size(); // Give properties map length an actual value, which is the amount of properties passed
 
@@ -54,7 +52,19 @@ Entity::Entity(std::vector<P::Ids> p)
 
 Entity::~Entity()
 {
-	free(properties); // Properties is what we malloced so we free properties, nothing else
+	if(properties == nullptr || propertiesMap == nullptr || propertiesMapLength == nullptr)
+	{
+		
+	}
+	else
+	{
+		for(unsigned int i = 0; i < *propertiesMapLength; i++)
+		{
+			(propertiesMap + i)->second;
+		}
+	}
+
+	free(properties); // Properties is what we malloced so we free properties
 }
 
 Entity& Entity::operator=(Entity other)
@@ -66,6 +76,10 @@ Entity& Entity::operator=(Entity other)
 
 bool Entity::hasProperty(P::Ids id)
 {
+	if(properties == nullptr || propertiesMap == nullptr || propertiesMapLength == nullptr)
+	{
+		return false;
+	}
 	for(unsigned int i = 0; i < *propertiesMapLength; i++)
 	{
 		if((propertiesMap + i)->first == id)

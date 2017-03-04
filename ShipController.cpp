@@ -20,7 +20,7 @@ void ShipController::removeEntityIndex(size_t i)
 
 void ShipController::handleInput()
 {
-	if(selectedIndex > 0)
+	if(selectedIndex >= 0)
 	{
 		if(KeyMapper::checkFunc(KeyMapper::Func::left))
 		{
@@ -37,6 +37,19 @@ void ShipController::handleInput()
 		if(KeyMapper::checkFunc(KeyMapper::Func::down))
 		{
 			w->entities[selectedIndex].AXS(acceleration).c[1] = 10;
+		}
+	}
+	if(Cursor::checkFunc(Cursor::Func::leftClick))
+	{
+		for(unsigned int i = 0; i < ei.size(); i++)
+		{
+			auto bozo2 = w->entities[ei[i]].AXS(hitPolygon);
+			auto bozo = dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D])->screenPosToGamePos(Cursor::checkCursorWindowLocation().convert<double>());
+			if(w->entities[ei[i]].AXS(hitPolygon).pointInside(dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D])->screenPosToGamePos(Cursor::checkCursorWindowLocation().convert<double>())))
+			{
+				selectedIndex = ei[i];
+				break;
+			}
 		}
 	}
 }
