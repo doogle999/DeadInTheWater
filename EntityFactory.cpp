@@ -1,6 +1,6 @@
 #include "EntityFactory.h"
 
-#define ADD_PROPERTY_CASE(NAME) case P::Ids:: ## NAME: { P::TYPE_ ## NAME temp; temp = interpretPropertyValue<P::TYPE_ ## NAME>(propertyValues[i]); std::memcpy(&entity.AXS(NAME), &temp, sizeof(temp)); break; }
+#define ADD_ATTRIBUTE_ASSIGNMENT_CASE(NAME) case Attribute::Ids:: ## NAME: { entity.AXS(NAME) = interpretAttributeValue<A:: ## NAME>(attributeValues[i]); break; }
 
 World EntityFactory::createWorld(std::string path)
 {
@@ -16,50 +16,48 @@ World EntityFactory::createWorld(std::string path)
 
 	for(tinyxml2::XMLElement* entityElem = document.FirstChildElement("ENTITIES")->FirstChildElement("ENTITY"); entityElem != NULL; entityElem = entityElem->NextSiblingElement("ENTITY"))
 	{
-		world.scheduleToSpawn(createEntityFromProperties(entityElem->FirstChildElement("PROPERTIES")), convertFieldElemsToFieldIds(entityElem->FirstChildElement("FIELDS")));
+		world.scheduleToSpawn(createEntityFromAttributes(entityElem->FirstChildElement("ATTRIBUTES")), convertFieldElemsToFieldIds(entityElem->FirstChildElement("FIELDS")));
 	}
 
 	return world;
 }
 
-Entity EntityFactory::createEntityFromProperties(tinyxml2::XMLElement* propertiesElem)
+Entity EntityFactory::createEntityFromAttributes(tinyxml2::XMLElement* attributesElem)
 {
-	std::vector<P::Ids> propertyIds;
-	std::vector<tinyxml2::XMLElement*> propertyValues;
+	std::vector<Attribute::Ids> attributeIds;
+	std::vector<tinyxml2::XMLElement*> attributeValues;
 
-	for(tinyxml2::XMLElement* propertyElem = propertiesElem ->FirstChildElement("PROPERTY"); propertyElem; propertyElem = propertyElem->NextSiblingElement("PROPERTY"))
+	for(tinyxml2::XMLElement* attributeElem = attributesElem->FirstChildElement("ATTRIBUTE"); attributeElem; attributeElem = attributeElem->NextSiblingElement("ATTRIBUTE"))
 	{
-		try
+		auto nameId = std::find(Attribute::ATTRIBUTE_NAMES.begin(), Attribute::ATTRIBUTE_NAMES.end(), attributeElem->FirstChildElement("NAME")->GetText());
+
+		if(nameId != Attribute::ATTRIBUTE_NAMES.end())
 		{
-			propertyIds.push_back(P::Names.at(propertyElem->FirstChildElement("NAME")->GetText()));
-			propertyValues.push_back(propertyElem->FirstChildElement("VALUE"));
+			attributeIds.push_back(static_cast<Attribute::Ids>(nameId - Attribute::ATTRIBUTE_NAMES.begin()));
+			tinyxml2::XMLElement* meme = attributeElem->FirstChildElement("VALUE");
+			attributeValues.push_back(attributeElem->FirstChildElement("VALUE"));
 		}
-		catch(std::out_of_range e) // The property was not recognized or its name is not in the P::Names map
+		else
 		{
-			printf("Error recognizing property %s \n", propertyElem->FirstChildElement("NAME")->GetText());
+			printf("Error recognizing attribute %s \n", attributeElem->FirstChildElement("NAME")->GetText());
 		}
 	}
 
-	return createEntityFromProperties(propertyIds, propertyValues);
+	return createEntityFromAttributes(attributeIds, attributeValues);
 }
-Entity EntityFactory::createEntityFromProperties(std::vector<P::Ids> propertyIds, std::vector<tinyxml2::XMLElement*> propertyValues)
+Entity EntityFactory::createEntityFromAttributes(std::vector<Attribute::Ids> attributeIds, std::vector<tinyxml2::XMLElement*> attributeValues)
 {
-	Entity entity(propertyIds);
+	Entity entity(attributeIds);
 
-	for(unsigned int i = 0; i < propertyIds.size(); i++)
+	for(unsigned int i = 0; i < attributeIds.size(); i++)
 	{
-		switch(propertyIds[i]) // All properties need to have a case here if they are to be used
+		switch(attributeIds[i])
 		{
-			ADD_PROPERTY_CASE(position)
-			ADD_PROPERTY_CASE(velocity)
-			ADD_PROPERTY_CASE(acceleration)
-			ADD_PROPERTY_CASE(orientation)
-			ADD_PROPERTY_CASE(orientationVelocity)
-			ADD_PROPERTY_CASE(reloadTime)
-			ADD_PROPERTY_CASE(timeoutTime)
-			ADD_PROPERTY_CASE(hitPolygon)
-
-			default: assert(0 && "EntityFactory is missing a property case"); // Not an exception because only valid property ids can get to this switch
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(Translation)
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(TimeoutTime)
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(ReloadTime)
+			
+			default: assert(0 && "EntityFactory is missing an attribute case"); // Not an exception because only valid attribute ids can get to this switch
 		}
 	}
 
@@ -83,45 +81,62 @@ std::vector<Fields::Ids> EntityFactory::convertFieldElemsToFieldIds(tinyxml2::XM
 	return f;
 }
 
-template<> int EntityFactory::interpretPropertyValue<int>(tinyxml2::XMLElement* value)
+template<> int EntityFactory::interpretAttributeValue<int>(tinyxml2::XMLElement* value)
 {
 	return std::stoi(value->GetText());
 }
-template<> double EntityFactory::interpretPropertyValue<double>(tinyxml2::XMLElement* value)
+template<> double EntityFactory::interpretAttributeValue<double>(tinyxml2::XMLElement* value)
 {
 	return std::stod(value->GetText());
 }
-template<> bool EntityFactory::interpretPropertyValue<bool>(tinyxml2::XMLElement* value)
+template<> bool EntityFactory::interpretAttributeValue<bool>(tinyxml2::XMLElement* value)
 {
 	return (strcmp(value->GetText(), "0") != 0);
 }
-template<> sf::Color EntityFactory::interpretPropertyValue<sf::Color>(tinyxml2::XMLElement* value)
-{
-	return sf::Color
-	(
-		interpretPropertyValue<int>(value->FirstChildElement("RED")),
-		interpretPropertyValue<int>(value->FirstChildElement("GREEN")),
-		interpretPropertyValue<int>(value->FirstChildElement("BLUE")),
-		interpretPropertyValue<int>(value->FirstChildElement("ALPHA"))
-	);
-}
-template<> PVector<double, 2> EntityFactory::interpretPropertyValue<PVector<double, 2>>(tinyxml2::XMLElement* value)
+template<> PVector<double, 2> EntityFactory::interpretAttributeValue<PVector<double, 2>>(tinyxml2::XMLElement* value)
 {
 	return PVector<double, 2>
 	(
-		{ interpretPropertyValue<double>(value->FirstChildElement("X")),
-		interpretPropertyValue<double>(value->FirstChildElement("Y")) }
+		{ interpretAttributeValue<double>(value->FirstChildElement("X")),
+		interpretAttributeValue<double>(value->FirstChildElement("Y")) }
 	);
 }
-template<> Polygon<double> EntityFactory::interpretPropertyValue<Polygon<double>>(tinyxml2::XMLElement* value)
+template<> Polygon<double> EntityFactory::interpretAttributeValue<Polygon<double>>(tinyxml2::XMLElement* value)
 {
 	Polygon<double> poly;
 
 	for(tinyxml2::XMLElement* pointElem = value->FirstChildElement("POINT"); pointElem; pointElem = pointElem->NextSiblingElement("POINT"))
 	{
-		poly.points.push_back(interpretPropertyValue<PVector<double, 2>>(pointElem));
+		poly.points.push_back(interpretAttributeValue<PVector<double, 2>>(pointElem));
 	}
 
 	return poly;
 }
-#undef ADD_PROPERTY_CASE
+template<> A::Translation EntityFactory::interpretAttributeValue<A::Translation>(tinyxml2::XMLElement* value)
+{
+	A::Translation returnValue;
+
+	returnValue.position = interpretAttributeValue<PVector<double, 2>>(value->FirstChildElement("POSITION"));
+	returnValue.velocity = interpretAttributeValue<PVector<double, 2>>(value->FirstChildElement("VELOCITY"));
+	returnValue.acceleration = interpretAttributeValue<PVector<double, 2>>(value->FirstChildElement("ACCELERATION"));
+
+	return returnValue;
+}
+template<> A::TimeoutTime EntityFactory::interpretAttributeValue<A::TimeoutTime>(tinyxml2::XMLElement* value)
+{
+	A::TimeoutTime returnValue;
+
+	returnValue.currentTimeoutTime = interpretAttributeValue<double>(value->FirstChildElement("CURRENT_TIMEOUT_TIME"));
+
+	return returnValue;
+}
+template<> A::ReloadTime EntityFactory::interpretAttributeValue<A::ReloadTime>(tinyxml2::XMLElement* value)
+{
+	A::ReloadTime returnValue;
+
+	returnValue.reloadTime = interpretAttributeValue<double>(value->FirstChildElement("RELOAD_TIME"));
+	returnValue.currentReloadTime = interpretAttributeValue<double>(value->FirstChildElement("CURRENT_RELOAD_TIME"));
+
+	return returnValue;
+}
+#undef ADD_ATTRIBUTE_ASSIGNMENT_CASE

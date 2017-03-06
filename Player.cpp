@@ -20,7 +20,7 @@ void Player::input()
 	}
 }
 
-std::vector<P::Ids> Player::getNecessaryProperties()
+std::vector<Attribute::Ids> Player::getNecessaryProperties()
 {
 	return { };
 }

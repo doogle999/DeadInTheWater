@@ -1,77 +1,118 @@
 #include "Entity.h"
 
-Entity::Entity() 
+#define ADD_ATTRIBUTE_CONSTRUCTOR_CASE(NAME) case Attribute::Ids:: ## NAME: { attributes[Attribute::Ids:: ## NAME] = new A:: ## NAME(); break; }
+#define ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(NAME) case Attribute::Ids:: ## NAME: { attributes[Attribute::Ids:: ## NAME] = new A:: ## NAME(dynamic_cast<A:: ## NAME ## &>(*e.attributes[a[i]])); break; }
+
+Entity::Entity()
 {
-	properties = nullptr; 
-	propertiesMapLength = nullptr;
-	propertiesMap = nullptr; 
-};
-Entity::Entity(const Entity& e) // Copy constructor (deep)
-{
-	if(e.properties == nullptr || e.propertiesMap == nullptr || e.propertiesMapLength == nullptr)
+	for(unsigned int i = 0; i < attributes.size(); i++)
 	{
-		properties = nullptr;
-		propertiesMapLength = nullptr;
-		propertiesMap = nullptr;
+		attributes[i] = nullptr;
 	}
-	else
+};
+Entity::Entity(const Entity& e) 
+{
+	std::vector<Attribute::Ids> a = e.getAttributeIds();
+
+	for(unsigned int i = 0; i < attributes.size(); i++)
 	{
-		size_t propertiesSize = reinterpret_cast<char*>(e.propertiesMapLength) - static_cast<char*>(e.properties); // Size of the properties 
-		size_t totalSize = reinterpret_cast<char*>(e.propertiesMap + *(e.propertiesMapLength)) - static_cast<char*>(e.properties); // Size of the properties, the propertiesMap, and its length
+		attributes[i] = nullptr;
+	}
 
-		properties = malloc(totalSize); // Allocate the memory for all three
-		propertiesMapLength = reinterpret_cast<unsigned int*>(static_cast<char*>(properties) + propertiesSize); // Set the location of the propertiesMap length
-		propertiesMap = reinterpret_cast<std::pair<P::Ids, size_t>*>(static_cast<char*>(properties) + propertiesSize + sizeof(unsigned int)); // Set the location of the propertiesMap
+	for(unsigned int i = 0; i < a.size(); i++)
+	{
+		switch(a[i])
+		{
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(Translation)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(TimeoutTime)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(ReloadTime)
 
-		std::memcpy(properties, e.properties, totalSize); // Copy the bytes from one Entity to another
+			default: assert(0 && "Missing Attribute copy constructor case in Entity copy constructor");
+		}
 	}
 }
-Entity::Entity(std::vector<P::Ids> p)
+Entity::Entity(std::vector<Attribute::Ids> a)
 {
-	std::vector<std::pair<P::Ids, size_t>> propertiesMapTemporary; // Stores the id and memory location after void* properties
-	propertiesMapTemporary.reserve(p.size());
-
-	size_t size = 0; // Amount of memory used for properties
-	for(unsigned int i = 0; i < p.size(); i++)
+	for(unsigned int i = 0; i < attributes.size(); i++)
 	{
-		propertiesMapTemporary.push_back({ p[i], size }); // Since size is the size of all the memory up to this point, it's also the memory location after void* properties for a property p[i]
-		size += P::Sizes.at(p[i]); // Increment size by the size of the type of the property
+		attributes[i] = nullptr;
 	}
 
-	properties = malloc(size + sizeof(int) + sizeof(std::pair<P::Ids, size_t>) * propertiesMapTemporary.size()); // Allocate a big chunk of memory for properties, a property map, and a property map length
-
-	
-
-	propertiesMapLength = reinterpret_cast<unsigned int*>(static_cast<char*>(properties) + size); // Start the properties map length after the end of the properties
-	*propertiesMapLength = propertiesMapTemporary.size(); // Give properties map length an actual value, which is the amount of properties passed
-
-	propertiesMap = reinterpret_cast<std::pair<P::Ids, size_t>*>(static_cast<char*>(properties) + size + sizeof(unsigned int)); // Start the properties map after the end of properties map length
-	for(unsigned int i = 0; i < propertiesMapTemporary.size(); i++) // Set each element of properties map to the temporary properties map
+	for(unsigned int i = 0; i < a.size(); i++)
 	{
-		*(propertiesMap + i) = propertiesMapTemporary[i];
+		switch(a[i])
+		{
+			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(Translation)
+			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(TimeoutTime)
+			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(ReloadTime)
+
+			default: assert(0 && "Missing Attribute constructor case in Entity constructor");
+		}
 	}
 }
 
 Entity::~Entity()
 {
-	free(properties); // Properties is what we malloced so we free properties, nothing else
+	for(unsigned int i = 0; i < attributes.size(); i++)
+	{
+		delete attributes[i];
+	}
 }
 
-Entity& Entity::operator=(Entity other)
+std::vector<Attribute::Ids> Entity::getAttributeIds() const
 {
-	swap(*this, other);
+	std::vector<Attribute::Ids> a;
+
+	for(unsigned int i = 0; i < attributes.size(); i++)
+	{
+		if(attributes[i] != nullptr)
+		{
+			a.push_back(static_cast<Attribute::Ids>(i));
+		}
+	}
+
+	return a;
+}
+
+Entity& Entity::operator=(const Entity& e)
+{
+	for(unsigned int i = 0; i < attributes.size(); i++)
+	{
+		delete attributes[i];
+		attributes[i] = nullptr;
+	}
+
+	std::vector<Attribute::Ids> a = e.getAttributeIds();
+
+	for(unsigned int i = 0; i < a.size(); i++)
+	{
+		switch(a[i])
+		{
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(Translation)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(TimeoutTime)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(ReloadTime)
+
+			default: assert(0 && "Missing Attribute copy constructor case in Entity assignment operator");
+		}
+	}
 
 	return *this;
 }
 
-bool Entity::hasProperty(P::Ids id)
+bool Entity::hasAttribute(Attribute::Ids a)
 {
-	for(unsigned int i = 0; i < *propertiesMapLength; i++)
+	bool returnVal;
+
+	try
 	{
-		if((propertiesMap + i)->first == id)
-		{
-			return true;
-		}
+		returnVal = attributes.at(a) != nullptr;
 	}
-	return false;
+	catch(std::out_of_range)
+	{
+		returnVal = false;
+	}
+	return returnVal;
 }
+
+#undef ADD_ATTRIBUTE_CONSTRUCTOR_CASE
+#undef ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE

@@ -13,14 +13,10 @@ class PVectorBase
 	public:
 		PVectorBase();
 		PVectorBase(std::array<T, N> c);
-		PVectorBase(const PVector<T, N>& pv);
 
 		template <typename otherT>
 		PVector<otherT, N> convert();
 
-		~PVectorBase();
-
-		PVector<T, N>& operator=(const PVector<T, N>& pv);
 		bool operator==(const PVector<T, N>& pv) const;
 
 		PVector<T, N> operator*(const double& s) const;
@@ -35,19 +31,11 @@ class PVectorBase
 };
 
 template <typename T, unsigned int N>
-PVectorBase<T, N>::PVectorBase()
-{
-
-}
+PVectorBase<T, N>::PVectorBase() {}
 template <typename T, unsigned int N>
 PVectorBase<T, N>::PVectorBase(std::array<T, N> c)
 {
 	this->c = c;
-}
-template <typename T, unsigned int N>
-PVectorBase<T, N>::PVectorBase(const PVector<T, N>& pv)
-{
-	c = pv.c;
 }
 
 template <typename T, unsigned int N>
@@ -64,16 +52,6 @@ PVector<otherT, N> PVectorBase<T, N>::convert()
 	return pv;
 }
 
-template <typename T, unsigned int N>
-PVectorBase<T, N>::~PVectorBase() {};
-
-template <typename T, unsigned int N>
-PVector<T, N>& PVectorBase<T, N>::operator=(const PVector<T, N>& pv)
-{
-	c = pv.c;
-
-	return *this;
-}
 template <typename T, unsigned int N>
 bool PVectorBase<T, N>::operator==(const PVector<T, N>& pv) const
 {

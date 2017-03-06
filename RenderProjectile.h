@@ -4,7 +4,6 @@
 
 #include <vector>
 
-#include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
 #include "Camera2D.h"
@@ -22,8 +21,8 @@ class RenderProjectile : public Field
 
 		virtual void render();
 
-		virtual std::vector<P::Ids> getNecessaryProperties();
+		virtual std::vector<Attribute::Ids> getNecessaryProperties();
 
 	private:
-		static const std::vector<P::Ids> necessaryProperties;
+		static const std::vector<Attribute::Ids> necessaryProperties;
 };

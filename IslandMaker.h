@@ -7,7 +7,6 @@
 #include <numeric>
 #include <math.h>
 
-#include "Properties.h"
 #include "Game.h"
 #include "Entity.h"
 #include "Field.h"
@@ -25,13 +24,13 @@ class IslandMaker : public Field
 
 		~IslandMaker();
 
-		virtual std::vector<P::Ids> getNecessaryProperties();
+		virtual std::vector<Attribute::Ids> getNecessaryProperties();
 
 		// Generates the polygon (or polygons, if there are surrounding islets) that describe an island, the size of the island is sizeFactor times the UPSCALE constant	
 		std::vector<Polygon<unsigned int>> generateIsland(unsigned int sizeFactor, double threshold);
 
 	private:
-		static const std::vector<P::Ids> necessaryProperties;
+		static const std::vector<Attribute::Ids> necessaryProperties;
 
 		static const unsigned int UPSCALE = 16;
 

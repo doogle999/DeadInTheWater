@@ -1,54 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ENTITIES>
 	<ENTITY>
-		<PROPERTIES>
-			<PROPERTY>
-				<NAME>position</NAME>
+		<ATTRIBUTES>
+			<ATTRIBUTE>
+				<NAME>Translation</NAME>
 				<VALUE>
-					<X>0</X>
-					<Y>0</Y>
+					<POSITION>
+						<X>0.0</X>
+						<Y>0.0</Y>
+					</POSITION>
+					<VELOCITY>
+						<X>0.0</X>
+						<Y>0.0</Y>
+					</VELOCITY>
+					<ACCELERATION>
+						<X>0.0</X>
+						<Y>0.0</Y>
+					</ACCELERATION>
 				</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>velocity</NAME>
+			</ATTRIBUTE>
+			<ATTRIBUTE>
+				<NAME>ReloadTime</NAME>
 				<VALUE>
-					<X>0</X>
-					<Y>0</Y>
+					<RELOAD_TIME>2</RELOAD_TIME>
+					<CURRENT_RELOAD_TIME>0</CURRENT_RELOAD_TIME>
 				</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>acceleration</NAME>
-				<VALUE>
-					<X>0</X>
-					<Y>0</Y>
-				</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>reloadTime</NAME>
-				<VALUE>0</VALUE>
-			</PROPERTY>
-			<PROPERTY>
-				<NAME>hitPolygon</NAME>
-				<VALUE>
-					<POINT>
-						<X>-16</X>
-						<Y>-8</Y>
-					</POINT>
-					<POINT>
-						<X>16</X>
-						<Y>-8</Y>
-					</POINT>
-					<POINT>
-						<X>16</X>
-						<Y>8</Y>
-					</POINT>
-					<POINT>
-						<X>-16</X>
-						<Y>8</Y>
-					</POINT>
-				</VALUE>
-			</PROPERTY>
-		</PROPERTIES>
+			</ATTRIBUTE>
+		</ATTRIBUTES>
 		<FIELDS>
 			<FIELD>
 				<NAME>ShipController</NAME>

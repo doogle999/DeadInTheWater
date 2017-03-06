@@ -1,57 +1,50 @@
 #pragma once
 
 #include <vector>
+#include <array>
 #include <cassert>
 #include <exception>
 #include <utility>
 
-#include "Properties.h"
+#include "Attribute.h"
+#include "Attributes.h"
 
 // ACCESS PROPERTIES WITH THIS MACRO TO ENSURE THE TYPE IS CORRECT
 // AXS stands for Access (aka AXESS aka AXS), use to access an entity's property 
-#define AXS(NAME) access<P::TYPE_ ## NAME>(P::Ids:: ## NAME)
+#define AXS(NAME) access<A:: ## NAME>(Attribute::Ids:: ## NAME)
 
 class Entity
 {
 	public:	
 		Entity();
 		Entity(const Entity& e);
-		Entity(std::vector<P::Ids> p);
+		Entity(std::vector<Attribute::Ids> a);
 
 		~Entity();
 
-		Entity& operator=(Entity other);
+		std::vector<Attribute::Ids> getAttributeIds() const;
 
-		friend void swap(Entity& first, Entity& second)
-		{
-			using std::swap;
-
-			swap(first.properties, second.properties);
-			swap(first.propertiesMapLength, second.propertiesMapLength);
-			swap(first.propertiesMap, second.propertiesMap);
-		}
+		Entity& operator=(const Entity& e);
 
 		template <typename T>
-		T& access(P::Ids id);
+		T& access(Attribute::Ids);
 
-		bool hasProperty(P::Ids id);
+		bool hasAttribute(Attribute::Ids a);
 
 	private:
-		void* properties;
-		unsigned int* propertiesMapLength;
-		std::pair<P::Ids, size_t>* propertiesMap;
+		std::array<Attribute*, Attribute::Ids::META_ATTRIBUTE_COUNT> attributes;
 };
 
 template<typename T>
-T& Entity::access(P::Ids id) // When called you need to pass the right type, if the property you want is an int but you call double you get undefined behavior
+T& Entity::access(Attribute::Ids a) // When called you need to pass the right type, if the attribute you want is an int but you call double you get undefined behavior
 {
-	for(unsigned int i = 0; i < *propertiesMapLength; i++) // Search through the properties map to find the property we want
+	if(hasAttribute(a))
 	{
-		if((propertiesMap + i)->first == id)
-		{
-			return *reinterpret_cast<T*>(static_cast<char*>(properties) + propertiesMap[i].second); // Return the value of the property at the location
-		}
+		return dynamic_cast<T&>(*attributes[a]);
 	}
-	assert(0 && "Attempted to access a property that either does not exist or this entity does not have"); // The property that was being accessed was not in the map
-	abort(); // Get rid of the goddamn warning that prints for every single call to this function that "not all control paths return a value"
+	else
+	{
+		assert(0 && "Attempted to access an attribute that either does not exist or that this entity does not have");
+		abort(); // Get rid of the goddamn warning that prints for every single call to this function that "not all control paths return a value"
+	}
 }
