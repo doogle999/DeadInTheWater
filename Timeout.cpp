@@ -8,9 +8,9 @@ void Timeout::update()
 {
 	for(unsigned int i = 0; i < ei.size(); i++)
 	{
-		if(w->entities[ei[i]].AXS(timeoutTime) > 0)
+		if(w->entities[ei[i]].AXS(TimeoutTime).currentTimeoutTime > 0)
 		{
-			w->entities[ei[i]].AXS(timeoutTime) -= Game::getTick();
+			w->entities[ei[i]].AXS(TimeoutTime).currentTimeoutTime -= Game::getTick();
 		}
 		else
 		{
@@ -19,9 +19,9 @@ void Timeout::update()
 	}
 }
 
-std::vector<P::Ids> Timeout::getNecessaryProperties()
+std::vector<Attribute::Ids> Timeout::getNecessaryProperties()
 {
 	return Timeout::necessaryProperties;
 };
 
-const std::vector<P::Ids> Timeout::necessaryProperties = { P::Ids::timeoutTime };
+const std::vector<Attribute::Ids> Timeout::necessaryProperties = { Attribute::Ids::TimeoutTime };

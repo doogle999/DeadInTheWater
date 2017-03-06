@@ -4,7 +4,8 @@
 
 #include "World.h"
 #include "Entity.h"
-#include "Properties.h"
+#include "Attribute.h"
+#include "Attributes.h"
 #include "Fields.h"
 
 class World;
@@ -22,7 +23,7 @@ class Field
 		virtual void update();
 		virtual void render();
 
-		virtual std::vector<P::Ids> getNecessaryProperties() = 0;
+		virtual std::vector<Attribute::Ids> getNecessaryProperties() = 0;
 		bool compatible(Entity* e);
 
 	protected:

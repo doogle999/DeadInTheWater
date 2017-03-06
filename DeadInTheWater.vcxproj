@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\User\Documents\Visual Studio 2015\Projects\DeadInTheWater\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\User\Documents\Visual Studio 2015\Projects\DeadInTheWater\SFML-2.4.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -98,6 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\User\Documents\Visual Studio 2015\Projects\DeadInTheWater\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -120,6 +122,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attribute.cpp" />
+    <ClCompile Include="Attributes.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -131,7 +135,6 @@
     <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RenderBoat.cpp" />
     <ClCompile Include="RenderProjectile.cpp" />
     <ClCompile Include="ShipController.cpp" />
@@ -143,6 +146,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attributes.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Fields.h" />
@@ -151,12 +155,12 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Attribute.h" />
     <ClInclude Include="PVector.h" />
     <ClInclude Include="ShipController.h" />
     <ClInclude Include="KeyMapper.h" />
     <ClInclude Include="IslandMaker.h" />
     <ClInclude Include="Polygon.h" />
-    <ClInclude Include="Properties.h" />
     <ClInclude Include="RenderBoat.h" />
     <ClInclude Include="RenderProjectile.h" />
     <ClInclude Include="Controller.h" />

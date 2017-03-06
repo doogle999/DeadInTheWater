@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
 #include "Fields.h"
@@ -16,9 +15,9 @@ class TranslationIncrementer : public Field
 
 		virtual void update();
 
-		virtual std::vector<P::Ids> getNecessaryProperties();
+		virtual std::vector<Attribute::Ids> getNecessaryProperties();
 
 	private:
-		static const std::vector<P::Ids> necessaryProperties;
+		static const std::vector<Attribute::Ids> necessaryProperties;
 };
 

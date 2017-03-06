@@ -17,15 +17,15 @@ void RenderBoat::render()
 
 		s.setScale(1 / cameraPtr->getViewportS(), 1 / cameraPtr->getViewportS());
 
-		s.setPosition((cameraPtr->gamePosToScreenPos(w->entities[ei[i]].AXS(position))).convert<float>().toVector2());
+		s.setPosition((cameraPtr->gamePosToScreenPos(w->entities[ei[i]].AXS(Translation).position)).convert<float>().toVector2());
 
 		Game::window->draw(s);
 	}
 }
 
-std::vector<P::Ids> RenderBoat::getNecessaryProperties()
+std::vector<Attribute::Ids> RenderBoat::getNecessaryProperties()
 {
 	return RenderBoat::necessaryProperties;
 }
 
-const std::vector<P::Ids> RenderBoat::necessaryProperties = { P::Ids::position };
+const std::vector<Attribute::Ids> RenderBoat::necessaryProperties = { Attribute::Ids::Translation };

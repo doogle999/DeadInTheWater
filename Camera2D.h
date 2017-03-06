@@ -4,7 +4,6 @@
 
 #include <vector>
 
-#include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
 #include "PVector.h"
@@ -31,7 +30,7 @@ class Camera2D : public Field
 		double getViewportS();
 		double getViewportSMult();
 
-		virtual std::vector<P::Ids> getNecessaryProperties();
+		virtual std::vector<Attribute::Ids> getNecessaryProperties();
 
 	private:
 		PVector<double, 2> viewportPos; // X, Y, origin in top left, 

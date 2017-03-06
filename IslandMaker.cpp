@@ -204,12 +204,12 @@ std::vector<Polygon<unsigned int>> IslandMaker::generateIsland(unsigned int size
 	return polys;
 }
 
-std::vector<P::Ids> IslandMaker::getNecessaryProperties()
+std::vector<Attribute::Ids> IslandMaker::getNecessaryProperties()
 {
 	return IslandMaker::necessaryProperties;
 };
 
-const std::vector<P::Ids> IslandMaker::necessaryProperties = {};
+const std::vector<Attribute::Ids> IslandMaker::necessaryProperties = {};
 
 // 
 // NOISE CLASS

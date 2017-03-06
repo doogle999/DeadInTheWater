@@ -85,7 +85,7 @@ double Camera2D::getViewportSMult()
 	return viewportSMult;
 }
 
-std::vector<P::Ids> Camera2D::getNecessaryProperties()
+std::vector<Attribute::Ids> Camera2D::getNecessaryProperties()
 {
 	return {};
 };

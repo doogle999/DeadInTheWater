@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "Properties.h"
 #include "Entity.h"
 #include "Field.h"
 #include "Controller.h"
@@ -21,10 +20,10 @@ class ShipController : public Controller
 
 		virtual void handleInput();
 
-		virtual std::vector<P::Ids> getNecessaryProperties();
+		virtual std::vector<Attribute::Ids> getNecessaryProperties();
 
 	private:
-		static const std::vector<P::Ids> necessaryProperties;
+		static const std::vector<Attribute::Ids> necessaryProperties;
 
 		int selectedIndex; // The ship that is currently selected, negative if nothing is selected, of w->entities not ei
 };

@@ -10,7 +10,8 @@
 #include "Field.h"
 #include "Fields.h"
 #include "Entity.h"
-#include "Properties.h"
+#include "Attribute.h"
+#include "Attributes.h"
 
 #include "tinyxml2.h"
 
@@ -21,17 +22,19 @@ class EntityFactory
 	public:
 		static World createWorld(std::string path);
 
-		static Entity createEntityFromProperties(tinyxml2::XMLElement* propertiesElem);
-		static Entity createEntityFromProperties(std::vector<P::Ids> propertyIds, std::vector<tinyxml2::XMLElement*> propertyValues);
+		static Entity createEntityFromAttributes(tinyxml2::XMLElement* attributeElem);
+		static Entity createEntityFromAttributes(std::vector<Attribute::Ids> attributeIds, std::vector<tinyxml2::XMLElement*> attributeValues);
 		static std::vector<Fields::Ids> convertFieldElemsToFieldIds(tinyxml2::XMLElement* fieldsElem);
 
 		template<typename T>
-		static T interpretPropertyValue(tinyxml2::XMLElement* value); // Interprets an XML element that holds the value of a property and converts it into the specified type
+		static T interpretAttributeValue(tinyxml2::XMLElement* value); // Interprets an XML element that holds the value of a property and converts it into the specified type
 
-		template<> static int interpretPropertyValue<int>(tinyxml2::XMLElement* value);
-		template<> static double interpretPropertyValue<double>(tinyxml2::XMLElement* value);
-		template<> static bool interpretPropertyValue<bool>(tinyxml2::XMLElement* value);
-		template<> static sf::Color interpretPropertyValue<sf::Color>(tinyxml2::XMLElement* value);
-		template<> static PVector<double, 2> interpretPropertyValue<PVector<double, 2>>(tinyxml2::XMLElement* value);
-		template<> static Polygon<double> interpretPropertyValue<Polygon<double>>(tinyxml2::XMLElement* value);
+		template<> static int interpretAttributeValue<int>(tinyxml2::XMLElement* value);
+		template<> static double interpretAttributeValue<double>(tinyxml2::XMLElement* value);
+		template<> static bool interpretAttributeValue<bool>(tinyxml2::XMLElement* value);
+		template<> static PVector<double, 2> interpretAttributeValue<PVector<double, 2>>(tinyxml2::XMLElement* value);
+		template<> static Polygon<double> interpretAttributeValue<Polygon<double>>(tinyxml2::XMLElement* value);
+		template<> static A::Translation interpretAttributeValue<A::Translation>(tinyxml2::XMLElement* value);
+		template<> static A::TimeoutTime interpretAttributeValue<A::TimeoutTime>(tinyxml2::XMLElement* value);
+		template<> static A::ReloadTime interpretAttributeValue<A::ReloadTime>(tinyxml2::XMLElement* value);
 };
