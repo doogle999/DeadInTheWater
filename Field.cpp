@@ -1,5 +1,10 @@
 #include "Field.h"
 
+Field::~Field()
+{
+
+}
+
 void Field::setWorld(World* w)
 {
 	this->w = w;

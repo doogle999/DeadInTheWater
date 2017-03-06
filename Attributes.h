@@ -34,4 +34,10 @@ namespace A
 
 			static const double DEFAULT_RELOAD_TIME;
 	};
+
+	class HitPolygon : public Attribute
+	{
+		public:
+			
+	};
 }

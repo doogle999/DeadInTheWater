@@ -13,6 +13,8 @@ class World;
 class Field
 {
 	public:
+		virtual ~Field();
+
 		void setWorld(World* w);
 
 		void addEntityIndex(size_t i);

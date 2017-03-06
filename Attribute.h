@@ -13,6 +13,7 @@ class Attribute
 			Translation,
 			TimeoutTime,
 			ReloadTime,
+			HitPolygon,
 			META_ATTRIBUTE_COUNT
 		};
 

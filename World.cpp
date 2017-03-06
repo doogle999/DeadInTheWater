@@ -9,7 +9,9 @@
 #include "RenderProjectile.h"
 #include "Timeout.h"
 
-#define ADD_FIELD(FIELD) FIELD* TEMP_ ## FIELD = new FIELD; fields[Fields::Ids::Id_ ## FIELD] = TEMP_ ## FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
+#define ADD_FIELD_CONSTRUCTOR(FIELD) fields[Fields::Ids::Id_ ## FIELD] = new FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
+#define ADD_FIELD_COPY_CONSTRUCTOR(FIELD) fields[Fields::Ids::Id_ ## FIELD] = new FIELD(dynamic_cast<FIELD&>(*w.fields[Fields::Ids::Id_ ## FIELD])); fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
+
 
 World::World()
 {
@@ -19,14 +21,14 @@ World::World()
 	}
 
 	// For now, the order these are in is their call order, will add a priority system at some point
-	ADD_FIELD(Player)
-	ADD_FIELD(ShipController)
-	ADD_FIELD(TranslationIncrementer)
-	ADD_FIELD(Camera2D)
-	ADD_FIELD(RenderBoat)
-	ADD_FIELD(SpawnProjectile)
-	ADD_FIELD(RenderProjectile)
-	ADD_FIELD(Timeout)
+	ADD_FIELD_CONSTRUCTOR(Player)
+	ADD_FIELD_CONSTRUCTOR(ShipController)
+	ADD_FIELD_CONSTRUCTOR(TranslationIncrementer)
+	ADD_FIELD_CONSTRUCTOR(Camera2D)
+	ADD_FIELD_CONSTRUCTOR(RenderBoat)
+	ADD_FIELD_CONSTRUCTOR(SpawnProjectile)
+	ADD_FIELD_CONSTRUCTOR(RenderProjectile)
+	ADD_FIELD_CONSTRUCTOR(Timeout)
 }
 World::World(World& w) // Copy constructor (deep)
 {
@@ -35,7 +37,15 @@ World::World(World& w) // Copy constructor (deep)
 		entities[i] = Entity(w.entities[i]);
 	}
 
-	fields = w.fields;
+	ADD_FIELD_COPY_CONSTRUCTOR(Player)
+	ADD_FIELD_COPY_CONSTRUCTOR(ShipController)
+	ADD_FIELD_COPY_CONSTRUCTOR(TranslationIncrementer)
+	ADD_FIELD_COPY_CONSTRUCTOR(Camera2D)
+	ADD_FIELD_COPY_CONSTRUCTOR(RenderBoat)
+	ADD_FIELD_COPY_CONSTRUCTOR(SpawnProjectile)
+	ADD_FIELD_COPY_CONSTRUCTOR(RenderProjectile)
+	ADD_FIELD_COPY_CONSTRUCTOR(Timeout)
+
 	for(unsigned int i = 0; i < fields.size(); i++)
 	{
 		fields[i]->setWorld(this);
@@ -48,7 +58,13 @@ World::World(World& w) // Copy constructor (deep)
 	currentEntities = w.currentEntities;
 }
 
-World::~World() {}
+World::~World() 
+{
+	for(unsigned int i = 0; i < fields.size(); i++)
+	{
+		delete fields[i];
+	}
+}
 
 World& World::operator=(World w)
 {
@@ -189,6 +205,4 @@ void World::checkScheduledToChangeFields()
 	scheduledToChangeFields.clear();
 }
 
-#undef REGISTER_FIELD
-#undef REGISTER_FIELD_BEHAVIOR
-#undef REGISTER_BEHAVIOR
+#undef ADD_FIELD_CONSTRUCTOR

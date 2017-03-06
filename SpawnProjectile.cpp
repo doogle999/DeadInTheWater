@@ -43,5 +43,3 @@ std::vector<Attribute::Ids> SpawnProjectile::getNecessaryProperties()
 };
 
 const std::vector<Attribute::Ids> SpawnProjectile::necessaryProperties = { Attribute::Ids::ReloadTime, Attribute::Ids::Translation };
-
-const double SpawnProjectile::cooldown = 2;

@@ -26,6 +26,4 @@ class SpawnProjectile : public Field
 
 	private:
 		static const std::vector<Attribute::Ids> necessaryProperties;
-
-		static const double cooldown;
 };
