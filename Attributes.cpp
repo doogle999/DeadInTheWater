@@ -8,3 +8,5 @@ TimeoutTime::TimeoutTime() : currentTimeoutTime(0) {};
 
 ReloadTime::ReloadTime() : reloadTime(DEFAULT_RELOAD_TIME), currentReloadTime(0) {};
 const double ReloadTime::DEFAULT_RELOAD_TIME = 5;
+
+HitPolygon::HitPolygon() : hitPolygon({ }) {};

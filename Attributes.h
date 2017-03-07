@@ -38,6 +38,8 @@ namespace A
 	class HitPolygon : public Attribute
 	{
 		public:
-			
+			HitPolygon();
+
+			Polygon<double> hitPolygon;
 	};
 }

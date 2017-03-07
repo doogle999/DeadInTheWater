@@ -56,6 +56,7 @@ Entity EntityFactory::createEntityFromAttributes(std::vector<Attribute::Ids> att
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(Translation)
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(TimeoutTime)
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(ReloadTime)
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(HitPolygon)
 			
 			default: assert(0 && "EntityFactory is missing an attribute case"); // Not an exception because only valid attribute ids can get to this switch
 		}
@@ -126,7 +127,7 @@ template<> A::TimeoutTime EntityFactory::interpretAttributeValue<A::TimeoutTime>
 {
 	A::TimeoutTime returnValue;
 
-	returnValue.currentTimeoutTime = interpretAttributeValue<double>(value->FirstChildElement("CURRENT_TIMEOUT_TIME"));
+	returnValue.currentTimeoutTime = interpretAttributeValue<double>(value);
 
 	return returnValue;
 }
@@ -136,6 +137,14 @@ template<> A::ReloadTime EntityFactory::interpretAttributeValue<A::ReloadTime>(t
 
 	returnValue.reloadTime = interpretAttributeValue<double>(value->FirstChildElement("RELOAD_TIME"));
 	returnValue.currentReloadTime = interpretAttributeValue<double>(value->FirstChildElement("CURRENT_RELOAD_TIME"));
+
+	return returnValue;
+}
+template<> A::HitPolygon EntityFactory::interpretAttributeValue<A::HitPolygon>(tinyxml2::XMLElement* value)
+{
+	A::HitPolygon returnValue;
+
+	returnValue.hitPolygon = interpretAttributeValue<Polygon<double>>(value);
 
 	return returnValue;
 }

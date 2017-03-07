@@ -26,6 +26,27 @@
 					<CURRENT_RELOAD_TIME>0</CURRENT_RELOAD_TIME>
 				</VALUE>
 			</ATTRIBUTE>
+			<ATTRIBUTE>
+				<NAME>HitPolygon</NAME>
+				<VALUE>
+					<POINT>
+						<X>-16.0</X>
+						<Y>-8.0</Y>
+					</POINT>
+					<POINT>
+						<X>16.0</X>
+						<Y>-8.0</Y>
+					</POINT>
+					<POINT>
+						<X>16.0</X>
+						<Y>8.0</Y>
+					</POINT>
+					<POINT>
+						<X>-16.0</X>
+						<Y>8.0</Y>
+					</POINT>
+				</VALUE>
+			</ATTRIBUTE>
 		</ATTRIBUTES>
 		<FIELDS>
 			<FIELD>
