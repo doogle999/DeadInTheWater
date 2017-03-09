@@ -2,10 +2,9 @@
 
 #include <vector>
 
-#include "KeyMapper.h"
-#include "Cursor.h"
 #include "Field.h"
 #include "Fields.h"
+#include "SFMLInputHandler.h"
 
 class Controller : public Field // Interface for a controller that can cede control
 {

@@ -81,12 +81,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\NonFieldInput</Filter>
     </ClCompile>
-    <ClCompile Include="KeyMapper.cpp">
-      <Filter>Source Files\NonFieldInput</Filter>
-    </ClCompile>
-    <ClCompile Include="Cursor.cpp">
-      <Filter>Source Files\NonFieldInput</Filter>
-    </ClCompile>
     <ClCompile Include="Attributes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -95,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="TranslationIncrementer.cpp">
       <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="SFMLInputHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,12 +146,6 @@
     <ClInclude Include="PVector.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>Header Files\NonFieldInput</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyMapper.h">
-      <Filter>Header Files\NonFieldInput</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\NonFieldInput</Filter>
     </ClInclude>
@@ -169,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="TranslationIncrementer.h">
       <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="SFMLInputHandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

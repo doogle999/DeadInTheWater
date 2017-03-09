@@ -22,7 +22,7 @@ class World
 
 		World& operator=(World w);
 
-		void input();
+		bool input();
 		void update();
 		void render();
 
@@ -30,6 +30,8 @@ class World
 		void scheduleToDespawn(size_t i);
 
 		void scheduleToChangeFields(size_t i, Fields::Ids f, bool b);
+
+		void scheduleToClose();
 
 		static const size_t MAX_ENTITIES = 100;
 		std::array<Entity, MAX_ENTITIES> entities;
@@ -48,6 +50,8 @@ class World
 		std::vector<size_t> scheduledToDespawn;
 
 		std::vector<std::tuple<size_t, Fields::Ids, bool>> scheduledToChangeFields; // Index of the entity, field it is changing, whether it is joining (true) or leaving (false)
+
+		bool scheduledToClose;
 
 		std::array<bool, MAX_ENTITIES> currentEntities;
 };

@@ -4,6 +4,7 @@
 
 const std::map<std::string, Fields::Ids> Fields::fieldRegistry
 {
+	ADD_NAME(SFMLInputHandler),
 	ADD_NAME(Player),
 	ADD_NAME(ShipController),
 	ADD_NAME(TranslationIncrementer),

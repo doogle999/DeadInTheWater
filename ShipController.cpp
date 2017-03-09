@@ -20,13 +20,41 @@ void ShipController::removeEntityIndex(size_t i)
 
 void ShipController::handleInput()
 {
+	SFMLInputHandler* inputPointer = dynamic_cast<SFMLInputHandler*>(w->fields[Fields::Ids::Id_SFMLInputHandler]);
+
+	int eve = inputPointer->popEve();
+
+	while(eve >= 0)
+	{
+		if(eve == SFMLInputHandler::Eve::select)
+		{
+			bool clickedOnShip = false;
+
+			for(unsigned int i = 0; i < ei.size(); i++)
+			{
+				if(w->entities[ei[i]].AXS(HitPolygon).hitPolygon.pointInside(dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D])->screenPosToGamePos(inputPointer->getMousePosRelWin().convert<double>()) - w->entities[ei[i]].AXS(Translation).position))
+				{
+					clickedOnShip = true;
+					selectedIndex = ei[i];
+					break;
+				}
+			}
+			if(!clickedOnShip)
+			{
+				selectedIndex = -1;
+			}
+		}
+
+		eve = inputPointer->popEve();
+	}
+
 	if(selectedIndex >= 0)
 	{
-		if(KeyMapper::checkFunc(KeyMapper::Func::left))
+		if(inputPointer->checkFunc(SFMLInputHandler::Func::left))
 		{
 			w->entities[selectedIndex].AXS(Translation).acceleration.c[0] = -10;
 		}
-		else if(KeyMapper::checkFunc(KeyMapper::Func::right))
+		else if(inputPointer->checkFunc(SFMLInputHandler::Func::right))
 		{
 			w->entities[selectedIndex].AXS(Translation).acceleration.c[0] = 10;
 		}
@@ -34,11 +62,11 @@ void ShipController::handleInput()
 		{
 			w->entities[selectedIndex].AXS(Translation).acceleration.c[0] = 0;
 		}
-		if(KeyMapper::checkFunc(KeyMapper::Func::up))
+		if(inputPointer->checkFunc(SFMLInputHandler::Func::up))
 		{
 			w->entities[selectedIndex].AXS(Translation).acceleration.c[1] = -10;
 		}
-		else if(KeyMapper::checkFunc(KeyMapper::Func::down))
+		else if(inputPointer->checkFunc(SFMLInputHandler::Func::down))
 		{
 			w->entities[selectedIndex].AXS(Translation).acceleration.c[1] = 10;
 		}
@@ -47,24 +75,9 @@ void ShipController::handleInput()
 			w->entities[selectedIndex].AXS(Translation).acceleration.c[1] = 0;
 		}
 	}
-	if(Cursor::checkFunc(Cursor::Func::leftClick))
-	{
-		bool clickedOnShip = false;
-
-		for(unsigned int i = 0; i < ei.size(); i++)
-		{
-			if(w->entities[ei[i]].AXS(HitPolygon).hitPolygon.pointInside(dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D])->screenPosToGamePos(Cursor::checkCursorWindowLocation().convert<double>()) - w->entities[ei[i]].AXS(Translation).position))
-			{
-				clickedOnShip = true;
-				selectedIndex = ei[i];
-				break;
-			}
-		}
-		if(!clickedOnShip)
-		{
-			selectedIndex = -1;
-		}
-	}
+	
+	
+	
 }
 
 std::vector<Attribute::Ids> ShipController::getNecessaryProperties()

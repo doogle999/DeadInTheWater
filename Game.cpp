@@ -28,20 +28,7 @@ void Game::loop()
 	while(window->isOpen())
 	{
 		// Inputing
-		Game::world.input();
-
-		sf::Event event;
-		while(window->pollEvent(event))
-		{
-			switch(event.type)
-			{
-				case sf::Event::Closed:
-					exiting = true;
-					break;
-				default:
-					break;
-			}
-		}
+		exiting = Game::world.input();
 
 		std::chrono::steady_clock::time_point updateCurrent = std::chrono::steady_clock::now();
 		ms updateElapsed = std::chrono::duration_cast<ms>(updateCurrent - updatePrevious);

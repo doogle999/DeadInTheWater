@@ -1,5 +1,6 @@
 #include "World.h"
 
+#include "SFMLInputHandler.h"
 #include "Player.h"
 #include "ShipController.h"
 #include "TranslationIncrementer.h"
@@ -21,6 +22,7 @@ World::World()
 	}
 
 	// For now, the order these are in is their call order, will add a priority system at some point
+	ADD_FIELD_CONSTRUCTOR(SFMLInputHandler)
 	ADD_FIELD_CONSTRUCTOR(Player)
 	ADD_FIELD_CONSTRUCTOR(ShipController)
 	ADD_FIELD_CONSTRUCTOR(TranslationIncrementer)
@@ -29,6 +31,8 @@ World::World()
 	ADD_FIELD_CONSTRUCTOR(SpawnProjectile)
 	ADD_FIELD_CONSTRUCTOR(RenderProjectile)
 	ADD_FIELD_CONSTRUCTOR(Timeout)
+
+	scheduledToClose = false;
 }
 World::World(World& w) // Copy constructor (deep)
 {
@@ -37,6 +41,7 @@ World::World(World& w) // Copy constructor (deep)
 		entities[i] = Entity(w.entities[i]);
 	}
 
+	ADD_FIELD_COPY_CONSTRUCTOR(SFMLInputHandler)
 	ADD_FIELD_COPY_CONSTRUCTOR(Player)
 	ADD_FIELD_COPY_CONSTRUCTOR(ShipController)
 	ADD_FIELD_COPY_CONSTRUCTOR(TranslationIncrementer)
@@ -54,6 +59,7 @@ World::World(World& w) // Copy constructor (deep)
 	scheduledToSpawn = w.scheduledToSpawn;
 	scheduledToDespawn = w.scheduledToDespawn;
 	scheduledToChangeFields = w.scheduledToChangeFields;
+	scheduledToClose = w.scheduledToClose;
 
 	currentEntities = w.currentEntities;
 }
@@ -81,13 +87,14 @@ World& World::operator=(World w)
 	swap(this->scheduledToSpawn, w.scheduledToSpawn);
 	swap(this->scheduledToDespawn, w.scheduledToDespawn);
 	swap(this->scheduledToChangeFields, w.scheduledToChangeFields);
+	swap(this->scheduledToClose, w.scheduledToClose);
 
 	swap(this->currentEntities, w.currentEntities);
 
 	return *this;
 }
 
-void World::input()
+bool World::input()
 {
 	checkScheduledToSpawn();
 	checkScheduledToDespawn();
@@ -97,6 +104,8 @@ void World::input()
 	{
 		fields[i]->input();
 	}
+
+	return scheduledToClose;
 }
 void World::update()
 {
@@ -149,6 +158,11 @@ void World::scheduleToDespawn(size_t i)
 void World::scheduleToChangeFields(size_t i, Fields::Ids f, bool b) // Index of the entity, fields it is changing, 
 {
 	scheduledToChangeFields.push_back(std::make_tuple(i, f, b));
+}
+
+void World::scheduleToClose()
+{
+	scheduledToClose = true;
 }
 
 void World::checkScheduledToSpawn() // This is optimized so that it only has to run through the whole entities array checking for free spots once
