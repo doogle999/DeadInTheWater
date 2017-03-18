@@ -8,6 +8,12 @@ SFMLInputHandler::SFMLInputHandler()
 	keyFuncMap[sf::Keyboard::Key::D] = { Func::right };
 	keyFuncMap[sf::Keyboard::Key::S] = { Func::down };
 	keyFuncMap[sf::Keyboard::Key::W] = { Func::up };
+	keyFuncMap[sf::Keyboard::Key::Left] = { Func::leftSecondary };
+	keyFuncMap[sf::Keyboard::Key::Right] = { Func::rightSecondary };
+	keyFuncMap[sf::Keyboard::Key::Down] = { Func::downSecondary };
+	keyFuncMap[sf::Keyboard::Key::Up] = { Func::upSecondary };
+	keyFuncMap[sf::Keyboard::Key::Add] = { Func::zoomIn };
+	keyFuncMap[sf::Keyboard::Key::Subtract] = { Func::zoomOut };
 
 	mousePressedEveMap[sf::Mouse::Button::Left] = { Eve::select };
 }

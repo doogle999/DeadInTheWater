@@ -14,6 +14,7 @@ class Attribute
 			TimeoutTime,
 			ReloadTime,
 			HitPolygon,
+			Orientation,
 			META_ATTRIBUTE_COUNT
 		};
 

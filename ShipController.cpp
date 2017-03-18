@@ -26,7 +26,7 @@ void ShipController::handleInput()
 
 	while(eve >= 0)
 	{
-		if(eve == SFMLInputHandler::Eve::select)
+		if(eve == SFMLInputHandler::Eve::select) // Check if there are any ships selected
 		{
 			bool clickedOnShip = false;
 
@@ -48,36 +48,25 @@ void ShipController::handleInput()
 		eve = inputPointer->popEve();
 	}
 
-	if(selectedIndex >= 0)
+	if(selectedIndex >= 0) // Ship movement controls
 	{
-		if(inputPointer->checkFunc(SFMLInputHandler::Func::left))
-		{
-			w->entities[selectedIndex].AXS(Translation).acceleration.c[0] = -10;
-		}
-		else if(inputPointer->checkFunc(SFMLInputHandler::Func::right))
-		{
-			w->entities[selectedIndex].AXS(Translation).acceleration.c[0] = 10;
-		}
-		else
-		{
-			w->entities[selectedIndex].AXS(Translation).acceleration.c[0] = 0;
-		}
-		if(inputPointer->checkFunc(SFMLInputHandler::Func::up))
-		{
-			w->entities[selectedIndex].AXS(Translation).acceleration.c[1] = -10;
-		}
-		else if(inputPointer->checkFunc(SFMLInputHandler::Func::down))
-		{
-			w->entities[selectedIndex].AXS(Translation).acceleration.c[1] = 10;
-		}
-		else
-		{
-			w->entities[selectedIndex].AXS(Translation).acceleration.c[1] = 0;
-		}
+		Entity& shipPointer = w->entities[selectedIndex];
+
+		PVector<double, 2> shipForward;
+		shipForward.setMagAngle(1, shipPointer.AXS(Orientation).theta);
+		PVector<double, 2> shipHorizontal;
+		shipHorizontal.setMagAngle(1, shipPointer.AXS(Orientation).theta + M_PI / 2);
+
+		shipPointer.AXS(Orientation).alpha = shipPointer.AXS(Translation).velocity.mag() * (inputPointer->checkFunc(SFMLInputHandler::Func::right) - inputPointer->checkFunc(SFMLInputHandler::Func::left));
+		shipPointer.AXS(Orientation).alpha = shipPointer.AXS(Orientation).alpha - (1.0 / 2.0) * shipPointer.AXS(Orientation).omega;
+
+		shipPointer.AXS(Translation).acceleration.setMagAngle(10 * (inputPointer->checkFunc(SFMLInputHandler::Func::up) - inputPointer->checkFunc(SFMLInputHandler::Func::down)), shipPointer.AXS(Orientation).theta);
+		shipPointer.AXS(Translation).velocity = shipForward * shipForward.dot(shipPointer.AXS(Translation).velocity);
 	}
-	
-	
-	
+
+	Camera2D* cameraPointer = dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D]); // Move the camera 
+
+	cameraPointer->cameraControls({ SFMLInputHandler::Func::leftSecondary, SFMLInputHandler::Func::rightSecondary, SFMLInputHandler::Func::upSecondary, SFMLInputHandler::Func::downSecondary, SFMLInputHandler::Func::zoomIn, SFMLInputHandler::Func::zoomOut });
 }
 
 std::vector<Attribute::Ids> ShipController::getNecessaryProperties()
@@ -85,4 +74,4 @@ std::vector<Attribute::Ids> ShipController::getNecessaryProperties()
 	return ShipController::necessaryProperties;
 }
 
-const std::vector<Attribute::Ids> ShipController::necessaryProperties = { Attribute::Ids::Translation, Attribute::Ids::HitPolygon };
+const std::vector<Attribute::Ids> ShipController::necessaryProperties = { Attribute::Ids::Translation, Attribute::Ids::Orientation, Attribute::Ids::HitPolygon };

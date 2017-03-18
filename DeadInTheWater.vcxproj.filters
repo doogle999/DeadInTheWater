@@ -93,6 +93,12 @@
     <ClCompile Include="SFMLInputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OrientationIncrementer.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderIsland.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -163,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="SFMLInputHandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrientationIncrementer.h">
+      <Filter>Header Files\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderIsland.h">
+      <Filter>Header Files\Fields</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

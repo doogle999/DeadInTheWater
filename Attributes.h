@@ -42,4 +42,14 @@ namespace A
 
 			Polygon<double> hitPolygon;
 	};
+
+	class Orientation : public Attribute
+	{
+		public:
+			Orientation();
+
+			double theta;
+			double omega;
+			double alpha;
+	};
 }

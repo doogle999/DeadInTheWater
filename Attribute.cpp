@@ -5,5 +5,6 @@ const std::array<std::string, Attribute::Ids::META_ATTRIBUTE_COUNT> Attribute::A
 	"Translation",
 	"TimeoutTime",
 	"ReloadTime",
-	"HitPolygon"
+	"HitPolygon",
+	"Orientation"
 };

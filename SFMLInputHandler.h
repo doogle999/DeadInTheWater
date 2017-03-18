@@ -18,6 +18,12 @@ class SFMLInputHandler : public Field
 			right,
 			up,
 			down,
+			leftSecondary,
+			rightSecondary,
+			upSecondary,
+			downSecondary,
+			zoomIn,
+			zoomOut,
 			META_FUNC_COUNT
 		};
 

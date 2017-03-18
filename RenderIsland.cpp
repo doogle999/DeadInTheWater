@@ -1,10 +1,10 @@
-#include "RenderBoat.h"
+#include "RenderIsland.h"
 
-RenderBoat::RenderBoat() {}
+RenderIsland::RenderIsland() {}
 
-RenderBoat::~RenderBoat() {}
+RenderIsland::~RenderIsland() {}
 
-void RenderBoat::render()
+void RenderIsland::render()
 {
 	for(unsigned int i = 0; i < ei.size(); i++)
 	{
@@ -16,15 +16,14 @@ void RenderBoat::render()
 		s.setOrigin(16, 8);
 		s.setScale(1 / cameraPtr->getViewportS(), 1 / cameraPtr->getViewportS());
 		s.setPosition((cameraPtr->gamePosToScreenPos(w->entities[ei[i]].AXS(Translation).position)).convert<float>().toVector2());
-		s.rotate(w->entities[ei[i]].AXS(Orientation).theta * 180 / M_PI);
 
 		Game::window->draw(s);
 	}
 }
 
-std::vector<Attribute::Ids> RenderBoat::getNecessaryProperties()
+std::vector<Attribute::Ids> RenderIsland::getNecessaryProperties()
 {
-	return RenderBoat::necessaryProperties;
+	return RenderIsland::necessaryProperties;
 }
 
-const std::vector<Attribute::Ids> RenderBoat::necessaryProperties = { Attribute::Ids::Translation, Attribute::Ids::Orientation };
+const std::vector<Attribute::Ids> RenderIsland::necessaryProperties = { Attribute::Ids::Translation, Attribute::Ids::HitPolygon };

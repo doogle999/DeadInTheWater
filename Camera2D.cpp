@@ -7,48 +7,6 @@ Camera2D::Camera2D() : viewportPos({ 0, 0 }), viewportVel({ 0, 0 })
 
 Camera2D::~Camera2D() {}
 
-void Camera2D::input()
-{
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		viewportVel.c[0] = -500;
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		viewportVel.c[0] = 500;
-	}
-	else
-	{
-		viewportVel.c[0] = 0;
-	}
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		viewportVel.c[1] = -500;
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		viewportVel.c[1] = 500;
-	}
-	else
-	{
-		viewportVel.c[1] = 0;
-	}
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
-	{
-		viewportSMult = 1 + 1 * Game::getPureTick();
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
-	{
-		viewportSMult = 1 / (1 + 1 * Game::getPureTick());
-	}
-	else
-	{
-		viewportSMult = 1;
-	}
-}
-
 void Camera2D::update()
 {
 	viewportPos = viewportPos + viewportVel * viewportS * Game::getPureTick();
@@ -58,6 +16,16 @@ void Camera2D::update()
 	viewportS *= viewportSMult;
 }
 
+void Camera2D::cameraControls(std::array<SFMLInputHandler::Func, 6> f) // move left, right, up, down, zoom in, zoom out
+{
+	SFMLInputHandler* inputPointer = dynamic_cast<SFMLInputHandler*>(w->fields[Fields::Ids::Id_SFMLInputHandler]);
+
+	viewportVel.c[0] = 500 * (inputPointer->checkFunc(f[1]) - inputPointer->checkFunc(f[0]));
+	viewportVel.c[1] = 500 * (inputPointer->checkFunc(f[3]) - inputPointer->checkFunc(f[2]));
+
+	viewportSMult = (1 + Game::getPureTick() * inputPointer->checkFunc(f[5])) / (1 + Game::getPureTick() * inputPointer->checkFunc(f[4]));
+}
+
 PVector<double, 2> Camera2D::screenPosToGamePos(PVector<double, 2> sp)
 {
 	return sp * viewportS + viewportPos;
@@ -65,6 +33,15 @@ PVector<double, 2> Camera2D::screenPosToGamePos(PVector<double, 2> sp)
 PVector<double, 2> Camera2D::gamePosToScreenPos(PVector<double, 2> sp)
 {
 	return (sp - viewportPos) * (1 / viewportS);
+}
+
+void Camera2D::setViewportPos(PVector<double, 2> p)
+{
+	viewportPos = p;
+}
+void Camera2D::setViewportVel(PVector<double, 2> v)
+{
+	viewportVel = v;
 }
 
 PVector<double, 2> Camera2D::getViewportPos()

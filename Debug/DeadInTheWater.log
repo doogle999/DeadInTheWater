@@ -1,3 +1,14 @@
-﻿  SFMLInputHandler.cpp
+﻿  Main.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(27): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=unsigned int
+          ]
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(27): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=unsigned int
+          ]
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

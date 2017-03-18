@@ -47,6 +47,14 @@
 					</POINT>
 				</VALUE>
 			</ATTRIBUTE>
+			<ATTRIBUTE>
+				<NAME>Orientation</NAME>
+				<VALUE>
+					<THETA>0</THETA>
+					<OMEGA>0</OMEGA>
+					<ALPHA>0</ALPHA>
+				</VALUE>
+			</ATTRIBUTE>
 		</ATTRIBUTES>
 		<FIELDS>
 			<FIELD>
@@ -57,6 +65,9 @@
 			</FIELD>
 			<FIELD>
 				<NAME>TranslationIncrementer</NAME>
+			</FIELD>
+			<FIELD>
+				<NAME>OrientationIncrementer</NAME>
 			</FIELD>
 			<FIELD>
 				<NAME>RenderBoat</NAME>

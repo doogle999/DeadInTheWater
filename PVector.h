@@ -81,11 +81,11 @@ PVector<T, N> PVectorBase<T, N>::operator*(const double& s) const
 template <typename T, unsigned int N>
 double PVectorBase<T, N>::dot(const PVector<T, N>& pv) const
 {
-	double r;
+	double r = 0;
 
 	for(unsigned int i = 0; i < N; i++)
 	{
-		r = c[i] * pv[i];
+		r += c[i] * pv.c[i];
 	}
 
 	return r;
@@ -155,6 +155,9 @@ class PVector<T, 2> : public PVectorBase<T, 2>
 		PVector();
 		PVector(const sf::Vector2<T>& sfv);
 		sf::Vector2<T> toVector2() const;
+
+		void setMagAngle(double m, double a); // Angle from positive x-axis, radians
+		double angle();
 };
 
 template <typename T>
@@ -177,4 +180,16 @@ sf::Vector2<T> PVector<T, 2>::toVector2() const
 	sfv.y = c[1];
 
 	return sfv;
+}
+
+template <typename T>
+void PVector<T, 2>::setMagAngle(double m, double a)
+{
+	c[0] = m * cos(a);
+	c[1] = m * sin(a);
+}
+template <typename T>
+double PVector<T, 2>::angle()
+{
+	return atan2(c[1], c[0]);
 }

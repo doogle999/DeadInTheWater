@@ -38,4 +38,5 @@ class EntityFactory
 		template<> static A::TimeoutTime interpretAttributeValue<A::TimeoutTime>(tinyxml2::XMLElement* value);
 		template<> static A::ReloadTime interpretAttributeValue<A::ReloadTime>(tinyxml2::XMLElement* value);
 		template<> static A::HitPolygon interpretAttributeValue<A::HitPolygon>(tinyxml2::XMLElement* value);
+		template<> static A::Orientation interpretAttributeValue<A::Orientation>(tinyxml2::XMLElement* value);
 };

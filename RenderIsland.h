@@ -1,11 +1,8 @@
 #pragma once
 
-#define _USE_MATH_DEFINES
-
 #include "SFML\Graphics.hpp"
 
 #include <vector>
-#include <math.h>
 
 #include "Entity.h"
 #include "Field.h"
@@ -15,12 +12,12 @@
 class Entity;
 class Camera2D;
 
-class RenderBoat : public Field
+class RenderIsland : public Field
 {
 	public:
-		RenderBoat();
+		RenderIsland();
 
-		~RenderBoat();
+		~RenderIsland();
 
 		virtual void render();
 

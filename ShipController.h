@@ -1,6 +1,9 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 #include <vector>
+#include <math.h>
 
 #include "Entity.h"
 #include "Field.h"

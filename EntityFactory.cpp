@@ -57,6 +57,7 @@ Entity EntityFactory::createEntityFromAttributes(std::vector<Attribute::Ids> att
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(TimeoutTime)
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(ReloadTime)
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(HitPolygon)
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(Orientation)
 			
 			default: assert(0 && "EntityFactory is missing an attribute case"); // Not an exception because only valid attribute ids can get to this switch
 		}
@@ -145,6 +146,16 @@ template<> A::HitPolygon EntityFactory::interpretAttributeValue<A::HitPolygon>(t
 	A::HitPolygon returnValue;
 
 	returnValue.hitPolygon = interpretAttributeValue<Polygon<double>>(value);
+
+	return returnValue;
+}
+template<> A::Orientation EntityFactory::interpretAttributeValue<A::Orientation>(tinyxml2::XMLElement* value)
+{
+	A::Orientation returnValue;
+
+	returnValue.theta = interpretAttributeValue<double>(value->FirstChildElement("THETA"));
+	returnValue.omega = interpretAttributeValue<double>(value->FirstChildElement("OMEGA")); 
+	returnValue.alpha = interpretAttributeValue<double>(value->FirstChildElement("ALPHA"));
 
 	return returnValue;
 }

@@ -1,12 +1,11 @@
 #pragma once
 
-#include "SFML\Window\Keyboard.hpp"
-
 #include <vector>
 
 #include "Entity.h"
 #include "Field.h"
 #include "PVector.h"
+#include "SFMLInputHandler.h"
 
 class Entity;
 
@@ -16,13 +15,16 @@ class Camera2D : public Field
 		Camera2D();
 
 		~Camera2D();
-
-		virtual void input();
 		
 		virtual void update();
 
+		void cameraControls(std::array<SFMLInputHandler::Func, 6> f);
+
 		PVector<double, 2> screenPosToGamePos(PVector<double, 2> sp);
 		PVector<double, 2> gamePosToScreenPos(PVector<double, 2> sp);
+
+		void setViewportPos(PVector<double, 2> p);
+		void setViewportVel(PVector<double, 2> v);
 
 		PVector<double, 2> getViewportPos();
 		PVector<double, 2> getViewportVel();

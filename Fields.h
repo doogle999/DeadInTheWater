@@ -16,6 +16,7 @@ struct Fields
 		Id_SpawnProjectile,
 		Id_RenderProjectile,
 		Id_Timeout,
+		Id_OrientationIncrementer,
 		META_FIELD_COUNT
 	};
 
