@@ -54,8 +54,8 @@ int main()
 		triangle.setPoint(1, (triangles[i].points[1] * 10).convert<float>().toVector2());
 		triangle.setPoint(2, (triangles[i].points[2] * 10).convert<float>().toVector2());
 
-		//triangle.setOutlineThickness(1);
-		//triangle.setOutlineColor(sf::Color(255, 0, 0));
+		triangle.setOutlineThickness(1);
+		triangle.setOutlineColor(sf::Color(255, 0, 0));
 
 		window.draw(triangle);
 	}

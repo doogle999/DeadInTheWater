@@ -230,8 +230,8 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 {
 	if(points.size() > 3)
 	{
-		std::vector<PVector<T, 2>> p;
-		std::map<unsigned int, unsigned int> pMap; // Maps p index to points index
+		Polygon<T> p;
+		
 		for(unsigned int i = 0; i < points.size(); i++) // Remove inline points
 		{
 			unsigned int ib = (((int)i - 1) % (int)points.size() + points.size()) % points.size(); // Point before i
@@ -239,17 +239,16 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 
 			if((points[i] - points[ib]).angle() != (points[ia] - points[i]).angle())
 			{
-				p.push_back(points[i]);
-				pMap[p.size() - 1] = i;
+				p.points.push_back(points[i]);
 			}
 		}
 
 		std::vector<char> pointStates; // The states of every point, 0 indicates clippable, 1 indicates reflex, 2 indicates convex but unclippable
-		pointStates.resize(p.size()); // The size will be reduced by 1 after every triangle
+		pointStates.resize(p.points.size()); // The size will be reduced by 1 after every triangle
 
-		for(unsigned int i = 0; i < p.size(); i++) // Identify reflex points
+		for(unsigned int i = 0; i < p.points.size(); i++) // Identify reflex points
 		{
-			if(vertexIsReflex(pMap[i]))
+			if(p.vertexIsReflex(i))
 			{
 				pointStates[i] = 1;
 			}
@@ -259,20 +258,20 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 			}
 		}
 
-		for(unsigned int i = 0; i < p.size(); i++) // Identify clippable points
+		for(unsigned int i = 0; i < p.points.size(); i++) // Identify clippable points
 		{
 			if(pointStates[i] != 1)
 			{
-				unsigned int ib = (((int)i - 1) % (int)p.size() + p.size()) % p.size(); // Point before i
-				unsigned int ia = (i + 1) % p.size(); // Point after i
+				unsigned int ib = (((int)i - 1) % (int)p.points.size() + p.points.size()) % p.points.size(); // Point before i
+				unsigned int ia = (i + 1) % p.points.size(); // Point after i
 
-				Polygon tempTriangle({ p[i], p[ib], p[ia] });
+				Polygon tempTriangle({ p.points[i], p.points[ib], p.points[ia] });
 
-				for(unsigned int j = 0; j < p.size(); j++) // Check reflex vertices for crossings
+				for(unsigned int j = 0; j < p.points.size(); j++) // Check reflex vertices for crossings
 				{
 					if(pointStates[j] == 1 && j != ib && j != ia)
 					{
-						if(tempTriangle.pointInside(p[j]))
+						if(tempTriangle.pointInside(p.points[j]))
 						{
 							pointStates[i] = 2;
 							break;
@@ -284,21 +283,21 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 
 		std::vector<Polygon<T>> triangles; // The result
 
-		while(p.size() > 3)
+		while(p.points.size() > 3)
 		{
-			for(unsigned int ear = 0; ear < p.size(); ear++) // Find and clip the first ear
+			for(unsigned int ear = 0; ear < p.points.size(); ear++) // Find and clip the first ear
 			{
 				if(pointStates[ear] == 0)
 				{
 					triangles.push_back({}); // Make the triangle
-					triangles.back().points = { p[(((int)ear - 1) % (int)p.size() + p.size()) % p.size()], p[ear], p[(ear + 1) % p.size()] };
-					p.erase(p.begin() + ear); // Remove the ear
+					triangles.back().points = { p.points[(((int)ear - 1) % (int)p.points.size() + p.points.size()) % p.points.size()], p.points[ear], p.points[(ear + 1) % p.points.size()] };
+					p.points.erase(p.points.begin() + ear); // Remove the ear
 					pointStates.erase(pointStates.begin() + ear);
 
 					std::array<unsigned int, 2> earN; // Ear neighbors
-					if(ear == 0 || ear == p.size())
+					if(ear == 0 || ear == p.points.size())
 					{
-						earN[0] = p.size() - 1;
+						earN[0] = p.points.size() - 1;
 						earN[1] = 0;
 					}
 					else
@@ -309,7 +308,7 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 					
 					for(unsigned int i = 0; i < 2; i++) // Re-evaluate the neighbor
 					{
-						if(vertexIsReflex(pMap[earN[i]]))
+						if(p.vertexIsReflex(earN[i]))
 						{
 							pointStates[earN[i]] = 1;
 						}
@@ -323,16 +322,16 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 					{
 						if(pointStates[earN[i]] != 1)
 						{
-							unsigned int ib = (((int)earN[i] - 1) % (int)p.size() + p.size()) % p.size(); // Point before i
-							unsigned int ia = (earN[i] + 1) % p.size(); // Point after i
+							unsigned int ib = (((int)earN[i] - 1) % (int)p.points.size() + p.points.size()) % p.points.size(); // Point before i
+							unsigned int ia = (earN[i] + 1) % p.points.size(); // Point after i
 
-							Polygon tempTriangle({ p[earN[i]], p[ib], p[ia] });
+							Polygon tempTriangle({ p.points[earN[i]], p.points[ib], p.points[ia] });
 
-							for(unsigned int j = 0; j < p.size(); j++) // Check reflex vertices for crossings
+							for(unsigned int j = 0; j < p.points.size(); j++) // Check reflex vertices for crossings
 							{
 								if(pointStates[j] == 1 && j != ib && j != ia)
 								{
-									if(tempTriangle.pointInside(p[j]))
+									if(tempTriangle.pointInside(p.points[j]))
 									{
 										pointStates[earN[i]] = 2;
 										break;
