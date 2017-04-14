@@ -1,14 +1,62 @@
-﻿  Main.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(27): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+﻿  Attributes.cpp
+  Generating Code...
+  Compiling...
+  World.cpp
+  TranslationIncrementer.cpp
+  Timeout.cpp
+  SpawnProjectile.cpp
+  ShipController.cpp
+  SFMLInputHandler.cpp
+  RenderProjectile.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(20): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
           with
           [
-              T=unsigned int
+              T=double
           ]
-  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(27): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderprojectile.cpp(20): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
           with
           [
-              T=unsigned int
+              T=double
           ]
+  RenderIsland.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderisland.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderisland.cpp(18): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderisland.cpp(18): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
+  RenderBoat.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderboat.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderboat.cpp(19): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderboat.cpp(18): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\renderboat.cpp(18): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
+  Player.cpp
+  OrientationIncrementer.cpp
+  Main.cpp
+  IslandMaker.cpp
+  Game.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\game.cpp(16): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+  Field.cpp
+  EntityFactory.cpp
+  Entity.cpp
+  Camera2D.cpp
+  Generating Code...
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

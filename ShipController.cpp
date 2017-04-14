@@ -57,11 +57,13 @@ void ShipController::handleInput()
 		PVector<double, 2> shipHorizontal;
 		shipHorizontal.setMagAngle(1, shipPointer.AXS(Orientation).theta + M_PI / 2);
 
-		shipPointer.AXS(Orientation).alpha = shipPointer.AXS(Translation).velocity.mag() * (inputPointer->checkFunc(SFMLInputHandler::Func::right) - inputPointer->checkFunc(SFMLInputHandler::Func::left));
-		shipPointer.AXS(Orientation).alpha = shipPointer.AXS(Orientation).alpha - (1.0 / 2.0) * shipPointer.AXS(Orientation).omega;
+		shipPointer.AXS(Orientation).alpha = (1.0 / 5.0) * pow(shipPointer.AXS(Translation).velocity.mag(), 2) * (inputPointer->checkFunc(SFMLInputHandler::Func::right) - inputPointer->checkFunc(SFMLInputHandler::Func::left));
+		shipPointer.AXS(Orientation).omega = (shipPointer.AXS(Orientation).omega / pow(1.1, abs(shipPointer.AXS(Orientation).omega)));
 
-		shipPointer.AXS(Translation).acceleration.setMagAngle(10 * (inputPointer->checkFunc(SFMLInputHandler::Func::up) - inputPointer->checkFunc(SFMLInputHandler::Func::down)), shipPointer.AXS(Orientation).theta);
+		shipPointer.AXS(Translation).acceleration.setMagAngle(5 * (inputPointer->checkFunc(SFMLInputHandler::Func::up) - inputPointer->checkFunc(SFMLInputHandler::Func::down)), shipPointer.AXS(Orientation).theta);
 		shipPointer.AXS(Translation).velocity = shipForward * shipForward.dot(shipPointer.AXS(Translation).velocity);
+		shipPointer.AXS(Translation).velocity = (shipPointer.AXS(Translation).velocity * (1.0 / pow(1.1, shipPointer.AXS(Translation).velocity.mag())));
+
 	}
 
 	Camera2D* cameraPointer = dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D]); // Move the camera 
