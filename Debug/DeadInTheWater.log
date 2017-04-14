@@ -50,6 +50,17 @@ c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewate
   Player.cpp
   OrientationIncrementer.cpp
   Main.cpp
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(35): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\main.cpp(35): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
   IslandMaker.cpp
   Game.cpp
 c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\game.cpp(16): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data

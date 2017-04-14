@@ -231,6 +231,7 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 	if(points.size() > 3)
 	{
 		std::vector<PVector<T, 2>> p;
+		std::map<unsigned int, unsigned int> pMap; // Maps p index to points index
 		for(unsigned int i = 0; i < points.size(); i++) // Remove inline points
 		{
 			unsigned int ib = (((int)i - 1) % (int)points.size() + points.size()) % points.size(); // Point before i
@@ -239,6 +240,7 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 			if((points[i] - points[ib]).angle() != (points[ia] - points[i]).angle())
 			{
 				p.push_back(points[i]);
+				pMap[p.size() - 1] = i;
 			}
 		}
 
@@ -247,7 +249,7 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 
 		for(unsigned int i = 0; i < p.size(); i++) // Identify reflex points
 		{
-			if(vertexIsReflex(i))
+			if(vertexIsReflex(pMap[i]))
 			{
 				pointStates[i] = 1;
 			}
@@ -263,22 +265,17 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 			{
 				unsigned int ib = (((int)i - 1) % (int)p.size() + p.size()) % p.size(); // Point before i
 				unsigned int ia = (i + 1) % p.size(); // Point after i
-				double angleSin = sin((p[i] - p[ia]).angle() - (p[i] - p[ib]).angle());
+
+				Polygon tempTriangle({ p[i], p[ib], p[ia] });
 
 				for(unsigned int j = 0; j < p.size(); j++) // Check reflex vertices for crossings
 				{
 					if(pointStates[j] == 1 && j != ib && j != ia)
 					{
-						if(angleSin > 0 == sin((p[i] - p[ia]).angle() - (p[i] - p[j]).angle()) > 0)
+						if(tempTriangle.pointInside(p[j]))
 						{
-							if( // Crossing
-								((p[ib].c[1] - p[ia].c[1]) * (p[i].c[0] - p[ib].c[0]) + (p[ia].c[0] - p[ib].c[0]) * (p[i].c[1] - p[ib].c[1])) *
-								((p[ib].c[1] - p[ia].c[1]) * (p[j].c[0] - p[ib].c[0]) + (p[ia].c[0] - p[ib].c[0]) * (p[j].c[1] - p[ib].c[1])) >= 0
-								)
-							{
-								pointStates[i] = 2;
-								break;
-							}
+							pointStates[i] = 2;
+							break;
 						}
 					}
 				}
@@ -312,7 +309,7 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 					
 					for(unsigned int i = 0; i < 2; i++) // Re-evaluate the neighbor
 					{
-						if(vertexIsReflex(earN[i]))
+						if(vertexIsReflex(pMap[earN[i]]))
 						{
 							pointStates[earN[i]] = 1;
 						}
@@ -328,22 +325,17 @@ std::vector<Polygon<T>> Polygon<T>::triangulate() const
 						{
 							unsigned int ib = (((int)earN[i] - 1) % (int)p.size() + p.size()) % p.size(); // Point before i
 							unsigned int ia = (earN[i] + 1) % p.size(); // Point after i
-							double angleSin = sin((p[earN[i]] - p[ia]).angle() - (p[earN[i]] - p[ib]).angle());
+
+							Polygon tempTriangle({ p[earN[i]], p[ib], p[ia] });
 
 							for(unsigned int j = 0; j < p.size(); j++) // Check reflex vertices for crossings
 							{
 								if(pointStates[j] == 1 && j != ib && j != ia)
 								{
-									if(angleSin > 0 == sin((p[earN[i]] - p[ia]).angle() - (p[earN[i]] - p[j]).angle()) > 0)
+									if(tempTriangle.pointInside(p[j]))
 									{
-										if( // Crossing
-											((p[ib].c[1] - p[ia].c[1]) * (p[earN[i]].c[0] - p[ib].c[0]) + (p[ia].c[0] - p[ib].c[0]) * (p[earN[i]].c[1] - p[ib].c[1])) *
-											((p[ib].c[1] - p[ia].c[1]) * (p[j].c[0] - p[ib].c[0]) + (p[ia].c[0] - p[ib].c[0]) * (p[j].c[1] - p[ib].c[1])) >= 0
-											)
-										{
-											pointStates[earN[i]] = 2;
-											break;
-										}
+										pointStates[earN[i]] = 2;
+										break;
 									}
 								}
 							}
