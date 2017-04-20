@@ -13,51 +13,70 @@
 int main()
 {
 	World world = EntityFactory::createWorld("EntitiesData.xml");
-	
+
 	Game::init(1000, 500, (Game::ms)20, world, 1);
 
 	IslandMaker im;
 
-	Polygon<unsigned int> polyUnsignedInt = im.generateIsland(3, 0)[0];
-	Polygon<double> poly;
-	poly.points.resize(polyUnsignedInt.points.size());
+	sf::RenderWindow window(sf::VideoMode(960, 960), "Game");
+	
+	sf::RectangleShape rect;
+	rect.setPosition(0, 0);
+	rect.setSize(sf::Vector2f(960, 960));
+	rect.setFillColor(sf::Color(0, 102, 204));
+	window.draw(rect);
 
-	sf::RenderWindow window(sf::VideoMode(750, 750), "Game");
-	for(unsigned int i = 0; i < polyUnsignedInt.points.size(); i++)
-	{
-		poly.points[i] = polyUnsignedInt.points[i].convert<double>();
-	}
+	std::array<std::vector<Polygon<double>>, 4> polys = im.generateIslandsWithHeights(4, -0.3, 0, 0.2, 0.6);
 
-	for(unsigned int i = 0; i < poly.points.size(); i++)
+	for(unsigned int j = 0; j < polys.size(); j++)
 	{
-		sf::Vertex line[] =
+		for(unsigned int k = 0; k < polys[j].size(); k++)
 		{
-			sf::Vertex((poly.points[i] * 10).convert<float>().toVector2()),
-			sf::Vertex((poly.points[(i + 1) % poly.points.size()] * 10).convert<float>().toVector2())
-		};
+			polys[j][k].smooth();
+			std::vector<Polygon<double>> triangles = polys[j][k].triangulate();
+			sf::VertexArray renderTriangles(sf::Triangles, 3 * triangles.size());
 
-		window.draw(line, 2, sf::Lines);
-	}
+			for(unsigned int i = 0; i < triangles.size(); i++)
+			{
+				renderTriangles[3 * i].position = (triangles[i].points[0] * 30).convert<float>().toVector2();
+				renderTriangles[3 * i + 1].position = (triangles[i].points[1] * 30).convert<float>().toVector2();
+				renderTriangles[3 * i + 2].position = (triangles[i].points[2] * 30).convert<float>().toVector2();
 
-	window.display();
-
-	std::vector<Polygon<double>> triangles = poly.triangulate();
-
-	window.clear();
-
-	for(unsigned int i = 0; i < triangles.size(); i++)
-	{
-		sf::ConvexShape triangle;
-		triangle.setPointCount(3);
-
-		triangle.setPoint(0, (triangles[i].points[0] * 10).convert<float>().toVector2());
-		triangle.setPoint(1, (triangles[i].points[1] * 10).convert<float>().toVector2());
-		triangle.setPoint(2, (triangles[i].points[2] * 10).convert<float>().toVector2());
-
-		triangle.setOutlineThickness(1);
-		triangle.setOutlineColor(sf::Color(255, 0, 0));
-
-		window.draw(triangle);
+				switch(j)
+				{
+					case 0: 
+					{
+						renderTriangles[3 * i].color = sf::Color(102, 204, 255);
+						renderTriangles[3 * i + 1].color = sf::Color(102, 204, 255);
+						renderTriangles[3 * i + 2].color = sf::Color(102, 204, 255);
+						break;
+					}
+					case 1:
+					{
+						renderTriangles[3 * i].color = sf::Color(255, 255, 153);
+						renderTriangles[3 * i + 1].color = sf::Color(255, 255, 153);
+						renderTriangles[3 * i + 2].color = sf::Color(255, 255, 153);
+						break;
+					}
+					case 2:
+					{
+						renderTriangles[3 * i].color = sf::Color(102, 255, 102);
+						renderTriangles[3 * i + 1].color = sf::Color(102, 255, 102);
+						renderTriangles[3 * i + 2].color = sf::Color(102, 255, 102);
+						break;
+					}
+					case 3:
+					{
+						renderTriangles[3 * i].color = sf::Color(0, 153, 51);
+						renderTriangles[3 * i + 1].color = sf::Color(0, 153, 51);
+						renderTriangles[3 * i + 2].color = sf::Color(0, 153, 51);
+						break;
+					}
+				}
+			}	
+			window.draw(renderTriangles);
+			renderTriangles.clear();
+		}
 	}
 
 	window.display();

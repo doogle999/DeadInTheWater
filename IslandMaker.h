@@ -1,5 +1,7 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 #include <vector>
 #include <array>
 #include <exception>
@@ -19,20 +21,10 @@ class RenderProjectile;
 
 class IslandMaker : public Field
 {
-	public:
-		IslandMaker();
-
-		~IslandMaker();
-
-		virtual std::vector<Attribute::Ids> getNecessaryProperties();
-
-		// Generates the polygon (or polygons, if there are surrounding islets) that describe an island, the size of the island is sizeFactor times the UPSCALE constant	
-		std::vector<Polygon<unsigned int>> generateIsland(unsigned int sizeFactor, double threshold);
-
 	private:
 		static const std::vector<Attribute::Ids> necessaryProperties;
 
-		static const unsigned int UPSCALE = 16;
+		static const unsigned int UPSCALE = 8;
 
 		class Noise // Perlin Noise, with octaves
 		{
@@ -76,14 +68,29 @@ class IslandMaker : public Field
 				unsigned char countLocationOpenEdges(unsigned int x, unsigned int y); // Counts the number of open edges for a location
 				unsigned int countTotalOpenEdges(); // Counts the total number of open edges for all locations
 
-				std::vector<std::vector<bool>> boolMap; // A map of the island and the water surrounding it that says if there is land or water at a location
-			private:
 				void generateIslandBoolMap(); // Generates a map of the island and the water surrounding it that says if there is land or water at a location, use this before using the edge functions
+				//void floodFill(unsigned int x, unsigned int y, int ); // Fills one color to another
 
-				Noise noise; // The noise pattern for this island
-				
-				unsigned int sizeFactor; // This times UPSCALE is the size
+				std::vector<std::vector<bool>> boolMap; // A map of the island and the water surrounding it that says if there is land or water at a location
+
 				double threshold; // Above this value is land
+				unsigned int sizeFactor; // This times UPSCALE is the size
+
+			private:
+				Noise noise; // The noise pattern for this island
 				double maxDistance; // The farthest distance from the center of the island
 		};
+
+	public:
+		IslandMaker();
+
+		~IslandMaker();
+
+		virtual std::vector<Attribute::Ids> getNecessaryProperties();
+
+		// Generates the polygon (or polygons, if there are surrounding islets) that describe an island, the size of the island is sizeFactor times the UPSCALE constant	
+		std::vector<Polygon<double>> generateIsland(IslandData islandData);
+		std::array<std::vector<Polygon<double>>, 4> generateIslandsWithHeights(unsigned int sizeFactor, double thresholdShallowWater, double thresholdBeach, double thresholdLandShort, double thresholdLandTall);
 };
+
+#undef _USE_MATH_DEFINES
