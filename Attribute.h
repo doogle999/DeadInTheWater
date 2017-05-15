@@ -15,6 +15,8 @@ class Attribute
 			ReloadTime,
 			HitPolygon,
 			Orientation,
+			IslandTriangles,
+			ShipMovement,
 			META_ATTRIBUTE_COUNT
 		};
 

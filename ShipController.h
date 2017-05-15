@@ -29,4 +29,5 @@ class ShipController : public Controller
 		static const std::vector<Attribute::Ids> necessaryProperties;
 
 		int selectedIndex; // The ship that is currently selected, negative if nothing is selected, of w->entities not ei
+		bool inMovementMode; 
 };

@@ -10,6 +10,8 @@
 #include "RenderProjectile.h"
 #include "Timeout.h"
 #include "OrientationIncrementer.h"
+#include "IslandMaker.h"
+#include "RenderIsland.h"
 
 #define ADD_FIELD_CONSTRUCTOR(FIELD) fields[Fields::Ids::Id_ ## FIELD] = new FIELD; fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
 #define ADD_FIELD_COPY_CONSTRUCTOR(FIELD) fields[Fields::Ids::Id_ ## FIELD] = new FIELD(dynamic_cast<FIELD&>(*w.fields[Fields::Ids::Id_ ## FIELD])); fields[Fields::Ids::Id_ ## FIELD]->setWorld(this);
@@ -33,6 +35,8 @@ World::World()
 	ADD_FIELD_CONSTRUCTOR(RenderProjectile)
 	ADD_FIELD_CONSTRUCTOR(Timeout)
 	ADD_FIELD_CONSTRUCTOR(OrientationIncrementer)
+	ADD_FIELD_CONSTRUCTOR(IslandMaker)
+	ADD_FIELD_CONSTRUCTOR(RenderIsland)
 
 	scheduledToClose = false;
 }
@@ -53,6 +57,8 @@ World::World(World& w) // Copy constructor (deep)
 	ADD_FIELD_COPY_CONSTRUCTOR(RenderProjectile)
 	ADD_FIELD_COPY_CONSTRUCTOR(Timeout)
 	ADD_FIELD_COPY_CONSTRUCTOR(OrientationIncrementer)
+	ADD_FIELD_COPY_CONSTRUCTOR(IslandMaker)
+	ADD_FIELD_COPY_CONSTRUCTOR(RenderIsland)
 
 	for(unsigned int i = 0; i < fields.size(); i++)
 	{

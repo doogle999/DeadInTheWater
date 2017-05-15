@@ -58,6 +58,8 @@ Entity EntityFactory::createEntityFromAttributes(std::vector<Attribute::Ids> att
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(ReloadTime)
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(HitPolygon)
 			ADD_ATTRIBUTE_ASSIGNMENT_CASE(Orientation)
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(IslandTriangles)
+			ADD_ATTRIBUTE_ASSIGNMENT_CASE(ShipMovement)
 			
 			default: assert(0 && "EntityFactory is missing an attribute case"); // Not an exception because only valid attribute ids can get to this switch
 		}
@@ -156,6 +158,22 @@ template<> A::Orientation EntityFactory::interpretAttributeValue<A::Orientation>
 	returnValue.theta = interpretAttributeValue<double>(value->FirstChildElement("THETA"));
 	returnValue.omega = interpretAttributeValue<double>(value->FirstChildElement("OMEGA")); 
 	returnValue.alpha = interpretAttributeValue<double>(value->FirstChildElement("ALPHA"));
+
+	return returnValue;
+}
+template<> A::IslandTriangles EntityFactory::interpretAttributeValue<A::IslandTriangles>(tinyxml2::XMLElement* value)
+{
+	A::IslandTriangles returnValue;
+	return returnValue;
+}
+template<> A::ShipMovement EntityFactory::interpretAttributeValue<A::ShipMovement>(tinyxml2::XMLElement* value)
+{
+	A::ShipMovement returnValue;
+
+	returnValue.dragL = interpretAttributeValue<double>(value->FirstChildElement("DRAG_L"));
+	returnValue.dragQ = interpretAttributeValue<double>(value->FirstChildElement("DRAG_Q"));
+	returnValue.maxForce = interpretAttributeValue<double>(value->FirstChildElement("MAX_FORCE"));
+	returnValue.mass = interpretAttributeValue<double>(value->FirstChildElement("MASS"));
 
 	return returnValue;
 }

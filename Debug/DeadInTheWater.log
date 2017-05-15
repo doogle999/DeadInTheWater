@@ -1,16 +1,22 @@
 ﻿  IslandMaker.cpp
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(85): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(96): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(98): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(109): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(119): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(129): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(161): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(167): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(191): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(197): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\utility(158): warning C4244: 'initializing': conversion from 'double' to 'unsigned int', possible loss of data
-  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(113): note: see reference to function template instantiation 'std::pair<unsigned int,unsigned int>::pair<double,double,void>(std::pair<double,double> &&) noexcept' being compiled
-  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(113): note: see reference to function template instantiation 'std::pair<unsigned int,unsigned int>::pair<double,double,void>(std::pair<double,double> &&) noexcept' being compiled
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(104): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(115): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(117): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(126): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(158): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(164): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(188): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(194): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\pvector.h(49): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(28): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
+  c:\users\user\documents\visual studio 2015\projects\deadinthewater\deadinthewater\islandmaker.cpp(28): note: see reference to function template instantiation 'PVector<float,2> PVectorBase<T,2>::convert<float>(void)' being compiled
+          with
+          [
+              T=double
+          ]
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.exe
   DeadInTheWater.vcxproj -> C:\Users\User\documents\visual studio 2015\Projects\DeadInTheWater\Debug\DeadInTheWater.pdb (Partial PDB)

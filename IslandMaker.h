@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <numeric>
 #include <math.h>
+#include <stack>
 
 #include "Game.h"
 #include "Entity.h"
@@ -63,13 +64,17 @@ class IslandMaker : public Field
 				double getLocationHeight(unsigned int x, unsigned int y); // Gets the height of an location
 
 				std::array<bool, 4> getGridLandLocations(unsigned int xg, unsigned int yg); // Gets whether the locations around a grid intersection are land or water, top left going clockwise is the order, the grid's origin is the top left
-				bool getLocationIsBorder(unsigned int x, unsigned int y); // Is this location one the edge of the map
+				bool getLocationIsBorder(unsigned int x, unsigned int y); // Is this location on the edge of the map
 				std::array<bool, 4> getLocationOpenEdges(unsigned int x, unsigned int y); // Gets the open edges of a location, left going clockwise is the order, the locations' origin is the top left
 				unsigned char countLocationOpenEdges(unsigned int x, unsigned int y); // Counts the number of open edges for a location
 				unsigned int countTotalOpenEdges(); // Counts the total number of open edges for all locations
 
 				void generateIslandBoolMap(); // Generates a map of the island and the water surrounding it that says if there is land or water at a location, use this before using the edge functions
-				//void floodFill(unsigned int x, unsigned int y, int ); // Fills one color to another
+				void generateIslandBoolMapNoLakes(); // Internal lakes don't exist
+				void floodFill(unsigned int x, unsigned int y, bool a); // Fills one color to another, a to the other one
+				void floodFillGenerateBoolMap(unsigned int x, unsigned int y, bool a);
+				void floodFillIterative(unsigned int x, unsigned int y, bool a); // Not recursive, doesn't blow the stack
+				void floodFillGenerateBoolMapIterative(unsigned int x, unsigned int y, bool a); 
 
 				std::vector<std::vector<bool>> boolMap; // A map of the island and the water surrounding it that says if there is land or water at a location
 
@@ -86,11 +91,13 @@ class IslandMaker : public Field
 
 		~IslandMaker();
 
+		virtual void input();
+
 		virtual std::vector<Attribute::Ids> getNecessaryProperties();
 
 		// Generates the polygon (or polygons, if there are surrounding islets) that describe an island, the size of the island is sizeFactor times the UPSCALE constant	
 		std::vector<Polygon<double>> generateIsland(IslandData islandData);
-		std::array<std::vector<Polygon<double>>, 4> generateIslandsWithHeights(unsigned int sizeFactor, double thresholdShallowWater, double thresholdBeach, double thresholdLandShort, double thresholdLandTall);
+		std::vector<std::vector<Polygon<double>>> generateIslandsWithHeights(unsigned int sizeFactor, std::vector<double> tiers);
 };
 
 #undef _USE_MATH_DEFINES

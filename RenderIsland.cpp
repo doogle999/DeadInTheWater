@@ -10,14 +10,11 @@ void RenderIsland::render()
 	{
 		Camera2D* cameraPtr = dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D]);
 
-		sf::IntRect r(0, 0, 32, 16);
-		sf::Sprite s(Textures::get(Textures::Ids::Boat), r);
+		sf::Transform trans;
+		trans.translate((cameraPtr->gamePosToScreenPos(w->entities[ei[i]].AXS(Translation).position)).convert<float>().toVector2());
+		trans.scale(1 / cameraPtr->getViewportS(), 1 / cameraPtr->getViewportS());
 
-		s.setOrigin(16, 8);
-		s.setScale(1 / cameraPtr->getViewportS(), 1 / cameraPtr->getViewportS());
-		s.setPosition((cameraPtr->gamePosToScreenPos(w->entities[ei[i]].AXS(Translation).position)).convert<float>().toVector2());
-
-		Game::window->draw(s);
+		Game::window->draw(w->entities[ei[i]].AXS(IslandTriangles).triangles, trans);
 	}
 }
 
@@ -26,4 +23,4 @@ std::vector<Attribute::Ids> RenderIsland::getNecessaryProperties()
 	return RenderIsland::necessaryProperties;
 }
 
-const std::vector<Attribute::Ids> RenderIsland::necessaryProperties = { Attribute::Ids::Translation, Attribute::Ids::HitPolygon };
+const std::vector<Attribute::Ids> RenderIsland::necessaryProperties = { Attribute::Ids::Translation, Attribute::Ids::IslandTriangles };

@@ -15,7 +15,7 @@ int main()
 	World world = EntityFactory::createWorld("EntitiesData.xml");
 
 	Game::init(1000, 500, (Game::ms)20, world, 1);
-
+/*
 	IslandMaker im;
 
 	sf::RenderWindow window(sf::VideoMode(960, 960), "Game");
@@ -26,7 +26,9 @@ int main()
 	rect.setFillColor(sf::Color(0, 102, 204));
 	window.draw(rect);
 
-	std::array<std::vector<Polygon<double>>, 4> polys = im.generateIslandsWithHeights(4, -0.3, 0, 0.2, 0.6);
+	std::array<std::vector<Polygon<double>>, 4> polys = im.generateIslandsWithHeights(4, -0.5, 0, 0.2, 0.6);
+
+	sf::VertexArray renderStuff(sf::Triangles);
 
 	for(unsigned int j = 0; j < polys.size(); j++)
 	{
@@ -44,7 +46,7 @@ int main()
 
 				switch(j)
 				{
-					case 0: 
+					case 0:
 					{
 						renderTriangles[3 * i].color = sf::Color(102, 204, 255);
 						renderTriangles[3 * i + 1].color = sf::Color(102, 204, 255);
@@ -73,14 +75,15 @@ int main()
 						break;
 					}
 				}
-			}	
+				renderStuff.append(renderTriangles[3 * i]);
+				renderStuff.append(renderTriangles[3 * i + 1]);
+				renderStuff.append(renderTriangles[3 * i + 2]);
+			}
 			window.draw(renderTriangles);
 			renderTriangles.clear();
 		}
 	}
-
-	window.display();
-
+	std::cout << sizeof(renderStuff) + sizeof(sf::Vertex) * renderStuff.getVertexCount();*/
 	Game::loop();
 
 	Game::exit();

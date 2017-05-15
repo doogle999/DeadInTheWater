@@ -17,6 +17,8 @@ struct Fields
 		Id_RenderProjectile,
 		Id_Timeout,
 		Id_OrientationIncrementer,
+		Id_IslandMaker,
+		Id_RenderIsland,
 		META_FIELD_COUNT
 	};
 

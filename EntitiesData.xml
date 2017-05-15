@@ -74,4 +74,37 @@
 			</FIELD>
 		</FIELDS>
 	</ENTITY>
+	<ENTITY>
+		<ATTRIBUTES>
+			<ATTRIBUTE>
+				<NAME>Translation</NAME>
+				<VALUE>
+					<POSITION>
+						<X>0.0</X>
+						<Y>0.0</Y>
+					</POSITION>
+					<VELOCITY>
+						<X>0.0</X>
+						<Y>0.0</Y>
+					</VELOCITY>
+					<ACCELERATION>
+						<X>0.0</X>
+						<Y>0.0</Y>
+					</ACCELERATION>
+				</VALUE>
+			</ATTRIBUTE>
+			<ATTRIBUTE>
+				<NAME>IslandTriangles</NAME>
+				<VALUE></VALUE>
+			</ATTRIBUTE>
+		</ATTRIBUTES>
+		<FIELDS>
+			<FIELD>
+				<NAME>RenderIsland</NAME>
+			</FIELD>
+			<FIELD>
+				<NAME>IslandMaker</NAME>
+			</FIELD>
+		</FIELDS>
+	</ENTITY>
 </ENTITIES>

@@ -13,7 +13,9 @@ const std::map<std::string, Fields::Ids> Fields::fieldRegistry
 	ADD_NAME(SpawnProjectile),
 	ADD_NAME(RenderProjectile),
 	ADD_NAME(Timeout),
-	ADD_NAME(OrientationIncrementer)
+	ADD_NAME(OrientationIncrementer),
+	ADD_NAME(IslandMaker),
+	ADD_NAME(RenderIsland)
 };
 
 #undef ADD_NAME

@@ -6,5 +6,7 @@ const std::array<std::string, Attribute::Ids::META_ATTRIBUTE_COUNT> Attribute::A
 	"TimeoutTime",
 	"ReloadTime",
 	"HitPolygon",
-	"Orientation"
+	"Orientation",
+	"IslandTriangles",
+	"ShipMovement"
 };

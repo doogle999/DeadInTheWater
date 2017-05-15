@@ -28,6 +28,8 @@ Entity::Entity(const Entity& e)
 			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(ReloadTime)
 			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(HitPolygon)
 			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(Orientation)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(IslandTriangles)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(ShipMovement)
 
 			default: assert(0 && "Missing Attribute copy constructor case in Entity copy constructor");
 		}
@@ -49,6 +51,8 @@ Entity::Entity(std::vector<Attribute::Ids> a)
 			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(ReloadTime)
 			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(HitPolygon)
 			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(Orientation)
+			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(IslandTriangles)
+			ADD_ATTRIBUTE_CONSTRUCTOR_CASE(ShipMovement)
 
 			default: assert(0 && "Missing Attribute constructor case in Entity constructor");
 		}
@@ -97,6 +101,8 @@ Entity& Entity::operator=(const Entity& e)
 			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(ReloadTime)
 			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(HitPolygon)
 			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(Orientation)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(IslandTriangles)
+			ADD_ATTRIBUTE_COPY_CONSTRUCTOR_CASE(ShipMovement)
 
 			default: assert(0 && "Missing Attribute copy constructor case in Entity assignment operator");
 		}

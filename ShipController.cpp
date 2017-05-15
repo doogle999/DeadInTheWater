@@ -41,7 +41,15 @@ void ShipController::handleInput()
 			}
 			if(!clickedOnShip)
 			{
-				selectedIndex = -1;
+				if(selectedIndex != -1)
+				{
+					Entity& shipPointer = w->entities[selectedIndex];
+					shipPointer.AXS(Translation).velocity = dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D])->screenPosToGamePos(inputPointer->getMousePosRelWin().convert<double>()) - shipPointer.AXS(Translation).position;
+				}
+				else
+				{
+					selectedIndex = -1;
+				}
 			}
 		}
 
@@ -50,8 +58,8 @@ void ShipController::handleInput()
 
 	if(selectedIndex >= 0) // Ship movement controls
 	{
+		/*
 		Entity& shipPointer = w->entities[selectedIndex];
-
 		PVector<double, 2> shipForward;
 		shipForward.setMagAngle(1, shipPointer.AXS(Orientation).theta);
 		PVector<double, 2> shipHorizontal;
@@ -63,7 +71,7 @@ void ShipController::handleInput()
 		shipPointer.AXS(Translation).acceleration.setMagAngle(5 * (inputPointer->checkFunc(SFMLInputHandler::Func::up) - inputPointer->checkFunc(SFMLInputHandler::Func::down)), shipPointer.AXS(Orientation).theta);
 		shipPointer.AXS(Translation).velocity = shipForward * shipForward.dot(shipPointer.AXS(Translation).velocity);
 		shipPointer.AXS(Translation).velocity = (shipPointer.AXS(Translation).velocity * (1.0 / pow(1.1, shipPointer.AXS(Translation).velocity.mag())));
-
+		*/
 	}
 
 	Camera2D* cameraPointer = dynamic_cast<Camera2D*>(w->fields[Fields::Ids::Id_Camera2D]); // Move the camera 
